@@ -1,9 +1,9 @@
 <template>
   <main class="text-xl">
-    {{ $t("welcome") }}
+    {{ $t('welcome') }}
   </main>
 </template>
 
 <script>
-import "@/assets/styles/main.css";
+import '@/assets/styles/main.css';
 </script>
