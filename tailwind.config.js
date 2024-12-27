@@ -57,8 +57,8 @@ export default {
           80: '#E6E1E2',
           90: '#F4F0F0',
           99: '#FAFAFA',
-        }
-      }
+        },
+      },
     },
   },
   plugins: [],

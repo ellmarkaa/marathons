@@ -8,12 +8,17 @@ body {
   font-family: 'Inter', sans-serif;
 
   /* carousel style changes */
-  --vc-pgn-active-color: #D3D9E4;
+  --vc-pgn-active-color: #d3d9e4;
   --vc-pgn-background-color: rgba(255, 255, 255, 0.3);
   --vc-pgn-width: 10px;
   --vc-pgn-height: 10px;
   --vc-pgn-border-radius: 50%;
 }
-p, h1, h2, h3, h4, h5 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
   margin: 0;
 }

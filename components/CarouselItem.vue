@@ -7,33 +7,29 @@ interface ICarouselItem {
   marathonDate?: string;
 }
 const props = defineProps<ICarouselItem>();
-
-
 </script>
 
 <template>
-<Slide :index="props.index">
-  <div class="slider">
-    <div class="flex justify-center flex-col">
-      <div class="text-white mb-8">
-        <h3 class="font-bold title mb-3.5">{{ title }}</h3>
-        <p class="text-base mb-3.5">{{country}}</p>
-        <p class="text-sm">{{marathonDate}}</p>
-      </div>
+  <Slide :index="props.index">
+    <div class="slider">
+      <div class="flex flex-col justify-center">
+        <div class="mb-8 text-white">
+          <h3 class="title mb-3.5 font-bold">{{ title }}</h3>
+          <p class="mb-3.5 text-base">{{ country }}</p>
+          <p class="text-sm">{{ marathonDate }}</p>
+        </div>
 
-      <Button>
-        Подробнее
-      </Button>
+        <Button> Подробнее </Button>
+      </div>
     </div>
-  </div>
-</Slide>
+  </Slide>
 </template>
 
 <style scoped>
 .slider {
   height: 500px;
   width: 100%;
-  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url("/imgs/banner.jpeg");
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%), url('/imgs/banner.jpeg');
   background-position: 50%;
   background-size: cover;
   background-repeat: no-repeat;
