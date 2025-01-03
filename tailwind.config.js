@@ -18,9 +18,9 @@ export default {
     },
     extend: {
       colors: {
-        tonal: '#1d192b',
+        'tonal': '#1d192b',
         'main-gray': '#f7f7f7',
-        primary: {
+        'primary': {
           0: '#202531',
           10: '#30394A',
           20: '#344157',
@@ -33,7 +33,7 @@ export default {
           90: '#ECEEF2',
           99: '#F6F7F9',
         },
-        accent: {
+        'accent': {
           0: '#000F3C',
           10: '#002672',
           20: '#003A9D',
@@ -46,7 +46,7 @@ export default {
           90: '#E9F0FF',
           99: '#F4FBF9',
         },
-        neutral: {
+        'neutral': {
           0: '#000000',
           10: '#1C1B1C',
           20: '#313031',

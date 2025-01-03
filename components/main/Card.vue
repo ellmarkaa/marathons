@@ -1,20 +1,26 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div class="px-3 pt-3 pb-4 card border border-primary-99 bg-white flex flex-col gap-5">
+  <div class="card flex flex-col gap-5 border border-primary-99 bg-white px-3 pb-4 pt-3">
     <div class="relative">
-      <p class="bg-white rounded-lg	px-1.5 py-1 items-center flex gap-1 absolute top-1.5 left-1.5">
+      <p class="absolute left-1.5 top-1.5 flex items-center gap-1 rounded-lg bg-white px-1.5 py-1">
         <IconStar />
-        <span class="text-primary-60 rating-text">5.0</span>
+        <span class="rating-text text-primary-60">5.0</span>
       </p>
 
-      <div tabindex="-1" class="absolute right-1.5 top-1.5 cursor-pointer">
+      <div
+        tabindex="-1"
+        class="absolute right-1.5 top-1.5 cursor-pointer"
+      >
         <IconFavorite />
       </div>
 
-      <img height="220" class="rounded-xl w-full object-cover" src="/imgs/card.jpg"  alt="card" />
+      <img
+        height="220"
+        class="w-full rounded-xl object-cover"
+        src="/imgs/card.jpg"
+        alt="card"
+      >
     </div>
 
     <div class="flex flex-col gap-3">
@@ -25,8 +31,8 @@
     </div>
 
     <div class="flex justify-between align-bottom">
-      <p class="textlg font-bold text-neutral-10 self-end">
-        <span class="font-medium text-sm text-neutral-50">от</span>
+      <p class="textlg self-end font-bold text-neutral-10">
+        <span class="text-sm font-medium text-neutral-50">от</span>
         $200
       </p>
 

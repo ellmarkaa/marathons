@@ -9,7 +9,7 @@ const paddingDictionary: Record<keyof PaddingType, string> = {
   bottom: 'pb',
   left: 'pl',
   top: 'pt',
-  right: 'pr'
+  right: 'pr',
 };
 
 export const paddingToClass = (paddings: PaddingType): string => {

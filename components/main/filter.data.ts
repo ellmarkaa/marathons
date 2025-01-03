@@ -1,103 +1,103 @@
 export const sports = [
   {
     label: 'Бег',
-    value: false
+    value: false,
   },
   {
     label: 'Велоспорт',
-    value: false
+    value: false,
   },
   {
     label: 'Кэмп',
-    value: false
-  }
+    value: false,
+  },
 ];
 
 export const distance = [
   {
     label: '100 км',
-    value: false
+    value: false,
   },
   {
     label: '50 км',
-    value: false
+    value: false,
   },
   {
     label: '42.2 км',
-    value: false
+    value: false,
   },
   {
     label: '21.1 км',
-    value: false
+    value: false,
   },
   {
     label: '10 км',
-    value: false
+    value: false,
   },
   {
     label: '5 км',
-    value: false
-  }
+    value: false,
+  },
 ];
 
 export const years = [
   {
     label: '2024',
-    value: false
+    value: false,
   },
   {
     label: '2025',
-    value: false
+    value: false,
   },
 ];
 
 export const months = [
   {
     label: 'Январь',
-    value: false
+    value: false,
   },
   {
     label: 'Февраль',
-    value: false
+    value: false,
   },
   {
     label: 'Март',
-    value: false
+    value: false,
   },
   {
     label: 'Апрель',
-    value: false
+    value: false,
   },
   {
     label: 'Май',
-    value: false
+    value: false,
   },
   {
     label: 'Июнь',
-    value: false
+    value: false,
   },
   {
     label: 'Июль',
-    value: false
+    value: false,
   },
   {
     label: 'Август',
-    value: false
+    value: false,
   },
   {
     label: 'Сентябрь',
-    value: false
+    value: false,
   },
   {
     label: 'Октябрь',
-    value: false
+    value: false,
   },
   {
     label: 'Ноябрь',
-    value: false
+    value: false,
   },
   {
     label: 'Декабрь',
-    value: false
-  }
+    value: false,
+  },
 ];

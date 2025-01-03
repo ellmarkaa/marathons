@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ButtonTypes } from '~/utils/types';
-import type {PaddingType} from "~/utils/padding";
+import type { PaddingType } from '~/utils/padding';
 
 interface ButtonProps {
   type?: ButtonTypes;
@@ -22,7 +22,7 @@ const paddings: PaddingType = {
   left: 6,
   right: 6,
   top: 3,
-  bottom: 3
+  bottom: 3,
 };
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   iconOnly: false,
   onClick: undefined,
   long: false,
-  iconRight: false
+  iconRight: false,
 });
 let additionalClasses = '';
 
@@ -42,7 +42,7 @@ if (props.iconOnly) {
   paddings.left = 3;
 } else if (props.long) {
   paddings.right = 8;
-  paddings.left = 8
+  paddings.left = 8;
 
   if (props.iconRight) paddings.right = 6;
 }
@@ -96,7 +96,8 @@ const buttonClass = `${typeStyles[props.type]} ${paddingToClass(paddings)} ${add
   opacity: 0.38;
 }
 
-.filled {}
+.filled {
+}
 .filled:hover {
   background-color: #4d505a;
   box-shadow: 0px 1px 2px 0px #000000;

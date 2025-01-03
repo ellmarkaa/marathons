@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type {IconPropsType} from "~/utils/types";
+import type { IconPropsType } from '~/utils/types';
 
 const props = defineProps<IconPropsType>();
-
 </script>
 
 <template>

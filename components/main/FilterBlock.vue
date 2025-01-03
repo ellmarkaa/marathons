@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {distance, months, sports, years} from "~/components/main/filter.data";
-import TextField from "~/components/ui/TextField.vue";
+import { distance, months, sports, years } from '~/components/main/filter.data';
+import TextField from '~/components/ui/TextField.vue';
 
 const sportsRef = ref(sports);
 const distanceRef = ref(distance);
@@ -10,65 +10,108 @@ const duration = 400;
 </script>
 
 <template>
-  <div class="filter-block py-6 px-4 rounded-xl	bg-white flex flex-col gap-1.5 self-baseline">
-    <div class="py-1 flex gap-2 items-center flex-wrap">
-      <Tag title="42.2 км" closable/>
-      <Tag title="42.2 км" closable/>
-      <Tag title="42.2 км" closable/>
+  <div class="filter-block flex flex-col gap-1.5 self-baseline rounded-xl bg-white px-4 py-6">
+    <div class="flex flex-wrap items-center gap-2 py-1">
+      <Tag
+        title="42.2 км"
+        closable
+      />
+      <Tag
+        title="42.2 км"
+        closable
+      />
+      <Tag
+        title="42.2 км"
+        closable
+      />
       <span>Очистить все</span>
     </div>
 
-    <Collapse title="Спорт" :duration="duration" open-initially>
+    <Collapse
+      title="Спорт"
+      :duration="duration"
+      open-initially
+    >
       <ul>
-        <li v-for="sport in sportsRef" class="py-2">
+        <li
+          v-for="sport in sportsRef"
+          :key="sport"
+          class="py-2"
+        >
           <Checkbox
             :key="sport.label"
-            :label="sport.label"
             v-model="sport.value"
+            :label="sport.label"
           />
         </li>
       </ul>
     </Collapse>
 
-    <Collapse title="Дистанция" :duration="duration" open-initially>
+    <Collapse
+      title="Дистанция"
+      :duration="duration"
+      open-initially
+    >
       <ul>
-        <li v-for="distance in distanceRef" class="py-2">
+        <li
+          v-for="distance in distanceRef"
+          :key="distance"
+          class="py-2"
+        >
           <Checkbox
             :key="distance.label"
-            :label="distance.label"
             v-model="distance.value"
+            :label="distance.label"
           />
         </li>
       </ul>
     </Collapse>
 
-    <Collapse title="Год" :duration="duration">
+    <Collapse
+      title="Год"
+      :duration="duration"
+    >
       <ul>
-        <li v-for="year in yearsRef" class="py-2">
+        <li
+          v-for="year in yearsRef"
+          :key="year"
+          class="py-2"
+        >
           <Checkbox
             :key="year.label"
-            :label="year.label"
             v-model="year.value"
+            :label="year.label"
           />
         </li>
       </ul>
     </Collapse>
 
-    <Collapse title="Месяц" :duration="duration">
+    <Collapse
+      title="Месяц"
+      :duration="duration"
+    >
       <ul>
-        <li v-for="sport in monthsRef" class="py-2">
+        <li
+          v-for="sport in monthsRef"
+          :key="sport"
+          class="py-2"
+        >
           <Checkbox
             :key="sport.label"
-            :label="sport.label"
             v-model="sport.value"
+            :label="sport.label"
           />
         </li>
       </ul>
     </Collapse>
 
     <div>
-      <h2 class="text-base font-semibold text-neutral-10 py-2 mb-1">Страна</h2>
-      <TextField class="pb-3" placeholder="Страна поиска" left-icon />
+      <h2 class="mb-1 py-2 text-base font-semibold text-neutral-10">Страна</h2>
+      <TextField
+        class="pb-3"
+        placeholder="Страна поиска"
+        left-icon
+      />
     </div>
   </div>
 </template>

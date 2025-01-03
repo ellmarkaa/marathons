@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ArrowDown from "~/components/icon/ArrowDown.vue";
+import ArrowDown from '~/components/icon/ArrowDown.vue';
 
 interface CollapseProps {
   openInitially?: boolean; // Whether the collapse is open initially
@@ -25,13 +25,13 @@ const toggleCollapse = () => {
     <!-- Trigger Button -->
     <div
       tabindex="-1"
-      class="w-full flex items-center justify-between py-2 cursor-pointer"
+      class="flex w-full cursor-pointer items-center justify-between py-2"
       @click="toggleCollapse"
     >
-      <p class="font-semibold text-base text-neutral-10">{{title}}</p>
+      <p class="text-base font-semibold text-neutral-10">{{ title }}</p>
       <ArrowDown
-        :style="{transform: isOpen ? 'rotate(180deg)' : 'rotate(0)'}"
-        class="transition-transform duration-300 text-accent-50"
+        :style="{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0)' }"
+        class="text-accent-50 transition-transform duration-300"
       />
     </div>
 

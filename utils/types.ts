@@ -1,4 +1,4 @@
-import type {CSSProperties} from "vue";
+import type { CSSProperties } from 'vue';
 
 export type ButtonTypes = 'filled' | 'outlined' | 'tonal';
 
@@ -14,4 +14,4 @@ export type IconPropsType = {
   style?: CSSProperties;
   width?: number;
   height?: number;
-}
+};

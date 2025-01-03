@@ -8,45 +8,44 @@ interface TextFieldType {
 const props = withDefaults(defineProps<TextFieldType>(), {
   leftIcon: false,
   error: false,
-  placeholder: ''
+  placeholder: '',
 });
 
 const inputClass = computed<Record<string, boolean>>(() => ({
   'pl-3': !props.leftIcon,
   'pr-3': true,
   'pl-12': props.leftIcon,
-  error: props.error
+  'error': props.error,
 }));
-
 </script>
 
 <template>
-  <div class="w-full max-w-sm min-w-[200px]">
+  <div class="w-full min-w-[200px] max-w-sm">
     <div class="relative">
       <IconSearch
+        v-if="leftIcon"
         :width="24"
         :height="24"
-        class="absolute top-3 left-3"
-        v-if="leftIcon"
-        :style="{color: props.error ? '#CB0A16' : '#323232'}"
+        class="absolute left-3 top-3"
+        :style="{ color: props.error ? '#CB0A16' : '#323232' }"
       />
 
       <input
         type="text"
-        class="w-full bg-white transition duration-300 ease focus:outline-none shadow-sm focus:shadow input"
+        class="ease input w-full bg-white shadow-sm transition duration-300 focus:shadow focus:outline-none"
         :class="inputClass"
         :placeholder="placeholder"
-      />
+      >
     </div>
   </div>
 </template>
 
 <style scoped>
 .input {
-  color: #191C1C;
+  color: #191c1c;
   font-size: 14px;
   line-height: 20px;
-  border: 1px solid #C6C6C6;
+  border: 1px solid #c6c6c6;
   border-radius: 20px;
   padding-top: 13px;
   padding-bottom: 13px;
@@ -60,23 +59,23 @@ const inputClass = computed<Record<string, boolean>>(() => ({
   border-color: #949292;
 }
 .input:focus {
-  border-color: #00A32E;
-  box-shadow: 0 0 2px 0 rgba(0, 163, 46, 0.50);
+  border-color: #00a32e;
+  box-shadow: 0 0 2px 0 rgba(0, 163, 46, 0.5);
 }
 
 .error {
-  color: #CB0A16;
+  color: #cb0a16;
   border-radius: 20px;
-  border-color: #CB0A16;
+  border-color: #cb0a16;
 }
 .error::placeholder {
-  color: #CB0A16;
+  color: #cb0a16;
 }
 .error:hover {
-  border-color: #CB0A16;
+  border-color: #cb0a16;
 }
 .error:focus {
-  border-color: #CB0A16;
+  border-color: #cb0a16;
   border-width: 2px;
 }
 </style>

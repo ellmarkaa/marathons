@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {IconPropsType} from "~/utils/types";
+import type { IconPropsType } from '~/utils/types';
 
 const props = defineProps<IconPropsType>();
 </script>
@@ -15,11 +15,18 @@ const props = defineProps<IconPropsType>();
     :style="props.style"
   >
     <g clip-path="url(#clip0_799_678)">
-      <path d="M14.25 4.8075L13.1925 3.75L9 7.9425L4.8075 3.75L3.75 4.8075L7.9425 9L3.75 13.1925L4.8075 14.25L9 10.0575L13.1925 14.25L14.25 13.1925L10.0575 9L14.25 4.8075Z" fill="black"/>
+      <path
+        d="M14.25 4.8075L13.1925 3.75L9 7.9425L4.8075 3.75L3.75 4.8075L7.9425 9L3.75 13.1925L4.8075 14.25L9 10.0575L13.1925 14.25L14.25 13.1925L10.0575 9L14.25 4.8075Z"
+        fill="black"
+      />
     </g>
     <defs>
       <clipPath id="clip0_799_678">
-        <rect width="18" height="18" fill="white"/>
+        <rect
+          width="18"
+          height="18"
+          fill="white"
+        />
       </clipPath>
     </defs>
   </svg>
