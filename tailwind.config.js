@@ -19,6 +19,7 @@ export default {
     extend: {
       colors: {
         tonal: '#1d192b',
+        'main-gray': '#f7f7f7',
         primary: {
           0: '#202531',
           10: '#30394A',

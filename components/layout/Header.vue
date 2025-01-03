@@ -18,7 +18,6 @@ const items: IDropdownItems[] = [
 
 const lang = ref('RU');
 const onChange = (value: string) => {
-  console.log('value', value);
   lang.value = value;
 };
 </script>
@@ -30,7 +29,7 @@ const onChange = (value: string) => {
         <img
           src="/logo.svg"
           alt="4lmnts"
-        />
+        >
       </div>
 
       <nav>
@@ -65,23 +64,6 @@ const onChange = (value: string) => {
       </Dropdown>
     </div>
   </header>
-
-  <div class="container">
-    <Carousel>
-      <CarouselItem
-        v-for="slide in 5"
-        :key="slide"
-        :index="slide"
-        country="Бостон, США"
-        title="Boston Marathon"
-        marathon-date="12-15 Сен, 2024 (Чт - Вс)"
-      />
-
-      <template #addons>
-        <Pagination />
-      </template>
-    </Carousel>
-  </div>
 </template>
 
 <style scoped></style>

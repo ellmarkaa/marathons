@@ -19,7 +19,7 @@ const props = defineProps<ICarouselItem>();
           <p class="text-sm">{{ marathonDate }}</p>
         </div>
 
-        <Button> Подробнее </Button>
+        <Button long class="self-center">Подробнее</Button>
       </div>
     </div>
   </Slide>
@@ -33,7 +33,6 @@ const props = defineProps<ICarouselItem>();
   background-position: 50%;
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: lightgray;
   display: flex;
   justify-content: center;
   align-content: center;
