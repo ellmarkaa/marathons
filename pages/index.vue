@@ -28,7 +28,10 @@
 
       <div>
         <div class="flex flex-wrap items-start justify-center gap-x-5 gap-y-8">
-          <MainCard v-for="num in 12" :key="num" />
+          <MainCard
+            v-for="num in 12"
+            :key="num"
+          />
         </div>
 
         <div class="mb-14 mt-14 flex w-full items-center justify-center">
