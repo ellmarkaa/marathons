@@ -1,11 +1,9 @@
-<script>
-import '@/assets/styles/main.css';
-</script>
-
 <template>
-  <NuxtLayout>
-    <main class="bg-main-gray text-sm">
-      <NuxtPage />
-    </main>
-  </NuxtLayout>
+  <UApp>
+    <NuxtLayout>
+      <main class="text-sm">
+        <NuxtPage />
+      </main>
+    </NuxtLayout>
+  </UApp>
 </template>

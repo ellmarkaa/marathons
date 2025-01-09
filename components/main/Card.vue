@@ -31,23 +31,36 @@
     </div>
 
     <div class="flex justify-between align-bottom">
-      <p class="textlg self-end font-bold text-neutral-10">
+      <p class="text-lg	 self-end font-bold text-neutral-10">
         <span class="text-sm font-medium text-neutral-50">от</span>
         $200
       </p>
 
-      <Button type="outlined">Подробнее</Button>
+      <UButton variant="outline">Подробнее</UButton>
     </div>
   </div>
 </template>
 
 <style scoped>
 .card {
-  width: 312px;
+  width: 32%;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.12);
   border-radius: 12px;
 }
 .rating-text {
   font-size: 10px;
+}
+
+
+@media (width < 1180px) {
+  .card {
+    width: 312px;
+  }
+}
+
+@media (width < 676px) {
+  .card {
+    width: 343px;
+  }
 }
 </style>

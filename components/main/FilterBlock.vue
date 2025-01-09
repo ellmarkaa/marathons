@@ -10,8 +10,8 @@ const duration = 400;
 </script>
 
 <template>
-  <div class="filter-block flex flex-col gap-1.5 self-baseline rounded-xl bg-white px-4 py-6">
-    <div class="flex flex-wrap items-center gap-2 py-1">
+  <div class="filter-block flex flex-col gap-1.5 self-baseline rounded-xl bg-white px-4 py-6 max-lg:rounded-none max-lg:p-0">
+    <div class="flex flex-wrap items-center gap-2 py-1 max-lg:py-3 tags">
       <Tag
         title="42.2 км"
         closable
@@ -120,5 +120,28 @@ const duration = 400;
 .filter-block {
   min-width: 314px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.08);
+}
+
+@media (width < 1015px) {
+  .filter-block {
+    min-width: 280px;
+  }
+}
+
+@media (width < 980px) {
+  .filter-block {
+    box-shadow: none;
+  }
+  .tags {
+    border-top: 1px solid #EDF2F7;
+    border-bottom: 1px solid #EDF2F7;
+
+    margin-right: -16px;
+    margin-left: -16px;
+
+    padding-right: 16px;
+    padding-left: 16px;
+
+  }
 }
 </style>
