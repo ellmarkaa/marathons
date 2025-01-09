@@ -35,11 +35,13 @@ const handleCloseMenu = () => {
     <UContainer class="flex items-center justify-between max-lg:flex-col max-lg:gap-y-3 max-md:flex-row">
       <div class="flex items-center">
         <div class="mr-14 max-lg:mr-7 max-sm:mr-0">
-          <img
-            src="/logo.svg"
-            alt="4lmnts"
-            class="logo"
-          >
+          <NuxtLink to="/">
+            <img
+              src="/logo.svg"
+              alt="4lmnts"
+              class="logo"
+            >
+          </NuxtLink>
         </div>
 
         <nav class="max-md:hidden">
@@ -64,15 +66,11 @@ const handleCloseMenu = () => {
           <UButton
             variant="soft"
             icon="tabler:menu-deep"
-            class="hidden max-md:inline-flex"
+            class="hidden max-md:inline-flex menu-icon"
             @click="handleOpenMenu"
           />
         </LayoutHeaderMenu>
-        <UButton
-          variant="soft"
-          class="max-sm:hidden"
-          >Войти</UButton
-        >
+        <UButton icon="cuida:user-outline" variant="soft" />
 
         <Dropdown
           :items="items"
@@ -96,6 +94,9 @@ const handleCloseMenu = () => {
 <style scoped>
 .header {
   box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 0.08);
+}
+.menu-icon {
+  transform: rotateY(-180deg);
 }
 @media (width < 470px) {
   .logo {

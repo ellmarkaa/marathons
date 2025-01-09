@@ -5,7 +5,8 @@ interface DistanceCardProps {
   distanceName: string;
 }
 defineProps<DistanceCardProps>();
-const model = defineModel<string | number>();
+// required true
+const model = defineModel<string | number>({required: false});
 
 // Methods
 // const handleRadioChange = (value) => {
@@ -19,7 +20,7 @@ const model = defineModel<string | number>();
       <span class="text-xl font-bold">{{ distanceName }}</span>
       <RadioButton
         :id="distance"
-        :model-value="model as string"
+        model-value="test"
         name="distance"
         :radio-value="distance"
       />

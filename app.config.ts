@@ -15,6 +15,9 @@ export default defineAppConfig({
           lg: {
             base: 'px-8 py-3',
           },
+          xl: {
+            leadingIcon: 'size-7'
+          }
         },
       },
       compoundVariants: [
@@ -46,6 +49,11 @@ export default defineAppConfig({
           square: true,
           class: 'p-3',
         },
+        {
+          size: 'xl',
+          square: true,
+          class: 'p-3'
+        }
       ],
     },
 

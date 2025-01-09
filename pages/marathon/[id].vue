@@ -254,7 +254,7 @@ const value = ref('');
         <h4 class="mb-8 text-2xl font-bold">Бестселлеры</h4>
 
         <div class="mb-30 flex gap-6">
-<!--          TODO: think about it-->
+          <!--          TODO: think about it-->
           <MainCard class="card" />
           <MainCard class="card" />
         </div>
@@ -267,7 +267,7 @@ const value = ref('');
 
 <style scoped>
 .marathon-image {
-  border: 1px solid #D3D9E4;
+  border: 1px solid #d3d9e4;
   width: 100%;
   height: 360px;
   border-radius: 12px;

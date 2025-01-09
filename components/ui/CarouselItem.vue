@@ -23,8 +23,10 @@ const props = defineProps<ICarouselItem>();
           size="lg"
           class="self-center"
           variant="soft"
-          >Подробнее</UButton
+          to="/marathon/1"
         >
+          Подробнее
+        </UButton>
       </div>
     </div>
   </Slide>

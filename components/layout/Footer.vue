@@ -36,10 +36,12 @@
             <UButton
               icon="line-md:instagram"
               variant="soft"
+              size="xl"
             />
             <UButton
               icon="ic:baseline-whatsapp"
               variant="soft"
+              size="xl"
             />
           </div>
         </div>
@@ -82,10 +84,10 @@
 
 @media (width < 730px) {
   .run-text {
-    font-size: 42px;
+    font-size: 30px;
   }
   .together-text {
-    font-size: 18px;
+    font-size: 12px;
     line-height: 0;
   }
 }

@@ -21,11 +21,13 @@ const buttonUi = {
     <slot />
 
     <template #header>
-      <img
-        src="/logo.svg"
-        alt="4lmnts"
-        class="logo"
-      >
+      <NuxtLink to="/" @click="$emit('close-menu')">
+        <img
+          src="/logo.svg"
+          alt="4lmnts"
+          class="logo"
+        >
+      </NuxtLink>
 
       <UButton
         variant="soft"
