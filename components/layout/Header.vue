@@ -31,10 +31,10 @@ const handleCloseMenu = () => {
 </script>
 
 <template>
-  <header class="py-6 bg-white header">
+  <header class="header bg-white py-6">
     <UContainer class="flex items-center justify-between max-lg:flex-col max-lg:gap-y-3 max-md:flex-row">
       <div class="flex items-center">
-        <div class="mr-14 max-sm:mr-0 max-lg:mr-7">
+        <div class="mr-14 max-lg:mr-7 max-sm:mr-0">
           <img
             src="/logo.svg"
             alt="4lmnts"
@@ -52,9 +52,15 @@ const handleCloseMenu = () => {
         </nav>
       </div>
 
-      <div class="flex items-center gap-x-4 self-end max-sm:gap-x-3 max-lg:self-center">
-        <UButton variant="soft" icon="material-symbols:search-rounded" />
-        <LayoutHeaderMenu v-model="openMenu" @close-menu="handleCloseMenu">
+      <div class="flex items-center gap-x-4 self-end max-lg:self-center max-sm:gap-x-3">
+        <UButton
+          variant="soft"
+          icon="material-symbols:search-rounded"
+        />
+        <LayoutHeaderMenu
+          v-model="openMenu"
+          @close-menu="handleCloseMenu"
+        >
           <UButton
             variant="soft"
             icon="tabler:menu-deep"
@@ -62,7 +68,11 @@ const handleCloseMenu = () => {
             @click="handleOpenMenu"
           />
         </LayoutHeaderMenu>
-        <UButton variant="soft" class="max-sm:hidden">Войти</UButton>
+        <UButton
+          variant="soft"
+          class="max-sm:hidden"
+          >Войти</UButton
+        >
 
         <Dropdown
           :items="items"

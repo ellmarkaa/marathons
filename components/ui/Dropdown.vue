@@ -68,7 +68,7 @@ onBeforeUnmount(() => {
         v-for="item of props.items"
         :key="item.value"
         role="menuitem"
-        class="flex cursor-pointer items-center border-b px-2 py-1 text-xl font-semibold text-primary-0 transition-all last:border-b-0 hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+        class="text-primary-0 flex cursor-pointer items-center border-b px-2 py-1 text-xl font-semibold transition-all last:border-b-0 hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
         :class="props.value === item.value && 'text-accent-50'"
         @click="itemClick(item.value)"
       >

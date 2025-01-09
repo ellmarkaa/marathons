@@ -19,7 +19,12 @@ const props = defineProps<ICarouselItem>();
           <p class="text-sm">{{ marathonDate }}</p>
         </div>
 
-        <UButton size="lg" class="self-center" variant="soft">Подробнее</UButton>
+        <UButton
+          size="lg"
+          class="self-center"
+          variant="soft"
+          >Подробнее</UButton
+        >
       </div>
     </div>
   </Slide>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineEmits(['close-menu']);
-const model = defineModel<boolean>({required: true});
+const model = defineModel<boolean>({ required: true });
 </script>
 
 <template>
@@ -12,7 +12,7 @@ const model = defineModel<boolean>({required: true});
       content: 'gap-0',
       container: 'p-0 h-full gap-0',
       body: 'px-4 grow',
-      footer: 'px-4 pt-4 pb-8'
+      footer: 'px-4 pt-4 pb-8',
     }"
   >
     <slot />
@@ -20,7 +20,11 @@ const model = defineModel<boolean>({required: true});
     <template #header>
       <p class="text-2xl font-bold">Фильтры</p>
 
-      <UButton variant="soft" icon="material-symbols:close-rounded" @click="$emit('close-menu')" />
+      <UButton
+        variant="soft"
+        icon="material-symbols:close-rounded"
+        @click="$emit('close-menu')"
+      />
     </template>
 
     <template #body>
@@ -35,6 +39,4 @@ const model = defineModel<boolean>({required: true});
   </UDrawer>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

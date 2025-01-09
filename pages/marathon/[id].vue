@@ -1,39 +1,46 @@
 <script setup lang="ts">
-
-const includes = ['Медаль финишера', 'Футболка финишера', 'Фотографии', 'Вход на марафон', 'Питьевые станции', 'Трансфер', 'Медицинская помощь', 'Туалеты'];
+const includes = [
+  'Медаль финишера',
+  'Футболка финишера',
+  'Фотографии',
+  'Вход на марафон',
+  'Питьевые станции',
+  'Трансфер',
+  'Медицинская помощь',
+  'Туалеты',
+];
 const distanceInfo = [
   {
     distance: 10,
     distanceName: '10 км',
-    price: 200
+    price: 200,
   },
   {
     distance: 21.1,
     distanceName: 'Half Marathon',
-    price: 400
+    price: 400,
   },
   {
     distance: 42.1,
     distanceName: 'Marathon',
-    price: 600
+    price: 600,
   },
   {
     distance: 100,
     distanceName: 'Ultra Marathon',
-    price: 800
-  }
-]
+    price: 800,
+  },
+];
 
-const items = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
-const value = ref('')
-
+const items = ref(['Backlog', 'Todo', 'In Progress', 'Done']);
+const value = ref('');
 </script>
 
 <template>
-  <UContainer class="pt-18 marathon-container">
-    <h1 class="text-3xl mb-5 font-bold">Vestel Manisa Half Marathon - Manisa</h1>
+  <UContainer class="marathon-container pt-18">
+    <h1 class="mb-5 text-3xl font-bold">Vestel Manisa Half Marathon - Manisa</h1>
 
-    <div class="flex items-center gap-1.5 mb-4">
+    <div class="mb-4 flex items-center gap-1.5">
       <span class="inline-flex gap-0.5">
         <IconStar
           v-for="star in 5"
@@ -42,38 +49,46 @@ const value = ref('')
           :height="18"
         />
       </span>
-      <span class="font-semibold text-base">4.95</span>
+      <span class="text-base font-semibold">4.95</span>
       <span class="text-base">(25 отзывов)</span>
     </div>
 
     <div class="mb-15">
-      <img class="marathon-image" src="/imgs/marathon-main.jpeg" alt="marathon" >
+      <img
+        class="marathon-image"
+        src="/imgs/marathon-main.jpeg"
+        alt="marathon"
+      >
     </div>
 
     <div class="flex gap-x-20">
       <div class="grow">
-        <p class="font-bold text-2xl mb-8">Об этом марафоне</p>
-        <p class="text-base text-neutral-50 description mb-3">Если, как и многие другие бегуны с севера Европы, вы ищете отличный зимний отдых и забег в красивом месте, то Maratón Málaga может быть тем, что вы ищете. Это ежегодное мероприятие по бегу по шоссе проводится в декабре в городе Малага, Испания, столице Коста-дель-Соль. Малагаский марафон и полумарафон проводятся по воскресеньям.</p>
+        <p class="mb-8 text-2xl font-bold">Об этом марафоне</p>
+        <p class="description mb-3 text-base text-neutral-50">
+          Если, как и многие другие бегуны с севера Европы, вы ищете отличный зимний отдых и забег в красивом месте, то
+          Maratón Málaga может быть тем, что вы ищете. Это ежегодное мероприятие по бегу по шоссе проводится в декабре в
+          городе Малага, Испания, столице Коста-дель-Соль. Малагаский марафон и полумарафон проводятся по воскресеньям.
+        </p>
         <div class="mb-8">
           <UButton
             variant="text"
             trailing-icon="material-symbols:keyboard-arrow-down-rounded"
-            class="pl-0 py-1"
+            class="py-1 pl-0"
           >
             Показать все
           </UButton>
         </div>
 
-        <div class="py-3 flex gap-4 mb-4">
+        <div class="mb-4 flex gap-4 py-3">
           <IconRunner />
           <span class="text-base">10 км, 21 км, 42,1 км</span>
         </div>
 
-        <p class="mb-4 flex gap-3 items-center">
+        <p class="mb-4 flex items-center gap-3">
           <span class="text-base font-semibold">Стартовый адрес</span> Av. de Cervantes, 4, 29016 Málaga, Spain
         </p>
 
-        <p class="flex gap-3 items-center mb-8">
+        <p class="mb-8 flex items-center gap-3">
           <span class="text-base font-semibold">Финишный адрес</span> Av. de Cervantes, 4, 29016 Málaga, Spain
         </p>
 
@@ -84,31 +99,39 @@ const value = ref('')
           title="Регистрация закрывается 31 октября (осталось 43 дня)"
           class="mb-8"
           :ui="{
-            icon: 'text-error-30'
+            icon: 'text-error-30',
           }"
         />
 
-        <h4 class="text-base font-semibold mb-6">Включено в стоимость вашего билета</h4>
+        <h4 class="mb-6 text-base font-semibold">Включено в стоимость вашего билета</h4>
 
         <ul class="flex flex-wrap gap-y-4">
-          <li v-for="title of includes" :key="title" class="flex gap-3 items-center w-1/3 text-base">
+          <li
+            v-for="title of includes"
+            :key="title"
+            class="flex w-1/3 items-center gap-3 text-base"
+          >
             <IconCheckmark />
-            {{title}}
+            {{ title }}
           </li>
         </ul>
 
-        <div class="my-14 border-b border-neutral-90" />
+        <div class="border-neutral-90 my-14 border-b" />
 
-        <h5 class="text-2xl font-bold mb-8">Карта маршрута</h5>
-        <img src="/imgs/marathon-map.png" alt="map" class="w-full h-auto rounded-xl marathon-map" >
+        <h5 class="mb-8 text-2xl font-bold">Карта маршрута</h5>
+        <img
+          src="/imgs/marathon-map.png"
+          alt="map"
+          class="marathon-map h-auto w-full rounded-xl"
+        >
 
-        <div class="my-14 border-b border-neutral-90" />
+        <div class="border-neutral-90 my-14 border-b" />
 
-        <div class="bg-main-gray p-6 rounded-xl border border-neutral-99 mb-14">
-          <h5 class="font-bold text-2xl mb-4">Доступные дистанции</h5>
-          <p class="text-base text-neutral-20 mb-8">Выберите нужную вам дистанцию</p>
+        <div class="bg-main-gray border-neutral-99 mb-14 rounded-xl border p-6">
+          <h5 class="mb-4 text-2xl font-bold">Доступные дистанции</h5>
+          <p class="text-neutral-20 mb-8 text-base">Выберите нужную вам дистанцию</p>
 
-          <div class="flex gap-y-4 justify-between flex-wrap">
+          <div class="flex flex-wrap justify-between gap-y-4">
             <MarathonDistanceCard
               v-for="info of distanceInfo"
               :key="info.distance"
@@ -119,25 +142,26 @@ const value = ref('')
           </div>
         </div>
 
-        <div class="p-6 bg-main-gray rounded-xl border border-neutral-99 gap-6 flex flex-col">
-          <div class="p-5 bg-white rounded-xl">
-            <div class="flex items-center justify-between mb-3">
+        <div class="bg-main-gray border-neutral-99 flex flex-col gap-6 rounded-xl border p-6">
+          <div class="rounded-xl bg-white p-5">
+            <div class="mb-3 flex items-center justify-between">
               <div>
-                <h4 class="font-bold text-2xl mb-2">Виза</h4>
+                <h4 class="mb-2 text-2xl font-bold">Виза</h4>
                 <p>Поможем вам получить визу</p>
               </div>
               <UButton variant="outline">Добавить</UButton>
             </div>
 
             <div class="flex items-end gap-4">
-              <span class="font-semibold">Стоимость</span> <span class="text-xl font-semibold text-accent-50">400$</span>
+              <span class="font-semibold">Стоимость</span>
+              <span class="text-accent-50 text-xl font-semibold">400$</span>
             </div>
 
-            <div class="my-6 border-b border-neutral-90" />
+            <div class="border-neutral-90 my-6 border-b" />
 
-            <h5 class="text-base font-semibold mb-3">Шенген виза</h5>
-            <p class="text-neutral-50 mb-3">В визовую услугу входит:</p>
-            <ul class="text-neutral-50 visa-list">
+            <h5 class="mb-3 text-base font-semibold">Шенген виза</h5>
+            <p class="mb-3 text-neutral-50">В визовую услугу входит:</p>
+            <ul class="visa-list text-neutral-50">
               <li>консультация по процессу до получения визы;</li>
               <li>запись на ближайшую дату;</li>
               <!--              <li>консультация по списку необходимых документов;</li>-->
@@ -150,58 +174,87 @@ const value = ref('')
             <UButton
               variant="text"
               trailing-icon="material-symbols:keyboard-arrow-down-rounded"
-              class="pl-0 py-1"
+              class="py-1 pl-0"
             >
               Посмотреть все
             </UButton>
           </div>
 
-          <div class="p-5 bg-white rounded-xl">
-            <h4 class="font-bold text-2xl mb-2">Виза</h4>
+          <div class="rounded-xl bg-white p-5">
+            <h4 class="mb-2 text-2xl font-bold">Виза</h4>
             <p>Выберете отель, где будете размещены</p>
 
-            <div class="my-8 border-b border-neutral-90" />
+            <div class="border-neutral-90 my-8 border-b" />
 
             <div class="flex gap-6">
-              <UFormField label="Отель" class="w-2/3">
-                <UInputMenu v-model="value" :items="items" class="w-full" />
+              <UFormField
+                label="Отель"
+                class="w-2/3"
+              >
+                <UInputMenu
+                  v-model="value"
+                  :items="items"
+                  class="w-full"
+                />
               </UFormField>
 
-              <UFormField label="Количество дней" class="w-1/3">
-                <UInputMenu v-model="value" :items="items" class="w-full" />
+              <UFormField
+                label="Количество дней"
+                class="w-1/3"
+              >
+                <UInputMenu
+                  v-model="value"
+                  :items="items"
+                  class="w-full"
+                />
               </UFormField>
             </div>
 
-            <div class="my-8 border-b border-neutral-90" />
+            <div class="border-neutral-90 my-8 border-b" />
 
-            <a href="#" class="text-base flex gap-2 items-center mb-8">Подробная информация о размещении <IconRightUp /></a>
+            <a
+              href="#"
+              class="mb-8 flex items-center gap-2 text-base"
+              >Подробная информация о размещении <IconRightUp
+            /></a>
 
-            <UButton variant="outline" disabled>Добавить</UButton>
+            <UButton
+              variant="outline"
+              disabled
+              >Добавить</UButton
+            >
           </div>
         </div>
 
-        <div class="my-14 border-b border-neutral-90" />
+        <div class="border-neutral-90 my-14 border-b" />
 
-        <h4 class="text-2xl font-bold mb-2">Отзывы</h4>
-        <div class="flex gap-1.5 mb-8 items-center">
+        <h4 class="mb-2 text-2xl font-bold">Отзывы</h4>
+        <div class="mb-8 flex items-center gap-1.5">
           <div class="flex">
-            <IconStar v-for="index of 5" :key="index" />
+            <IconStar
+              v-for="index of 5"
+              :key="index"
+            />
           </div>
 
           <span class="text-xl font-semibold">4.95</span>
         </div>
 
-        <div class="flex flex-wrap justify-between gap-y-4 mb-4">
-          <MainReview v-for="index of 4" :key="index" />
+        <div class="mb-4 flex flex-wrap justify-between gap-y-4">
+          <MainReview
+            v-for="index of 4"
+            :key="index"
+          />
         </div>
 
         <UButton variant="soft">Посмотреть все 25 отзывов</UButton>
 
-        <div class="my-14 border-b border-neutral-90" />
+        <div class="border-neutral-90 my-14 border-b" />
 
-        <h4 class="text-2xl font-bold mb-8">Бестселлеры</h4>
+        <h4 class="mb-8 text-2xl font-bold">Бестселлеры</h4>
 
-        <div class="flex gap-6 mb-30">
+        <div class="mb-30 flex gap-6">
+<!--          TODO: think about it-->
           <MainCard class="card" />
           <MainCard class="card" />
         </div>
@@ -240,7 +293,6 @@ const value = ref('')
   margin-bottom: 24px;
 }
 .card {
-  // TODO: think about it
   width: 334px !important;
 }
 </style>

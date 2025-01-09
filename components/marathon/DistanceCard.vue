@@ -11,36 +11,40 @@ const model = defineModel<string | number>();
 // const handleRadioChange = (value) => {
 //   console.log('Selected value:', value);
 // };
-
 </script>
 
 <template>
   <div class="distance-card flex flex-col gap-4">
-    <label class="flex justify-between items-center cursor-pointer">
-      <span class="text-xl font-bold">{{distanceName}}</span>
-      <RadioButton :id="distance" :model-value="model as string" name="distance" :radio-value="distance" />
+    <label class="flex cursor-pointer items-center justify-between">
+      <span class="text-xl font-bold">{{ distanceName }}</span>
+      <RadioButton
+        :id="distance"
+        :model-value="model as string"
+        name="distance"
+        :radio-value="distance"
+      />
     </label>
 
     <div>
-      <div class="flex gap-3 items-center mb-3">
+      <div class="mb-3 flex items-center gap-3">
         <IconDistance />
-        <span>{{distance}} км</span>
+        <span>{{ distance }} км</span>
       </div>
 
-      <div class="flex gap-3 items-center">
+      <div class="flex items-center gap-3">
         <IconCalendar />
         <span>12 сентября, 2024 (Чт) – 12:00</span>
       </div>
     </div>
 
-    <div class="flex gap-4 items-center">
+    <div class="flex items-center gap-4">
       <span class="font-medium">Возраст</span>
       <span>Старше 18 лет</span>
     </div>
 
     <div class="flex items-end gap-4">
       <span class="font-medium">Стоимость</span>
-      <span class="font-semibold text-xl text-accent-50">{{price}}$</span>
+      <span class="text-accent-50 text-xl font-semibold">{{ price }}$</span>
     </div>
   </div>
 </template>

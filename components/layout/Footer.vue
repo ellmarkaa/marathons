@@ -1,15 +1,21 @@
 <script setup lang="ts"></script>
 
 <template>
-  <footer class="footer pb-10 pt-14 bg-white">
+  <footer class="footer bg-white pt-14 pb-10">
     <UContainer>
-      <div class="mb-4 flex justify-between max-md:flex-col max-md:gap-9 max-md:pl-3 max-md:mb-8">
+      <div class="mb-4 flex justify-between max-md:mb-8 max-md:flex-col max-md:gap-9 max-md:pl-3">
         <img
           src="/imgs/logo-footer.png"
           alt="4lmnts"
           class="logo max-md:hidden"
         >
-        <img src="/logo.svg" alt="4lmnts" class="hidden max-md:block" width="280" height="auto" >
+        <img
+          src="/logo.svg"
+          alt="4lmnts"
+          class="hidden max-md:block"
+          width="280"
+          height="auto"
+        >
 
         <div>
           <p class="mb-5 text-xl font-semibold">Компания</p>
@@ -27,13 +33,19 @@
           </div>
 
           <div class="flex items-center gap-4">
-            <UButton icon="line-md:instagram" variant="soft" />
-            <UButton icon="ic:baseline-whatsapp" variant="soft" />
+            <UButton
+              icon="line-md:instagram"
+              variant="soft"
+            />
+            <UButton
+              icon="ic:baseline-whatsapp"
+              variant="soft"
+            />
           </div>
         </div>
 
         <div>
-          <p class="run-text font-bold uppercase text-accent-50">LET'S RUN</p>
+          <p class="run-text text-accent-50 font-bold uppercase">LET'S RUN</p>
           <p class="together-text uppercase">TOGETHER</p>
         </div>
       </div>

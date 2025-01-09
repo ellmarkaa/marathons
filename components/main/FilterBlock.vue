@@ -10,8 +10,10 @@ const duration = 400;
 </script>
 
 <template>
-  <div class="filter-block flex flex-col gap-1.5 self-baseline rounded-xl bg-white px-4 py-6 max-lg:rounded-none max-lg:p-0">
-    <div class="flex flex-wrap items-center gap-2 py-1 max-lg:py-3 tags">
+  <div
+    class="filter-block flex flex-col gap-1.5 self-baseline rounded-xl bg-white px-4 py-6 max-lg:rounded-none max-lg:p-0"
+  >
+    <div class="tags flex flex-wrap items-center gap-2 py-1 max-lg:py-3">
       <Tag
         title="42.2 км"
         closable
@@ -106,7 +108,7 @@ const duration = 400;
     </Collapse>
 
     <div>
-      <h2 class="mb-1 py-2 text-base font-semibold text-neutral-10">Страна</h2>
+      <h2 class="text-neutral-10 mb-1 py-2 text-base font-semibold">Страна</h2>
       <TextField
         class="pb-3"
         placeholder="Страна поиска"
@@ -133,15 +135,14 @@ const duration = 400;
     box-shadow: none;
   }
   .tags {
-    border-top: 1px solid #EDF2F7;
-    border-bottom: 1px solid #EDF2F7;
+    border-top: 1px solid #edf2f7;
+    border-bottom: 1px solid #edf2f7;
 
     margin-right: -16px;
     margin-left: -16px;
 
     padding-right: 16px;
     padding-left: 16px;
-
   }
 }
 </style>

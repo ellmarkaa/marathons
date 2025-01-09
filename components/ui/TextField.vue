@@ -20,13 +20,13 @@ const inputClass = computed<Record<string, boolean>>(() => ({
 </script>
 
 <template>
-  <div class="w-full min-w-[200px] max-w-sm">
+  <div class="w-full max-w-sm min-w-[200px]">
     <div class="relative">
       <IconSearch
         v-if="leftIcon"
         :width="24"
         :height="24"
-        class="absolute left-3 top-3"
+        class="absolute top-3 left-3"
         :style="{ color: props.error ? '#CB0A16' : '#323232' }"
       />
 

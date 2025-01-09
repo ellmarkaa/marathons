@@ -28,7 +28,7 @@ const toggleCollapse = () => {
       class="flex w-full cursor-pointer items-center justify-between py-2"
       @click="toggleCollapse"
     >
-      <p class="text-base font-semibold text-neutral-10">{{ title }}</p>
+      <p class="text-neutral-10 text-base font-semibold">{{ title }}</p>
       <ArrowDown
         :style="{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0)' }"
         class="text-accent-50 transition-transform duration-300"

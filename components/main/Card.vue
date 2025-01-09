@@ -1,16 +1,16 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="card flex flex-col gap-5 border border-primary-99 bg-white px-3 pb-4 pt-3">
+  <div class="card border-primary-99 flex flex-col gap-5 border bg-white px-3 pt-3 pb-4">
     <div class="relative">
-      <p class="absolute left-1.5 top-1.5 flex items-center gap-1 rounded-lg bg-white px-1.5 py-1">
+      <p class="absolute top-1.5 left-1.5 flex items-center gap-1 rounded-lg bg-white px-1.5 py-1">
         <IconStar />
         <span class="rating-text text-primary-60">5.0</span>
       </p>
 
       <div
         tabindex="-1"
-        class="absolute right-1.5 top-1.5 cursor-pointer"
+        class="absolute top-1.5 right-1.5 cursor-pointer"
       >
         <IconFavorite />
       </div>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="flex justify-between align-bottom">
-      <p class="text-lg	 self-end font-bold text-neutral-10">
+      <p class="text-neutral-10 self-end text-lg font-bold">
         <span class="text-sm font-medium text-neutral-50">от</span>
         $200
       </p>
@@ -50,7 +50,6 @@
 .rating-text {
   font-size: 10px;
 }
-
 
 @media (width < 1180px) {
   .card {
