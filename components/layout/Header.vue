@@ -66,11 +66,14 @@ const handleCloseMenu = () => {
           <UButton
             variant="soft"
             icon="tabler:menu-deep"
-            class="hidden max-md:inline-flex menu-icon"
+            class="menu-icon hidden max-md:inline-flex"
             @click="handleOpenMenu"
           />
         </LayoutHeaderMenu>
-        <UButton icon="cuida:user-outline" variant="soft" />
+        <UButton
+          icon="cuida:user-outline"
+          variant="soft"
+        />
 
         <Dropdown
           :items="items"

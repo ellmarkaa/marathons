@@ -21,7 +21,10 @@ const buttonUi = {
     <slot />
 
     <template #header>
-      <NuxtLink to="/" @click="$emit('close-menu')">
+      <NuxtLink
+        to="/"
+        @click="$emit('close-menu')"
+      >
         <img
           src="/logo.svg"
           alt="4lmnts"

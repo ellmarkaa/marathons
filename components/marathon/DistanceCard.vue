@@ -6,7 +6,7 @@ interface DistanceCardProps {
 }
 defineProps<DistanceCardProps>();
 // required true
-const model = defineModel<string | number>({required: false});
+defineModel<string | number>({ required: false });
 
 // Methods
 // const handleRadioChange = (value) => {
