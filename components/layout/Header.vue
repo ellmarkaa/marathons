@@ -70,10 +70,13 @@ const handleCloseMenu = () => {
             @click="handleOpenMenu"
           />
         </LayoutHeaderMenu>
-        <UButton
-          icon="cuida:user-outline"
-          variant="soft"
-        />
+
+        <LayoutLoginModal>
+          <UButton
+            icon="cuida:user-outline"
+            variant="soft"
+          />
+        </LayoutLoginModal>
 
         <Dropdown
           :items="items"

@@ -31,7 +31,7 @@ export default defineAppConfig({
           color: 'primary',
           variant: 'outline',
           class:
-            'ring-neutral-60 text-neutral-0 hover:text-accent-50 hover:ring-accent-50 focus-visible:hover:ring-neutral-60',
+            'ring-neutral-60 text-neutral-0 hover:text-accent-50 hover:ring-accent-50 focus-visible:hover:ring-neutral-60 bg-white disabled:hover:ring-neutral-60 disabled:text-neutral-50 disabled:opacity-60',
         },
         {
           color: 'primary',
@@ -122,22 +122,57 @@ export default defineAppConfig({
       ],
     },
 
+    input: {
+      slots: {
+        base: 'rounded-3xl',
+      },
+      variants: {
+        size: {
+          md: {
+            base: 'px-3 py-3.5',
+            trailingIcon: 'size-6 text-black cursor-pointer',
+            itemLeadingIcon: 'size-6 text-black',
+          },
+        },
+        variant: {
+          outline: 'text-black ring-input-border',
+        },
+      },
+      compoundVariants: [
+        {
+          color: 'primary',
+          variant: 'outline',
+          class: 'focus-visible:ring-input-focus',
+        },
+      ],
+    },
+
     formField: {
       slots: {
         container: 'mt-1.5',
-        label: 'font-normal',
-      },
-      variants: {
-        md: {
-          root: 'text-xs',
-        },
-      },
+        label: 'font-normal text-xs',
+      }
     },
 
     avatar: {
       slots: {
         root: 'border-2 border-white',
       },
+    },
+
+    modal: {
+      slots: {
+        header: 'pt-8 px-8 sm:px-8 pb-6',
+        body: 'px-8 pb-8 pt-0 sm:px-8 sm:pt-0 sm:pb-8',
+        content: 'divide-none'
+      },
+      variants: {
+        fullscreen: {
+          false: {
+            content: 'sm:rounded-2xl'
+          }
+        }
+      }
     },
   },
 });
