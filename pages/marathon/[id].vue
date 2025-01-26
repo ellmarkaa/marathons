@@ -64,20 +64,14 @@ const value = ref('');
     <div class="flex gap-x-20">
       <div class="grow">
         <p class="mb-8 text-2xl font-bold">Об этом марафоне</p>
-        <p class="description mb-3 text-base text-neutral-50">
-          Если, как и многие другие бегуны с севера Европы, вы ищете отличный зимний отдых и забег в красивом месте, то
+        <TextCollapse
+          class="mb-8"
+          :max-height="72"
+          :row-count="3"
+          text="Если, как и многие другие бегуны с севера Европы, вы ищете отличный зимний отдых и забег в красивом месте, то
           Maratón Málaga может быть тем, что вы ищете. Это ежегодное мероприятие по бегу по шоссе проводится в декабре в
-          городе Малага, Испания, столице Коста-дель-Соль. Малагаский марафон и полумарафон проводятся по воскресеньям.
-        </p>
-        <div class="mb-8">
-          <UButton
-            variant="text"
-            trailing-icon="material-symbols:keyboard-arrow-down-rounded"
-            class="py-1 pl-0"
-          >
-            Показать все
-          </UButton>
-        </div>
+          городе Малага, Испания, столице Коста-дель-Соль. Малагаский марафон и полумарафон проводятся по воскресеньям."
+        />
 
         <div class="mb-4 flex gap-4 py-3">
           <IconRunner />
@@ -161,23 +155,18 @@ const value = ref('');
 
             <h5 class="mb-3 text-base font-semibold">Шенген виза</h5>
             <p class="mb-3 text-neutral-50">В визовую услугу входит:</p>
-            <ul class="visa-list text-neutral-50">
-              <li>консультация по процессу до получения визы;</li>
-              <li>запись на ближайшую дату;</li>
-              <!--              <li>консультация по списку необходимых документов;</li>-->
-              <!--              <li>заполнение анкеты;</li>-->
-              <!--              <li>подготовим и запишем на подачу;</li>-->
-              <!--              <li>бронирование отелей и билетов для визы;</li>-->
-              <!--              <li>оформление страховки (оплачивается отдельно).</li>-->
-            </ul>
-            <!--            // TODO: show more button-->
-            <UButton
-              variant="text"
-              trailing-icon="material-symbols:keyboard-arrow-down-rounded"
-              class="py-1 pl-0"
-            >
-              Посмотреть все
-            </UButton>
+
+            <ContentCollapse :max-height="40">
+              <ul class="visa-list text-neutral-50">
+                <li>консультация по процессу до получения визы;</li>
+                <li>запись на ближайшую дату;</li>
+                <li>консультация по списку необходимых документов;</li>
+                <li>заполнение анкеты;</li>
+                <li>подготовим и запишем на подачу;</li>
+                <li>бронирование отелей и билетов для визы;</li>
+                <li>оформление страховки (оплачивается отдельно).</li>
+              </ul>
+            </ContentCollapse>
           </div>
 
           <div class="rounded-xl bg-white p-5">
@@ -215,13 +204,13 @@ const value = ref('');
             <a
               href="#"
               class="mb-8 flex items-center gap-2 text-base"
-              >Подробная информация о размещении <IconRightUp
+            >Подробная информация о размещении <IconRightUp
             /></a>
 
             <UButton
               variant="outline"
               disabled
-              >Добавить</UButton
+            >Добавить</UButton
             >
           </div>
         </div>
@@ -290,7 +279,6 @@ const value = ref('');
 .visa-list {
   list-style: inside;
   margin-left: 5px;
-  margin-bottom: 24px;
 }
 .card {
   width: 334px !important;

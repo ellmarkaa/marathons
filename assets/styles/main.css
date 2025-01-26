@@ -71,6 +71,8 @@
   --color-input-placeholder: #777;
   --color-input-focus: #00a32e;
 
+  --color-select-item: rgba(0, 0, 0, 0.04);
+
   --color-hover-filled: #4d505a;
   --color-focus-filled: #63676f;
   --color-hover-tonal: #e1e1e2;

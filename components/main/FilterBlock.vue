@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { distance, months, sports, years } from '~/components/main/filter.data';
+import { distance, months, sports, years } from '~/utils/filter.data';
 import TextField from '~/components/ui/TextField.vue';
 
 const sportsRef = ref(sports);

@@ -1,5 +1,10 @@
 <script setup lang="ts">
 const filterMenu = ref(false);
+const store = useAuthStore();
+
+const data = await useAsyncData('get-token', () => store.getToken());
+
+console.log('data', data);
 </script>
 
 <template>

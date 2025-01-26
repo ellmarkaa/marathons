@@ -124,7 +124,7 @@ export default defineAppConfig({
 
     input: {
       slots: {
-        base: 'rounded-3xl',
+        base: 'rounded-3xl placeholder:text-input-placeholder',
       },
       variants: {
         size: {
@@ -147,11 +147,38 @@ export default defineAppConfig({
       ],
     },
 
+    select: {
+      slots: {
+        base: 'rounded-3xl placeholder:text-input-placeholder',
+        content: 'ring-0 shadow-2xl',
+        item: 'data-highlighted:before:bg-select-item data-highlighted:text-black'
+      },
+      variants: {
+        size: {
+          md: {
+            base: 'px-3 py-3.5',
+            trailingIcon: 'size-6 text-black cursor-pointer',
+            itemLeadingIcon: 'size-6 text-black',
+          },
+        },
+        variant: {
+          outline: 'text-black ring-input-border'
+        }
+      },
+      compoundVariants: [
+        {
+          color: 'primary',
+          variant: 'outline',
+          class: 'focus-visible:ring-input-focus',
+        },
+      ],
+    },
+
     formField: {
       slots: {
         container: 'mt-1.5',
         label: 'font-normal text-xs',
-      }
+      },
     },
 
     avatar: {
@@ -164,15 +191,39 @@ export default defineAppConfig({
       slots: {
         header: 'pt-8 px-8 sm:px-8 pb-6',
         body: 'px-8 pb-8 pt-0 sm:px-8 sm:pt-0 sm:pb-8',
-        content: 'divide-none'
+        content: 'divide-none',
       },
       variants: {
         fullscreen: {
           false: {
-            content: 'sm:rounded-2xl'
+            content: 'sm:rounded-2xl',
+          },
+        },
+      },
+    },
+
+    radioGroup: {
+      slots: {
+        base: 'cursor-pointer',
+      },
+      variants: {
+        size: {
+          md: {
+            base: 'size-5',
+            indicator: 'after:size-3'
+          },
+          lg: {
+            base: 'size-6',
+            indicator: 'after:size-3.5'
+          }
+        },
+        color: {
+          primary: {
+            base: 'focus-visible:outline-[var(--ui-primary)]',
+            indicator: 'bg-accent-50'
           }
         }
       }
-    },
+    }
   },
 });

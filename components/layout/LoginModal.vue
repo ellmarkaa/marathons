@@ -3,25 +3,26 @@ const openLoginModal = ref(false);
 
 const state = reactive({
   email: '',
-  password: ''
-})
+  password: '',
+});
 
 const closeModal = () => {
   openLoginModal.value = false;
 };
-
 </script>
 
 <template>
   <UModal
-    v-model:open="openLoginModal as boolean"
-    :ui="{
-      content: 'bg-secondary-bg sm:max-w-[532px]'
-    }"
+    v-model:open="openLoginModal"
+    :ui="{content: 'bg-secondary-bg sm:max-w-[532px]'}"
   >
     <template #header>
       <div class="relative">
-        <img src="/imgs/login-header.jpeg" alt="marathon" class="login-image" >
+        <img
+          src="/imgs/login-header.jpeg"
+          alt="marathon"
+          class="login-image"
+        >
         <UButton
           variant="soft"
           icon="material-symbols:close-rounded"
@@ -32,34 +33,27 @@ const closeModal = () => {
     </template>
 
     <template #body>
-      <div class="px-10 py-8 bg-white rounded-2xl">
-        <h4 class="text-xl font-semibold mb-6">Войти в аккаунт</h4>
+      <div class="rounded-2xl bg-white px-10 py-8">
+        <h4 class="mb-6 text-xl font-semibold">Войти в аккаунт</h4>
 
-        <UForm class="flex flex-col gap-6 mb-8" :state="state">
+        <UForm
+          class="mb-10 flex flex-col gap-6"
+          :state="state"
+        >
           <UFormField label="Электронная почта">
             <UInput class="w-full" />
           </UFormField>
 
-          <UFormField label="Пароль">
-            <InputPassword />
-          </UFormField>
-
-          <div class="flex flex-col items-end">
-            <UButton block class="mb-3">Войти</UButton>
-            <NuxtLink to="/" class="pr-4 py-1">Забыли пароль?</NuxtLink>
-          </div>
+          <UButton block>
+            Продолжить
+          </UButton>
         </UForm>
 
-        <div class="bg-secondary-bg px-8 py-4 rounded-xl flex flex-col gap-4 items-center">
-          <NuxtLink to="/" class="text-base">У вас нет аккаунта?</NuxtLink>
-          <UButton variant="outline" block>Создать аккаунт</UButton>
-        </div>
+        <p class="text-sm">Нажимая «Продолжить», вы подтверждаете свое согласие с условиями <a class="text-accent-40" href="#">пользовательского соглашения</a> и подтверждаете, что ознакомлены с <a class="text-accent-40" href="#">политикой конфиденциальности</a></p>
       </div>
     </template>
 
     <slot />
-
-
   </UModal>
 </template>
 

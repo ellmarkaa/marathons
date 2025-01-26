@@ -21,12 +21,12 @@ const randomId = useId();
         :id="id || randomId"
         :name="name"
         type="radio"
-        class="peer border-neutral-0 checked:border-accent-50 size-6 cursor-pointer appearance-none rounded-full transition-all"
+        class="peer border-neutral-0 checked:border-accent-50 size-5 cursor-pointer appearance-none rounded-full transition-all"
         :value="radioValue"
         :checked="model === radioValue"
       >
       <span
-        class="bg-accent-50 absolute top-1/2 left-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 transform rounded-full opacity-0 transition-opacity duration-200 peer-checked:opacity-100"
+        class="bg-accent-50 absolute top-1/2 left-1/2 size-3 -translate-x-1/2 -translate-y-1/2 transform rounded-full opacity-0 transition-opacity duration-200 peer-checked:opacity-100"
       />
     </label>
 

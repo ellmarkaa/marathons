@@ -27,7 +27,7 @@ const model = defineModel<string>();
           aria-label="show ? 'Hide password' : 'Show password'"
           :aria-pressed="show"
           aria-controls="password"
-          class="p-0 text-neutral-0"
+          class="text-neutral-0 p-0"
           @click="show = !show"
         />
       </template>
@@ -35,6 +35,4 @@ const model = defineModel<string>();
   </UFormField>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

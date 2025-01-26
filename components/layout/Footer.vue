@@ -61,8 +61,8 @@
   border-top: 6px solid #000;
 }
 .logo {
-  width: 134px;
-  height: 108px;
+  width: 190px;
+  height: auto;
 }
 .run-text {
   font-size: 42px;
@@ -79,6 +79,10 @@
   .together-text {
     font-size: 16px;
     line-height: 0;
+  }
+  .logo {
+    width: 134px;
+    height: 108px;
   }
 }
 
