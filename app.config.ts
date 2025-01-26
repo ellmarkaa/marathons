@@ -151,7 +151,7 @@ export default defineAppConfig({
       slots: {
         base: 'rounded-3xl placeholder:text-input-placeholder',
         content: 'ring-0 shadow-2xl',
-        item: 'data-highlighted:before:bg-select-item data-highlighted:text-black'
+        item: 'data-highlighted:before:bg-select-item data-highlighted:text-black',
       },
       variants: {
         size: {
@@ -162,8 +162,8 @@ export default defineAppConfig({
           },
         },
         variant: {
-          outline: 'text-black ring-input-border'
-        }
+          outline: 'text-black ring-input-border',
+        },
       },
       compoundVariants: [
         {
@@ -210,20 +210,20 @@ export default defineAppConfig({
         size: {
           md: {
             base: 'size-5',
-            indicator: 'after:size-3'
+            indicator: 'after:size-3',
           },
           lg: {
             base: 'size-6',
-            indicator: 'after:size-3.5'
-          }
+            indicator: 'after:size-3.5',
+          },
         },
         color: {
           primary: {
             base: 'focus-visible:outline-[var(--ui-primary)]',
-            indicator: 'bg-accent-50'
-          }
-        }
-      }
-    }
+            indicator: 'bg-accent-50',
+          },
+        },
+      },
+    },
   },
 });

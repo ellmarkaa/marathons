@@ -3,16 +3,15 @@ const router = useRouter();
 const goBack = () => {
   router.back();
 };
-
 </script>
 
 <template>
   <div class="bg-secondary-bg py-15">
     <UContainer>
-      <div class="flex relative justify-center">
+      <div class="relative flex justify-center">
         <UButton
           variant="text"
-          class="absolute left-0 top-0"
+          class="absolute top-0 left-0"
           leading-icon="material-symbols:arrow-back-ios-new-rounded"
           @click="goBack"
         >
@@ -25,6 +24,4 @@ const goBack = () => {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

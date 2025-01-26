@@ -14,7 +14,7 @@ const closeModal = () => {
 <template>
   <UModal
     v-model:open="openLoginModal"
-    :ui="{content: 'bg-secondary-bg sm:max-w-[532px]'}"
+    :ui="{ content: 'bg-secondary-bg sm:max-w-[532px]' }"
   >
     <template #header>
       <div class="relative">
@@ -44,12 +44,23 @@ const closeModal = () => {
             <UInput class="w-full" />
           </UFormField>
 
-          <UButton block>
-            Продолжить
-          </UButton>
+          <UButton block> Продолжить </UButton>
         </UForm>
 
-        <p class="text-sm">Нажимая «Продолжить», вы подтверждаете свое согласие с условиями <a class="text-accent-40" href="#">пользовательского соглашения</a> и подтверждаете, что ознакомлены с <a class="text-accent-40" href="#">политикой конфиденциальности</a></p>
+        <p class="text-sm">
+          Нажимая «Продолжить», вы подтверждаете свое согласие с условиями
+          <a
+            class="text-accent-40"
+            href="#"
+            >пользовательского соглашения</a
+          >
+          и подтверждаете, что ознакомлены с
+          <a
+            class="text-accent-40"
+            href="#"
+            >политикой конфиденциальности</a
+          >
+        </p>
       </div>
     </template>
 

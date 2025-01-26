@@ -1,15 +1,14 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>
     <UPopover>
       <UInput
         model-value="ДД/ММ/ГГГГ"
-        trailing-icon="cuida:calendar-outline" class="w-full"
+        trailing-icon="cuida:calendar-outline"
+        class="w-full"
         :ui="{
-          base: 'text-left text-input-placeholder cursor-pointer'
+          base: 'text-left text-input-placeholder cursor-pointer',
         }"
       />
 
@@ -20,6 +19,4 @@
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

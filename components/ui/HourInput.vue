@@ -19,7 +19,10 @@
       placeholder="MM"
       @input="onMinuteInput"
     >
-    <div v-if="is12HourFormat" class="period">
+    <div
+      v-if="is12HourFormat"
+      class="period"
+    >
       <button
         v-for="option in ['AM', 'PM']"
         :key="option"
@@ -44,7 +47,7 @@ const props = defineProps({
   format: {
     type: String,
     default: '24', // '12' or '24'
-    validator: (value) => ['12', '24'].includes(value),
+    validator: value => ['12', '24'].includes(value),
   },
 });
 
@@ -64,7 +67,7 @@ const maxHour = computed(() => (is12HourFormat.value ? 12 : 23));
 // Watchers
 watch(
   () => props.modelValue,
-  (value) => {
+  value => {
     const [h, m] = value.split(':');
     hours.value = h ? parseInt(h) : '';
     minutes.value = m ? parseInt(m) : '';
@@ -72,7 +75,7 @@ watch(
       period.value = parseInt(h) >= 12 ? 'PM' : 'AM';
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 watch([hours, minutes, period], () => {
@@ -85,9 +88,7 @@ watch([hours, minutes, period], () => {
         ? 0
         : validatedHours;
 
-  const time = `${String(finalHours).padStart(2, '0')}:${String(
-    validatedMinutes
-  ).padStart(2, '0')}`;
+  const time = `${String(finalHours).padStart(2, '0')}:${String(validatedMinutes).padStart(2, '0')}`;
   emit('update:modelValue', time);
   emit('change', time);
 });
@@ -100,17 +101,17 @@ const onMinuteInput = () => {
   minutes.value = validateMinutes(minutes.value);
 };
 
-const validateHours = (value) => {
+const validateHours = value => {
   const num = parseInt(value) || 0;
   return Math.max(minHour.value, Math.min(maxHour.value, num));
 };
 
-const validateMinutes = (value) => {
+const validateMinutes = value => {
   const num = parseInt(value) || 0;
   return Math.max(0, Math.min(59, num));
 };
 
-const updatePeriod = (newPeriod) => {
+const updatePeriod = newPeriod => {
   period.value = newPeriod;
 };
 </script>

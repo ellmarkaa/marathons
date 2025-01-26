@@ -2,14 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
-  modules: [
-    '@nuxtjs/i18n',
-    '@nuxt/eslint',
-    'vue3-carousel-nuxt',
-    '@nuxt/fonts',
-    '@nuxt/ui',
-    '@pinia/nuxt',
-  ],
+  modules: ['@nuxtjs/i18n', '@nuxt/eslint', 'vue3-carousel-nuxt', '@nuxt/fonts', '@nuxt/ui', '@pinia/nuxt'],
   css: ['~/assets/styles/main.css'],
   components: [
     {
@@ -24,7 +17,7 @@ export default defineNuxtConfig({
   //   },
   // },
   pinia: {
-    storesDirs: ['./stores/**']
+    storesDirs: ['./stores/**'],
   },
 
   i18n: {
@@ -35,8 +28,8 @@ export default defineNuxtConfig({
     public: {
       apiCatalog: process.env.NUXT_CATALOG_API || '/api',
       catalogEmail: process.env.NUXT_CATALOG_EMAIL,
-      catalogPassword: process.env.NUXT_CATALOG_PASSWORD
-    }
+      catalogPassword: process.env.NUXT_CATALOG_PASSWORD,
+    },
   },
 
   compatibilityDate: '2024-12-19',

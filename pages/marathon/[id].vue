@@ -204,13 +204,13 @@ const value = ref('');
             <a
               href="#"
               class="mb-8 flex items-center gap-2 text-base"
-            >Подробная информация о размещении <IconRightUp
+              >Подробная информация о размещении <IconRightUp
             /></a>
 
             <UButton
               variant="outline"
               disabled
-            >Добавить</UButton
+              >Добавить</UButton
             >
           </div>
         </div>

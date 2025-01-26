@@ -17,12 +17,12 @@ onMounted(() => {
 });
 
 const style = {
-  overflow: 'hidden',
-  display: '-webkit-box',
+  'overflow': 'hidden',
+  'display': '-webkit-box',
   '-webkit-line-clamp': props.rowCount,
   '-webkit-box-orient': 'vertical',
   'transition': 'max-height 0.3s ease',
-  'max-height': `${props.maxHeight}px`
+  'max-height': `${props.maxHeight}px`,
 };
 
 const handleButton = () => {
@@ -32,14 +32,20 @@ const handleButton = () => {
 
 <template>
   <div>
-    <p ref="paragraph" class="mb-3 text-base text-neutral-50" :style="open ? null : style">
+    <p
+      ref="paragraph"
+      class="mb-3 text-base text-neutral-50"
+      :style="open ? null : style"
+    >
       {{ text }}
     </p>
 
     <UButton
       v-if="showButton"
       variant="text"
-      :trailing-icon="open ? 'material-symbols:keyboard-arrow-up-rounded' : 'material-symbols:keyboard-arrow-down-rounded'"
+      :trailing-icon="
+        open ? 'material-symbols:keyboard-arrow-up-rounded' : 'material-symbols:keyboard-arrow-down-rounded'
+      "
       class="py-1 pl-0"
       :label="open ? 'Скрыть' : 'Показать все'"
       @click="handleButton"
@@ -47,6 +53,4 @@ const handleButton = () => {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

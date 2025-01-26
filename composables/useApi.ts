@@ -1,6 +1,6 @@
-import {removeLocalStorage} from "~/utils/localStorage";
-import {getApiCatalog} from "~/utils/base";
-import type {NitroFetchOptions, NitroFetchRequest} from "nitropack";
+import { removeLocalStorage } from '~/utils/localStorage';
+import { getApiCatalog } from '~/utils/base';
+import type { NitroFetchOptions, NitroFetchRequest } from 'nitropack';
 
 export function useApi() {
   const baseURL = getApiCatalog();

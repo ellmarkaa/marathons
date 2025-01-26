@@ -13,4 +13,4 @@ export function getLocalStorage<T>(key: string): T | null {
 
 export const removeLocalStorage = (key: string) => {
   localStorage.removeItem(key);
-}
+};
