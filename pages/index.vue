@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useMarathonStore} from "~/stores/marathon/store";
+import { useMarathonStore } from '~/stores/marathon/store';
 
 const filterMenu = ref(false);
 // const authStore = useAuthStore();
@@ -13,7 +13,7 @@ const marathonStore = useMarathonStore();
 // }, 1000);
 
 // await useAsyncData('get-token', () => authStore.fetchToken());
-const {data} = await useAsyncData('slider-marathons', () => marathonStore.fetchSliderMarathons());
+const { data } = await useAsyncData('slider-marathons', () => marathonStore.fetchSliderMarathons());
 
 console.log('data', data.value?.items);
 </script>

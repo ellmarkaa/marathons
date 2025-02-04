@@ -1,4 +1,4 @@
-import type {IAuthStore} from "~/stores/auth/types";
+import type { IAuthStore } from '~/stores/auth/types';
 
 export const useAuthStore = defineStore('user', {
   state: (): IAuthStore => ({

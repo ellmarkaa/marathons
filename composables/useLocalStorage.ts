@@ -6,16 +6,16 @@ export const useLocalStorage = () => ({
 
   setToken(token: string) {
     console.log('localStorage', localStorage);
-    localStorage.setItem("JWT", JSON.stringify({token}));
+    localStorage.setItem('JWT', JSON.stringify({ token }));
   },
 
   getToken() {
     console.log('localStorage', localStorage);
-    const valueString = localStorage.getItem("JWT");
+    const valueString = localStorage.getItem('JWT');
     if (valueString) {
       const value = JSON.parse(valueString);
       return value.token;
     }
     return '';
-  }
+  },
 });

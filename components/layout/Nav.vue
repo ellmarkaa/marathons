@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {IDropdownItems} from "~/utils/types";
+import type { IDropdownItems } from '~/utils/types';
 
 const items: IDropdownItems[] = [
   {
@@ -18,7 +18,7 @@ const items: IDropdownItems[] = [
 
 const lang = ref('RU');
 const openMenu = ref(false);
-const searchMode = defineModel<boolean>({required: true});
+const searchMode = defineModel<boolean>({ required: true });
 
 const handleChangeMode = () => {
   searchMode.value = !searchMode.value;
@@ -33,7 +33,6 @@ const handleOpenMenu = () => {
 const handleCloseMenu = () => {
   openMenu.value = false;
 };
-
 </script>
 
 <template>

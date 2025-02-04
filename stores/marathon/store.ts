@@ -1,15 +1,15 @@
-import type {IMarathonState, ISliderResponse} from "~/stores/marathon/types";
+import type { IMarathonState, ISliderResponse } from '~/stores/marathon/types';
 
 export const useMarathonStore = defineStore('marathon', {
   state: (): IMarathonState => ({
-    sliderMarathons: []
+    sliderMarathons: [],
   }),
   actions: {
     async fetchSliderMarathons() {
       const api = useApi();
       try {
         const res = await api<ISliderResponse>('dictionary/Слайдеры', {
-          method: 'GET'
+          method: 'GET',
         });
         this.sliderMarathons = res.items;
         console.log('dictionary/Слайдеры', res);
@@ -17,6 +17,6 @@ export const useMarathonStore = defineStore('marathon', {
       } catch (e) {
         console.error('error', e);
       }
-    }
+    },
   },
 });

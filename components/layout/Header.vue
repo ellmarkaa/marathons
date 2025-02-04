@@ -5,8 +5,14 @@ const searchModel = ref<boolean>(false);
 <template>
   <header class="header bg-white py-6">
     <UContainer>
-      <LayoutNav v-if="!searchModel" v-model="searchModel" />
-      <LayoutSearch v-else v-model="searchModel" />
+      <LayoutNav
+        v-if="!searchModel"
+        v-model="searchModel"
+      />
+      <LayoutSearch
+        v-else
+        v-model="searchModel"
+      />
     </UContainer>
   </header>
 </template>

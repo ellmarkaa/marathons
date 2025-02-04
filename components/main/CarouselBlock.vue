@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import type {ISliderMarathon} from "~/stores/marathon/types";
+import type { ISliderMarathon } from '~/stores/marathon/types';
 
 interface CarouselBlockProps {
   sliders: ISliderMarathon[];
 }
 
 defineProps<CarouselBlockProps>();
-
 </script>
 
 <template>
@@ -28,6 +27,4 @@ defineProps<CarouselBlockProps>();
   </Carousel>
 </template>
 
-<style>
-
-</style>
+<style></style>
