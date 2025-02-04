@@ -1,4 +1,3 @@
-import { removeLocalStorage } from '~/utils/localStorage';
 import { getApiCatalog } from '~/utils/base';
 import type { NitroFetchOptions, NitroFetchRequest } from 'nitropack';
 
@@ -6,12 +5,14 @@ export function useApi() {
   const baseURL = getApiCatalog();
 
   const apiFetch = async <T>(endpoint: string, options: NitroFetchOptions<NitroFetchRequest> = {}): Promise<T> => {
-    const token = localStorage.getItem('JWT');
+    // const storage = useLocalStorage();
+    // const token = storage.getToken();
 
     options.headers = {
       ...options.headers,
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      // ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
+    console.log('options', options);
 
     try {
       // Make the API request using $fetch
@@ -19,7 +20,7 @@ export function useApi() {
       return response;
     } catch (error: any) {
       console.error('API Error:', error);
-      removeLocalStorage('JWT');
+      // storage.removeLocalStorage('JWT');
 
       if (error.response?.status === 401) {
         console.error('Unauthorized! Redirecting to login...');

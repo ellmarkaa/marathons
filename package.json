@@ -26,7 +26,8 @@
     "prettier-plugin-tailwindcss": "^0.6.6",
     "vue": "latest",
     "vue-router": "latest",
-    "vue3-carousel-nuxt": "1.1.4"
+    "vue3-carousel-nuxt": "1.1.4",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@iconify-json/cuida": "^1.2.2",

@@ -1,10 +1,22 @@
 <script setup lang="ts">
-const openLoginModal = ref(false);
 
+import type {InferType} from "yup";
+import { object, string} from "yup";
+import type {FormSubmitEvent} from "#ui/types";
+
+const schema = object({
+  email: string().email('Не правильный формат почты').required('Обязательное поле'),
+})
+type Schema = InferType<typeof schema>
+
+const openLoginModal = ref(false);
 const state = reactive({
   email: '',
-  password: '',
 });
+
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  console.log(event.data)
+}
 
 const closeModal = () => {
   openLoginModal.value = false;
@@ -37,29 +49,28 @@ const closeModal = () => {
         <h4 class="mb-6 text-xl font-semibold">Войти в аккаунт</h4>
 
         <UForm
+          :schema="schema"
           class="mb-10 flex flex-col gap-6"
           :state="state"
+          :validate-on="['change']"
+          @submit="onSubmit"
         >
-          <UFormField label="Электронная почта">
-            <UInput class="w-full" />
+          <UFormField label="Электронная почта" name="email">
+            <UInput v-model="state.email" class="w-full" />
           </UFormField>
 
-          <UButton block> Продолжить </UButton>
+          <UButton block :disabled="!state.email" type="submit">Продолжить</UButton>
         </UForm>
 
         <p class="text-sm">
           Нажимая «Продолжить», вы подтверждаете свое согласие с условиями
-          <a
-            class="text-accent-40"
-            href="#"
-            >пользовательского соглашения</a
-          >
+          <a class="text-accent-40" href="#">
+            пользовательского соглашения
+          </a>
           и подтверждаете, что ознакомлены с
-          <a
-            class="text-accent-40"
-            href="#"
-            >политикой конфиденциальности</a
-          >
+          <a class="text-accent-40" href="#">
+            политикой конфиденциальности
+          </a>
         </p>
       </div>
     </template>

@@ -1,23 +1,28 @@
-import { removeLocalStorage, setLocalStorage } from '~/utils/localStorage';
+import type {IAuthStore} from "~/stores/auth/types";
 
 export const useAuthStore = defineStore('user', {
-  state: () => ({
+  state: (): IAuthStore => ({
     test: 'ss',
   }),
   actions: {
-    async getToken() {
+    async fetchToken() {
       const api = useApi();
+      const storage = useLocalStorage();
+
       try {
+        const token = storage.getToken();
+        if (!token) return;
+
         const res = await api<{ token: string }>('/login', {
           method: 'POST',
           body: getCredentialsToCatalog(),
         });
         console.log('res', res);
-        setLocalStorage('JWT', res.token);
+        storage.setToken(res.token);
         return res;
       } catch (e) {
         console.error('error', e);
-        removeLocalStorage('JWT');
+        storage.removeLocalStorage('JWT');
       }
     },
   },

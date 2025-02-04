@@ -1,28 +1,26 @@
 <script setup lang="ts">
+import {useMarathonStore} from "~/stores/marathon/store";
+
 const filterMenu = ref(false);
-const store = useAuthStore();
+// const authStore = useAuthStore();
+const marathonStore = useMarathonStore();
+// const test = useI18n();
+// console.log('test', test.fallbackLocale.value);
+// setTimeout(() => {
+//   test.setLocale('en');
+//   console.log('test', test.fallbackLocale.value);
+//   console.log('test', test.locale.value);
+// }, 1000);
 
-const data = await useAsyncData('get-token', () => store.getToken());
+// await useAsyncData('get-token', () => authStore.fetchToken());
+const {data} = await useAsyncData('slider-marathons', () => marathonStore.fetchSliderMarathons());
 
-console.log('data', data);
+console.log('data', data.value?.items);
 </script>
 
 <template>
   <div class="bg-main-gray">
-    <Carousel>
-      <CarouselItem
-        v-for="slide in 5"
-        :key="slide"
-        :index="slide"
-        country="Бостон, США"
-        title="Boston Marathon"
-        marathon-date="12-15 Сен, 2024 (Чт - Вс)"
-      />
-
-      <template #addons>
-        <Pagination />
-      </template>
-    </Carousel>
+    <MainCarouselBlock :sliders="data?.items || []" />
 
     <div class="bg-neutral-0 mb-16 py-4 max-lg:mb-12">
       <UContainer>
