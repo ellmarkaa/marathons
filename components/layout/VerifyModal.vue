@@ -1,15 +1,11 @@
 <script setup lang="ts">
-const open = defineModel<boolean>('open', {required: true, type: Boolean})
+const open = defineModel<boolean>('open', { required: true, type: Boolean });
 </script>
 
 <template>
-<UModal v-model:open="open">
-  <template #body>
-    fasdfsadf
-  </template>
-</UModal>
+  <UModal v-model:open="open">
+    <template #body> fasdfsadf </template>
+  </UModal>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

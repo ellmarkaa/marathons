@@ -1,5 +1,5 @@
 import type { IAuthStore } from '~/stores/auth/types';
-import type {IOtpResponse} from "~/stores/marathon/types";
+import type { IOtpResponse } from '~/stores/marathon/types';
 
 export const useAuthStore = defineStore('user', {
   state: (): IAuthStore => ({
@@ -36,10 +36,10 @@ export const useAuthStore = defineStore('user', {
         const res = await api<IOtpResponse>('otp', {
           method: 'POST',
           body: {
-            email
-          }
+            email,
+          },
         });
-        this.otpLoading = false
+        this.otpLoading = false;
         return res.status;
       } catch (e: any) {
         this.otpLoading = false;
@@ -47,9 +47,9 @@ export const useAuthStore = defineStore('user', {
         toast.add({
           title: 'Ошибка',
           description: e.message,
-          color: 'error'
+          color: 'error',
         });
       }
-    }
+    },
   },
 });

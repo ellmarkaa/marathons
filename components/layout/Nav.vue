@@ -21,7 +21,7 @@ const openMenu = ref(false);
 const verifyModal = ref(false);
 const searchMode = defineModel<boolean>({ required: true });
 
-const openVerifyModal = () => verifyModal.value = true;
+const openVerifyModal = () => (verifyModal.value = true);
 
 const handleChangeMode = () => {
   searchMode.value = !searchMode.value;
@@ -73,7 +73,10 @@ const handleCloseMenu = () => {
         />
       </LayoutHeaderMenu>
 
-      <LayoutLoginModal :open-verify-modal="openVerifyModal" @submit-form="openVerifyModal">
+      <LayoutLoginModal
+        :open-verify-modal="openVerifyModal"
+        @submit-form="openVerifyModal"
+      >
         <UButton
           icon="cuida:user-outline"
           variant="soft"

@@ -2,7 +2,7 @@
 import type { InferType } from 'yup';
 import { object, string } from 'yup';
 import type { FormSubmitEvent } from '#ui/types';
-import {useAuthStore} from "~/stores/auth/store";
+import { useAuthStore } from '~/stores/auth/store';
 
 const schema = object({
   email: string().email('Не правильный формат почты').required('Обязательное поле'),
@@ -10,7 +10,7 @@ const schema = object({
 type Schema = InferType<typeof schema>;
 
 const authStore = useAuthStore();
-const emit = defineEmits(['submit-form'])
+const emit = defineEmits(['submit-form']);
 
 const openLoginModal = ref(false);
 const state = reactive({
@@ -23,13 +23,12 @@ const closeModal = () => {
 };
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  const { data  } = await useAsyncData('otp', () => authStore.otp(event.data.email));
+  const { data } = await useAsyncData('otp', () => authStore.otp(event.data.email));
   if (data.value === 200) {
-    closeModal()
+    closeModal();
     emit('submit-form');
   }
 }
-
 </script>
 
 <template>
