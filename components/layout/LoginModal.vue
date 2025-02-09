@@ -2,24 +2,34 @@
 import type { InferType } from 'yup';
 import { object, string } from 'yup';
 import type { FormSubmitEvent } from '#ui/types';
+import {useAuthStore} from "~/stores/auth/store";
 
 const schema = object({
   email: string().email('Не правильный формат почты').required('Обязательное поле'),
 });
 type Schema = InferType<typeof schema>;
 
+const authStore = useAuthStore();
+const emit = defineEmits(['submit-form'])
+
 const openLoginModal = ref(false);
 const state = reactive({
   email: '',
 });
-
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-  console.log(event.data);
-}
+console.log('authStore.otpLoading', authStore.otpLoading);
 
 const closeModal = () => {
   openLoginModal.value = false;
 };
+
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  const { data  } = await useAsyncData('otp', () => authStore.otp(event.data.email));
+  if (data.value === 200) {
+    closeModal()
+    emit('submit-form');
+  }
+}
+
 </script>
 
 <template>
@@ -38,6 +48,7 @@ const closeModal = () => {
           variant="soft"
           icon="material-symbols:close-rounded"
           class="absolute top-2 right-2"
+          :disabled="authStore.otpLoading"
           @click="closeModal"
         />
       </div>
@@ -66,10 +77,11 @@ const closeModal = () => {
 
           <UButton
             block
-            :disabled="!state.email"
+            :disabled="!state.email || authStore.otpLoading"
             type="submit"
-            >Продолжить</UButton
           >
+            Продолжить
+          </UButton>
         </UForm>
 
         <p class="text-sm">

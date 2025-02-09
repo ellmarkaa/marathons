@@ -1,8 +1,9 @@
 import type { IAuthStore } from '~/stores/auth/types';
+import type {IOtpResponse} from "~/stores/marathon/types";
 
 export const useAuthStore = defineStore('user', {
   state: (): IAuthStore => ({
-    test: 'ss',
+    otpLoading: false,
   }),
   actions: {
     async fetchToken() {
@@ -13,7 +14,7 @@ export const useAuthStore = defineStore('user', {
         const token = storage.getToken();
         if (!token) return;
 
-        const res = await api<{ token: string }>('/login', {
+        const res = await api<{ token: string }>('login', {
           method: 'POST',
           body: getCredentialsToCatalog(),
         });
@@ -25,5 +26,30 @@ export const useAuthStore = defineStore('user', {
         storage.removeLocalStorage('JWT');
       }
     },
+
+    async otp(email: string) {
+      const api = useApi();
+      const toast = useToast();
+
+      try {
+        this.otpLoading = true;
+        const res = await api<IOtpResponse>('otp', {
+          method: 'POST',
+          body: {
+            email
+          }
+        });
+        this.otpLoading = false
+        return res.status;
+      } catch (e: any) {
+        this.otpLoading = false;
+        console.error('error', e);
+        toast.add({
+          title: 'Ошибка',
+          description: e.message,
+          color: 'error'
+        });
+      }
+    }
   },
 });

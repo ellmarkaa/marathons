@@ -1,3 +1,3 @@
 export interface IAuthStore {
-  test: string;
+  otpLoading: boolean;
 }

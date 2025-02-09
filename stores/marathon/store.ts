@@ -12,7 +12,19 @@ export const useMarathonStore = defineStore('marathon', {
           method: 'GET',
         });
         this.sliderMarathons = res.items;
-        console.log('dictionary/Слайдеры', res);
+        return res;
+      } catch (e) {
+        console.error('error', e);
+      }
+    },
+
+    async fetchMarathons() {
+      const api = useApi();
+      try {
+        const res = await api<ISliderResponse>('dictionary/Марафоны', {
+          method: 'GET',
+        });
+        this.sliderMarathons = res.items;
         return res;
       } catch (e) {
         console.error('error', e);
