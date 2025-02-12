@@ -18,10 +18,7 @@ const items: IDropdownItems[] = [
 
 const lang = ref('RU');
 const openMenu = ref(false);
-const verifyModal = ref(false);
 const searchMode = defineModel<boolean>({ required: true });
-
-const openVerifyModal = () => (verifyModal.value = true);
 
 const handleChangeMode = () => {
   searchMode.value = !searchMode.value;
@@ -73,17 +70,13 @@ const handleCloseMenu = () => {
         />
       </LayoutHeaderMenu>
 
-      <LayoutLoginModal
-        :open-verify-modal="openVerifyModal"
-        @submit-form="openVerifyModal"
-      >
+      <LayoutLoginModal>
         <UButton
           icon="cuida:user-outline"
           variant="soft"
         />
       </LayoutLoginModal>
 
-      <LayoutVerifyModal v-model:open="verifyModal" />
 
       <Dropdown
         :items="items"

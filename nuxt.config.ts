@@ -20,13 +20,17 @@ export default defineNuxtConfig({
     storesDirs: ['./stores/**'],
   },
 
+  devServer: {
+    port: 3001
+  },
+
   i18n: {
     vueI18n: './i18n.config.ts',
   },
 
   runtimeConfig: {
     public: {
-      apiCatalog: process.env.NUXT_CATALOG_API || '/api',
+      apiCatalog: 'https://api.4lmnts.taskmaster.team/cms/',
       catalogEmail: process.env.NUXT_CATALOG_EMAIL,
       catalogPassword: process.env.NUXT_CATALOG_PASSWORD,
     },

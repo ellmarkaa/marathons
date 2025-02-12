@@ -225,5 +225,18 @@ export default defineAppConfig({
         },
       },
     },
+
+    pinInput: {
+      slots: {
+        base: [
+          'rounded-lg',
+        ]
+      },
+      variants: {
+        variant: {
+          outline: 'text-black bg-(--ui-bg) ring ring-inset ring-neutral-80',
+        }
+      }
+    }
   },
 });
