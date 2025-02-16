@@ -65,7 +65,7 @@ const sendAgain = () => {
       />
     </h4>
     <p class="text-base text-neutral-40 mb-8">Введите его ниже, чтобы подтвердить вашу регистрацию</p>
-    <UAlert class="mb-4" color="error" :title="authStore.verifyError" v-if="!!authStore.verifyError" />
+    <UAlert v-if="!!authStore.verifyError" class="mb-4" color="error" :title="authStore.verifyError" />
 
     <UFormField
       class="mb-8"
@@ -76,10 +76,10 @@ const sendAgain = () => {
       }"
     >
       <UPinInput v-model="pinValue" otp :length="4" size="xl" type="number" />
-      <p class="text-neutral-40 text-base" v-if="tryAgain !== 0">
+      <p v-if="tryAgain !== 0" class="text-neutral-40 text-base">
         Отправить еще раз через 0:{{pad(tryAgain)}}
       </p>
-      <UButton class="block p-0 mt-1" v-else variant="link" @click="sendAgain">
+      <UButton v-else class="block p-0 mt-1" variant="link" @click="sendAgain">
         Отправить еще раз
       </UButton>
     </UFormField>
