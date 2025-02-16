@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { object, string } from 'yup';
+import type {FormSubmitEvent} from "#ui/types";
 
 interface LoginFormProps {
-  onSubmit: (event: FormSubmitEvent) => Promise<void>;
+  onSubmit: (event: FormSubmitEvent<{email: string}>) => Promise<void>;
   isLoading: boolean;
 }
 
@@ -12,7 +13,7 @@ const schema = object({
 
 defineProps<LoginFormProps>();
 
-const state = reactive<LoginFormProps>({
+const state = reactive<{email: string}>({
   email: '',
 });
 </script>

@@ -1,9 +1,13 @@
-import type { IAuthStore } from '~/stores/auth/types';
+import type {IAuthStore, IUser, VerifyParams} from '~/stores/auth/types';
 import type { IOtpResponse } from '~/stores/marathon/types';
+import {JWT_COOKIE} from "~/utils/const";
 
 export const useAuthStore = defineStore('user', {
   state: (): IAuthStore => ({
     otpLoading: false,
+    verifyError: null,
+    token: null,
+    user: null
   }),
   actions: {
     async fetchToken() {
@@ -51,5 +55,41 @@ export const useAuthStore = defineStore('user', {
         });
       }
     },
+
+    async verify(params: VerifyParams) {
+      const api = useApi();
+      const toast = useToast();
+      const tokenCookie = useCookie(JWT_COOKIE);
+
+      try {
+        this.otpLoading = true;
+        const token = await api<string>('login', {
+          method: 'POST',
+          body: params
+        });
+
+        tokenCookie.value = token;
+
+        const userRes = await api<IUser>('contact/info', {
+          method: 'GET',
+        });
+
+        this.user = userRes;
+        this.verifyError = null;
+        this.otpLoading = false;
+        return userRes;
+      } catch (e: any) {
+        console.dir(e)
+        this.otpLoading = false;
+        if (e.status === 400) {
+          this.verifyError = 'Неверный код, попробуйте еще раз';
+          toast.add({
+            title: 'Ошибка',
+            description: 'Неверный код',
+            color: 'error',
+          });
+        }
+      }
+    }
   },
 });

@@ -6,11 +6,13 @@ export function useApi() {
 
   const apiFetch = async <T>(endpoint: string, options: NitroFetchOptions<NitroFetchRequest> = {}): Promise<T> => {
     // const storage = useLocalStorage();
-    // const token = storage.getToken();
+    const cookie = useCookie(JWT_COOKIE);
+    console.log('coockeafdsa', cookie.value);
+    const token = cookie.value;
 
     options.headers = {
       ...options.headers,
-      // ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
     console.log('options', options);
 
@@ -19,15 +21,15 @@ export function useApi() {
       const response = await $fetch<T>(`${baseURL}${endpoint}`, options);
       return response;
     } catch (error: any) {
-      console.error('API Error:', error);
+      console.dir(error);
       // storage.removeLocalStorage('JWT');
 
-      if (error.response?.status === 401) {
+      if (error?.status === 401) {
         console.error('Unauthorized! Redirecting to login...');
         // authStore.logout();
       }
 
-      throw new Error(error.response?.data?.message || 'An error occurred while fetching data');
+      throw error;
     }
   };
 

@@ -1,59 +1,97 @@
 <script setup lang="ts">
 
+type Props = {
+  email: null | string,
+  onVerify: (codeArr: string[]) => Promise<void>
+  backToLogin: () => void;
+}
+
 const pinValue = ref([]);
+const authStore = useAuthStore()
+const props = defineProps<Props>()
+const tryAgain = ref(59);
+const toast = useToast();
+
+const countDown = () => {
+  setTimeout(() => {
+    if (tryAgain.value > 0) {
+      tryAgain.value = tryAgain.value - 1;
+      countDown();
+    }
+  }, 1000);
+};
+
+onMounted(() => {
+  countDown();
+});
+
+onBeforeUnmount(() => {
+  tryAgain.value = 0;
+});
+
+function pad(num: number) {
+  if (num <= 9) {
+    return "0" + num.toString();
+  }
+
+  return num;
+}
+
+const handleClick = () => {
+  props.onVerify(pinValue.value);
+}
+
+const sendAgain = () => {
+  tryAgain.value = 59;
+  countDown();
+  authStore.otp(props.email as string);
+  toast.add({
+    title: 'Отправили код на почту.',
+  })
+};
 
 </script>
 
 <template>
   <div class="rounded-2xl bg-white px-10 py-8">
-    <h4 class="mb-3 text-xl font-semibold">Отправили код на почту lmnts@gmail.com <UButton variant="link" size="2xs" class="color-[var(--color-input-placeholder)]" icon="mdi-light:pencil" /></h4>
+    <h4 class="mb-3 text-xl font-semibold">Отправили код на почту {{email}}
+      <UButton
+        variant="link"
+        size="2xs"
+        class="align-middle"
+        icon="mdi-light:pencil"
+        color="neutral"
+        @click="backToLogin"
+      />
+    </h4>
     <p class="text-base text-neutral-40 mb-8">Введите его ниже, чтобы подтвердить вашу регистрацию</p>
+    <UAlert class="mb-4" color="error" :title="authStore.verifyError" v-if="!!authStore.verifyError" />
 
-    <UPinInput v-model="pinValue" otp :length="6" size="xl" type="number" />
+    <UFormField
+      class="mb-8"
+      label="Одноразовый код"
+      :ui="{
+      label: 'text-neutral-40',
+      help: 'text-neutral-40 text-base'
+      }"
+    >
+      <UPinInput v-model="pinValue" otp :length="4" size="xl" type="number" />
+      <p class="text-neutral-40 text-base" v-if="tryAgain !== 0">
+        Отправить еще раз через 0:{{pad(tryAgain)}}
+      </p>
+      <UButton class="block p-0 mt-1" v-else variant="link" @click="sendAgain">
+        Отправить еще раз
+      </UButton>
+    </UFormField>
 
-
-<!--    <UForm-->
-<!--      :schema="schema"-->
-<!--      class="mb-10 flex flex-col gap-6"-->
-<!--      :state="state"-->
-<!--      :validate-on="['change']"-->
-<!--      @submit="onSubmit"-->
-<!--    >-->
-<!--      <UFormField-->
-<!--        label="Электронная почта"-->
-<!--        name="email"-->
-<!--      >-->
-<!--        <UInput-->
-<!--          v-model="state.email"-->
-<!--          class="w-full"-->
-<!--        />-->
-<!--      </UFormField>-->
-
-<!--      <UButton-->
-<!--        block-->
-<!--        :disabled="!state.email || isLoading"-->
-<!--        type="submit"-->
-<!--      >-->
-<!--        Продолжить-->
-<!--      </UButton>-->
-<!--    </UForm>-->
-
-    <p class="text-sm">
-      Нажимая «Продолжить», вы подтверждаете свое согласие с условиями
-      <a
-        class="text-accent-40"
-        href="#"
-      >
-        пользовательского соглашения
-      </a>
-      и подтверждаете, что ознакомлены с
-      <a
-        class="text-accent-40"
-        href="#"
-      >
-        политикой конфиденциальности
-      </a>
-    </p>
+    <UButton
+      block
+      type="button"
+      :disabled="pinValue.length !== 4"
+      @click="handleClick"
+    >
+      Продолжить
+    </UButton>
   </div>
 </template>
 

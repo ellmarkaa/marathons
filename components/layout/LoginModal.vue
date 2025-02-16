@@ -1,21 +1,44 @@
 <script setup lang="ts">
-import type { FormSubmitEvent } from '#ui/types';
 import { useAuthStore } from '~/stores/auth/store';
+import type { FormSubmitEvent } from '#ui/types';
 
 const authStore = useAuthStore();
 
 const openLoginModal = ref(false);
 const verifyMode = ref(false);
+const verifyEmail = ref<null | string>(null);
 
 const closeModal = () => {
   openLoginModal.value = false;
 };
 
-async function onSubmit(event: FormSubmitEvent) {
+async function onSubmit(event: FormSubmitEvent<{email: string}>) {
   const { data } = await useAsyncData('otp', () => authStore.otp(event.data.email));
   if (data.value === 200) {
+    verifyEmail.value = event.data.email;
     verifyMode.value = true;
   }
+}
+
+async function onVerify(codeArr: string[]) {
+  if (verifyEmail.value) {
+    let code = '';
+    codeArr.forEach(el => code = code + el);
+
+    const { data } = await useAsyncData('verify', () => authStore.verify({
+      code: parseInt(code, 10),
+      email: verifyEmail.value as string
+    }));
+
+    if (data.value?.value === verifyEmail.value) {
+      closeModal();
+      if (!data.value?.options.isRegistered) navigateTo('/register');
+    }
+  }
+}
+
+const backToLogin = () => {
+  verifyMode.value = false;
 }
 </script>
 
@@ -42,7 +65,12 @@ async function onSubmit(event: FormSubmitEvent) {
     </template>
 
     <template #body>
-      <LayoutVerifyForm v-if="verifyMode" />
+      <LayoutVerifyForm
+        v-if="verifyMode"
+        :email="verifyEmail"
+        :on-verify="onVerify"
+        :back-to-login="backToLogin"
+      />
       <LayoutLoginForm
         v-else
         :is-loading="authStore.otpLoading"
