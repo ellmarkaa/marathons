@@ -227,21 +227,19 @@ export default defineAppConfig({
     },
 
     pinInput: {
-      slots: {
-
-      },
+      slots: {},
       variants: {
         variant: {
           outline: 'text-black bg-(--ui-bg) ring ring-inset ring-neutral-80',
-        }
+        },
       },
       compoundVariants: [
         {
           color: 'primary',
           variant: 'outline',
-          class: 'focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--color-input-focus)'
+          class: 'focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--color-input-focus)',
         },
-      ]
-    }
+      ],
+    },
   },
 });

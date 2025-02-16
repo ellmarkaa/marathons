@@ -1,13 +1,13 @@
-import type {IAuthStore, IUser, VerifyParams} from '~/stores/auth/types';
+import type { IAuthStore, IUser, VerifyParams } from '~/stores/auth/types';
 import type { IOtpResponse } from '~/stores/marathon/types';
-import {JWT_COOKIE} from "~/utils/const";
+import { JWT_COOKIE } from '~/utils/const';
 
 export const useAuthStore = defineStore('user', {
   state: (): IAuthStore => ({
     otpLoading: false,
     verifyError: null,
     token: null,
-    user: null
+    user: null,
   }),
   actions: {
     async fetchToken() {
@@ -65,7 +65,7 @@ export const useAuthStore = defineStore('user', {
         this.otpLoading = true;
         const token = await api<string>('login', {
           method: 'POST',
-          body: params
+          body: params,
         });
 
         tokenCookie.value = token;
@@ -79,7 +79,7 @@ export const useAuthStore = defineStore('user', {
         this.otpLoading = false;
         return userRes;
       } catch (e: any) {
-        console.dir(e)
+        console.dir(e);
         this.otpLoading = false;
         if (e.status === 400) {
           this.verifyError = 'Неверный код, попробуйте еще раз';
@@ -90,6 +90,6 @@ export const useAuthStore = defineStore('user', {
           });
         }
       }
-    }
+    },
   },
 });

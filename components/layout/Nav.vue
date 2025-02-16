@@ -77,7 +77,6 @@ const handleCloseMenu = () => {
         />
       </LayoutLoginModal>
 
-
       <Dropdown
         :items="items"
         value="RU"

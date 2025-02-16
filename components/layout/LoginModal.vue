@@ -12,7 +12,7 @@ const closeModal = () => {
   openLoginModal.value = false;
 };
 
-async function onSubmit(event: FormSubmitEvent<{email: string}>) {
+async function onSubmit(event: FormSubmitEvent<{ email: string }>) {
   const { data } = await useAsyncData('otp', () => authStore.otp(event.data.email));
   if (data.value === 200) {
     verifyEmail.value = event.data.email;
@@ -23,12 +23,14 @@ async function onSubmit(event: FormSubmitEvent<{email: string}>) {
 async function onVerify(codeArr: string[]) {
   if (verifyEmail.value) {
     let code = '';
-    codeArr.forEach(el => code = code + el);
+    codeArr.forEach(el => (code = code + el));
 
-    const { data } = await useAsyncData('verify', () => authStore.verify({
-      code: parseInt(code, 10),
-      email: verifyEmail.value as string
-    }));
+    const { data } = await useAsyncData('verify', () =>
+      authStore.verify({
+        code: parseInt(code, 10),
+        email: verifyEmail.value as string,
+      }),
+    );
 
     if (data.value?.value === verifyEmail.value) {
       closeModal();
@@ -39,7 +41,7 @@ async function onVerify(codeArr: string[]) {
 
 const backToLogin = () => {
   verifyMode.value = false;
-}
+};
 </script>
 
 <template>

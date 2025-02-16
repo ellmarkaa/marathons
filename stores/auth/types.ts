@@ -8,12 +8,12 @@ export interface IAuthStore {
 export type VerifyParams = {
   email: string;
   code: number;
-}
+};
 
 export interface IUser {
   vendor: 'client';
   value: string; // email
-  options: Partial<IUserOptions>,
+  options: Partial<IUserOptions>;
   created_at: string;
   updated_at: string;
 }
@@ -34,5 +34,5 @@ export interface IUserOptions {
     name: string;
     whoIs: string;
     phone: string;
-  }
+  };
 }

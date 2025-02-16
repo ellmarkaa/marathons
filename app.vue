@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-import {JWT_COOKIE} from "~/utils/const";
+import { JWT_COOKIE } from '~/utils/const';
 
-const cookie = useCookie(JWT_COOKIE)
+const cookie = useCookie(JWT_COOKIE);
 console.log('ke', cookie);
 </script>
