@@ -1,5 +1,5 @@
-import type { IAuthStore, IUser, VerifyParams } from '~/stores/auth/types';
-import type { IOtpResponse } from '~/stores/marathon/types';
+import type { IAuthStore, IUser, VerifyParams, IOtpResponse } from '~/stores/auth/types';
+
 import { JWT_COOKIE } from '~/utils/const';
 
 export const useAuthStore = defineStore('user', {

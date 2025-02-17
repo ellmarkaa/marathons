@@ -2,12 +2,6 @@ export interface IMarathonState {
   sliderMarathons: ISliderMarathon[];
 }
 
-export interface IField {
-  key: string;
-  type: string;
-  title: string;
-}
-
 export interface ISliderMarathon {
   'id': number;
   'contact_id': null;
@@ -24,39 +18,6 @@ export interface ISliderMarathon {
   'start_date': string;
   'marathon_url': string;
   'marathon_date': string;
-}
-
-export interface ISliderResponse {
-  dictionary: {
-    'id': number;
-    'project_id': number;
-    'user_id': null;
-    'source': 'dictionary';
-    'x-data-type': 'list';
-    'utm': [];
-    'Name': string;
-    'fields': {
-      'country': IField;
-      'end_date': IField;
-      'pictures': IField;
-      'title.en': IField;
-      'title.kz': IField;
-      'title.ru': IField;
-      'start_date': IField;
-      'marathon_url': IField;
-      'marathon_date': IField;
-    };
-    'role': [];
-    'created_at': '2024-12-24 20:37';
-    'updated_at': '2024-12-24 20:37';
-  };
-  items: ISliderMarathon[];
-}
-
-export interface IOtpResponse {
-  data: [];
-  message: string;
-  status: number;
 }
 
 export interface IMarathonCity {

@@ -22,23 +22,7 @@ const items = ref(['Test 1', 'Test 2', 'Test 3']);
     <div class="mb-8 flex flex-col gap-6">
       <p class="text-base font-semibold">Персональная информация</p>
 
-      <UFormField
-        label="Пол"
-        required
-        :ui="{ label: 'text-sm', container: 'mt-4' }"
-      >
-        <URadioGroup :items="radioItems" />
-      </UFormField>
-
       <div class="flex gap-6">
-        <UFormField
-          class="w-1/2"
-          label="Имя"
-          required
-        >
-          <UInput class="w-full" />
-        </UFormField>
-
         <UFormField
           class="w-1/2"
           label="Фамилия"
@@ -46,7 +30,23 @@ const items = ref(['Test 1', 'Test 2', 'Test 3']);
         >
           <UInput class="w-full" />
         </UFormField>
+
+        <UFormField
+          class="w-1/2"
+          label="Имя"
+          required
+        >
+          <UInput class="w-full" />
+        </UFormField>
       </div>
+
+      <UFormField
+        label="Пол"
+        required
+        :ui="{ label: 'text-sm', container: 'mt-4' }"
+      >
+        <URadioGroup :items="radioItems" />
+      </UFormField>
 
       <UFormField
         label="Номер телефона"

@@ -36,3 +36,9 @@ export interface IUserOptions {
     phone: string;
   };
 }
+
+export interface IOtpResponse {
+  data: [];
+  message: string;
+  status: number;
+}

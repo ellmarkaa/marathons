@@ -106,6 +106,7 @@ const sendAgain = () => {
       block
       type="button"
       :disabled="pinValue.length !== 4"
+      :loading="authStore.otpLoading"
       @click="handleClick"
     >
       Продолжить

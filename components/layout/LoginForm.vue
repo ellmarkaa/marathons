@@ -43,6 +43,7 @@ const state = reactive<{ email: string }>({
         block
         :disabled="!state.email || isLoading"
         type="submit"
+        :loading="isLoading"
       >
         Продолжить
       </UButton>
