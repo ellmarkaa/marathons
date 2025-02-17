@@ -184,7 +184,7 @@ const items = ref(['Test 1', 'Test 2', 'Test 3']);
   background-color: #ffffff;
   border-radius: 16px;
   padding: 32px 42px;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
   max-width: 534px;
   width: 100%;
 }
