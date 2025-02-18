@@ -29,7 +29,7 @@ const buttonUi = {
           src="/logo.svg"
           alt="4lmnts"
           class="logo"
-        />
+        >
       </NuxtLink>
 
       <UButton

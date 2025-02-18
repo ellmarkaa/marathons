@@ -58,7 +58,7 @@ const value = ref('');
         class="marathon-image"
         src="/imgs/marathon-main.jpeg"
         alt="marathon"
-      />
+      >
     </div>
 
     <div class="flex gap-x-20">
@@ -117,7 +117,7 @@ const value = ref('');
           src="/imgs/marathon-map.png"
           alt="map"
           class="marathon-map h-auto w-full rounded-xl"
-        />
+        >
 
         <div class="border-neutral-90 my-14 border-b" />
 
