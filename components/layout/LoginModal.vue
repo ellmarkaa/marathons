@@ -55,7 +55,7 @@ const backToLogin = () => {
           src="/imgs/login-header.jpeg"
           alt="marathon"
           class="login-image"
-        >
+        />
         <UButton
           variant="soft"
           icon="material-symbols:close-rounded"

@@ -3,6 +3,7 @@ export interface IDictionaryState {
   dictionaryLoading: boolean;
   error: null | string;
   citizenshipList: ICitizenship[];
+  countryList: ICountry[];
 }
 
 export interface IBloodType {

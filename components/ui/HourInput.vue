@@ -8,7 +8,7 @@
       :max="maxHour"
       placeholder="HH"
       @input="onHourInput"
-    >
+    />
     <span class="separator">:</span>
     <input
       v-model="minutes"
@@ -18,7 +18,7 @@
       max="59"
       placeholder="MM"
       @input="onMinuteInput"
-    >
+    />
     <div
       v-if="is12HourFormat"
       class="period"

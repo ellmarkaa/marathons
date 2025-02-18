@@ -1,25 +1,49 @@
 <script setup lang="ts">
-const radioItems = ref([
+import { useDictionaryStore } from '~/stores/dictionary/store';
+import { initialRegisterState, type RegisterFormType, registerSchema } from '~/components/register/helper';
+import type { FormSubmitEvent } from '#ui/types';
+import type { InferType } from 'yup';
+
+type Schema = InferType<typeof registerSchema>;
+
+const sexRadio = ref([
   {
     label: 'Женщина',
-    value: 'Женщина',
+    value: 'female',
   },
   {
     label: 'Мужчина',
-    value: 'Мужчина',
+    value: 'male',
   },
 ]);
 
-const countries = ref(['+7', '+996']);
+const tShirtSizes = ref(['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL']);
 
-const items = ref(['Test 1', 'Test 2', 'Test 3']);
+const directoryStore = useDictionaryStore();
+const { data } = await useAsyncData('get-direcotry', () =>
+  Promise.all([directoryStore.fetchBloodTypes(), directoryStore.fetchCitizenship(), directoryStore.fetchCountries()]),
+);
+console.log('data', data);
+console.log('directoryStore.countryList', directoryStore.countryList);
+
+const state = reactive<RegisterFormType>(initialRegisterState);
+
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  console.log(event.data);
+}
 </script>
 
 <template>
   <div class="register-form">
     <h3 class="mb-10 text-2xl font-bold">Создать новый аккаунт</h3>
 
-    <div class="mb-8 flex flex-col gap-6">
+    <UForm
+      :state="state"
+      :schema="registerSchema"
+      class="mb-8 flex flex-col gap-6"
+      :validate-on="['blur', 'change']"
+      @submit="onSubmit"
+    >
       <p class="text-base font-semibold">Персональная информация</p>
 
       <div class="flex gap-6">
@@ -27,16 +51,24 @@ const items = ref(['Test 1', 'Test 2', 'Test 3']);
           class="w-1/2"
           label="Фамилия"
           required
+          name="surname"
         >
-          <UInput class="w-full" />
+          <UInput
+            v-model="state.surname"
+            class="w-full"
+          />
         </UFormField>
 
         <UFormField
           class="w-1/2"
           label="Имя"
           required
+          name="name"
         >
-          <UInput class="w-full" />
+          <UInput
+            v-model="state.name"
+            class="w-full"
+          />
         </UFormField>
       </div>
 
@@ -44,21 +76,33 @@ const items = ref(['Test 1', 'Test 2', 'Test 3']);
         label="Пол"
         required
         :ui="{ label: 'text-sm', container: 'mt-4' }"
+        name="sex"
       >
-        <URadioGroup :items="radioItems" />
+        <URadioGroup
+          v-model="state.sex"
+          :items="sexRadio"
+        />
       </UFormField>
 
       <UFormField
         label="Номер телефона"
         required
+        name="phone"
       >
         <UButtonGroup class="w-full">
           <USelect
-            model-value="+7"
-            :items="countries"
+            v-model="state.emergencyPostCodeId"
+            name="emergencyPostCodeId"
+            :items="directoryStore.countryList"
+            label-key="phone_code"
+            value-key="phone_code"
             :ui="{ base: 'w-[90px]' }"
           />
-          <UInput class="w-full" />
+          <UInput
+            v-model="state.phone"
+            name="phone"
+            class="w-full"
+          />
         </UButtonGroup>
       </UFormField>
 
@@ -66,19 +110,27 @@ const items = ref(['Test 1', 'Test 2', 'Test 3']);
         <UFormField
           class="w-1/2"
           label="Дата рождения"
+          name="birthday"
           required
         >
-          <Datepicker />
+          <Datepicker
+            v-model="state.birthday"
+            placeholder="ДД/ММ/ГГГГ"
+          />
         </UFormField>
 
         <UFormField
           class="w-1/2"
           label="Группа крови"
           required
+          name="bloodGroupId"
         >
           <USelect
+            v-model="state.bloodGroupId"
             class="w-full"
-            :items="items"
+            :items="directoryStore.bloodTypes"
+            value-key="id"
+            label-key="Name"
           />
         </UFormField>
       </div>
@@ -86,96 +138,167 @@ const items = ref(['Test 1', 'Test 2', 'Test 3']);
       <UFormField
         label="Гражданство"
         required
+        name="citizenshipId"
       >
         <USelect
+          v-model="state.citizenshipId"
           class="w-full"
-          :items="items"
+          :items="directoryStore.citizenshipList"
+          value-key="id"
+          label-key="country.name_ru"
         />
       </UFormField>
 
       <UFormField
         label="ИИН"
         required
+        name="iin"
       >
-        <UInput class="w-full" />
+        <UInput
+          v-model="state.iin"
+          class="w-full"
+        />
       </UFormField>
 
-      <div class="flex gap-6">
+      <div class="mb-3 flex gap-6">
         <UFormField
           label="Номер паспорта"
           required
           class="w-1/2"
+          name="passportNumber"
         >
-          <UInput class="w-full" />
+          <UInput
+            v-model="state.passportNumber"
+            class="w-full"
+          />
         </UFormField>
 
         <UFormField
           class="w-1/2"
           label="Срок действия"
           required
+          name="expirationPassportDate"
         >
-          <Datepicker />
-        </UFormField>
-      </div>
-    </div>
-
-    <div class="mb-10 flex flex-col gap-6">
-      <p class="text-base font-semibold">Дополнительная информация</p>
-
-      <div class="flex gap-6">
-        <UFormField
-          label="Размер футболки"
-          required
-          class="w-1/2"
-        >
-          <USelect class="w-full" />
-        </UFormField>
-
-        <UFormField
-          label="Целевое время"
-          required
-          class="w-1/2"
-        >
-          <UInput
-            placeholder="00:00"
-            class="w-full"
+          <Datepicker
+            v-model="state.expirationPassportDate"
+            placeholder="ДД/ММ/ГГГГ"
           />
         </UFormField>
       </div>
-    </div>
 
-    <div class="mb-10 flex flex-col gap-6">
-      <p class="text-base font-semibold">Контактные данные для экстренных случаев</p>
+      <div class="mb-3 flex flex-col gap-6">
+        <p class="text-base font-semibold">Дополнительная информация</p>
 
-      <div class="flex gap-6">
         <UFormField
-          label="Имя"
-          required
-          class="w-1/2"
+          label="Место проживания"
+          name="address"
         >
-          <UInput class="w-full" />
+          <UInput
+            v-model="state.address"
+            placeholder="Страна, город, адрес, почтовый индекс"
+            class="w-full"
+          />
         </UFormField>
 
+        <div class="flex gap-6">
+          <UFormField
+            label="Размер футболки"
+            required
+            class="w-1/2"
+            name="shirtSize"
+          >
+            <USelect
+              v-model="state.shirtSize"
+              class="w-full"
+              :items="tShirtSizes"
+            />
+          </UFormField>
+
+          <UFormField
+            label="Беговой клуб"
+            class="w-1/2"
+            name="runningClub"
+          >
+            <UInput
+              v-model="state.runningClub"
+              class="w-full"
+            />
+          </UFormField>
+
+          <!--        <UFormField-->
+          <!--          label="Целевое время"-->
+          <!--          required-->
+          <!--          class="w-1/2"-->
+          <!--        >-->
+          <!--          <UInput-->
+          <!--            placeholder="00:00"-->
+          <!--            class="w-full"-->
+          <!--            v-model="state.shirtSize"-->
+          <!--          />-->
+          <!--        </UFormField>-->
+        </div>
+      </div>
+
+      <div class="mb-3 flex flex-col gap-6">
+        <p class="text-base font-semibold">Контактные данные для экстренных случаев</p>
+
+        <div class="flex gap-6">
+          <UFormField
+            label="Имя"
+            required
+            class="w-1/2"
+            name="emergencyName"
+          >
+            <UInput
+              v-model="state.emergencyName"
+              class="w-full"
+            />
+          </UFormField>
+
+          <UFormField
+            label="Кем является"
+            required
+            class="w-1/2"
+            name="emergencyWhoIs"
+          >
+            <USelect
+              v-model="state.emergencyWhoIs"
+              class="w-full"
+            />
+          </UFormField>
+        </div>
+
         <UFormField
-          label="Кем является"
+          label="Номер телефона"
           required
-          class="w-1/2"
+          name="emergencyPhone"
         >
-          <USelect class="w-full" />
+          <UButtonGroup class="w-full">
+            <USelect
+              v-model="state.emergencyPostCodeId"
+              :items="directoryStore.countryList"
+              label-key="phone_code"
+              value-key="phone_code"
+              :ui="{ base: 'w-[90px]' }"
+              name="emergencyPostCodeId"
+            />
+            <UInput
+              v-model="state.emergencyPhone"
+              class="w-full"
+              name="emergencyPhone"
+            />
+          </UButtonGroup>
         </UFormField>
       </div>
 
-      <UFormField
-        label="Номер телефона"
-        required
+      <UButton
+        type="submit"
+        block
+        @click="console.log('123', state)"
       >
-        <UInput class="w-full">
-          <template #leading>+7</template>
-        </UInput>
-      </UFormField>
-    </div>
-
-    <UButton block>Создать аккаунт</UButton>
+        Создать аккаунт
+      </UButton>
+    </UForm>
   </div>
 </template>
 

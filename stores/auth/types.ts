@@ -25,8 +25,8 @@ export interface IUserOptions {
   birthday: string;
   sex: 'male' | 'female';
   phone: string;
-  bloodGroup: string;
-  citizenship: string;
+  bloodGroupId: number;
+  citizenshipId: number;
   address: string;
   shirtSize: string;
   runningClub: string;
@@ -34,6 +34,7 @@ export interface IUserOptions {
     name: string;
     whoIs: string;
     phone: string;
+    postCodeId: number;
   };
 }
 

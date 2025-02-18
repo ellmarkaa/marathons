@@ -7,6 +7,7 @@ export const useDictionaryStore = defineStore('dictionary', {
     dictionaryLoading: false,
     error: null,
     citizenshipList: [],
+    countryList: [],
   }),
   actions: {
     async fetchBloodTypes() {
@@ -21,7 +22,7 @@ export const useDictionaryStore = defineStore('dictionary', {
         this.dictionaryLoading = false;
         this.bloodTypes = res.items;
         return res.items;
-      } catch (e) {
+      } catch (e: any) {
         this.dictionaryLoading = false;
         this.error = e.message;
         console.error('error', e);
@@ -40,7 +41,26 @@ export const useDictionaryStore = defineStore('dictionary', {
         this.dictionaryLoading = false;
         this.citizenshipList = res.items;
         return res.items;
-      } catch (e) {
+      } catch (e: any) {
+        this.dictionaryLoading = false;
+        this.error = e.message;
+        console.error('error', e);
+      }
+    },
+
+    async fetchCountries() {
+      const api = useApi();
+      try {
+        this.dictionaryLoading = true;
+
+        const res = await api<IDictionaryResponse<ICountry>>('dictionary/Страны', {
+          method: 'GET',
+        });
+
+        this.dictionaryLoading = false;
+        this.countryList = res.items;
+        return res.items;
+      } catch (e: any) {
         this.dictionaryLoading = false;
         this.error = e.message;
         console.error('error', e);

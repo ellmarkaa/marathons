@@ -35,7 +35,7 @@ const inputClass = computed<Record<string, boolean>>(() => ({
         class="ease input w-full bg-white shadow-sm transition duration-300 focus:shadow focus:outline-none"
         :class="inputClass"
         :placeholder="placeholder"
-      >
+      />
     </div>
   </div>
 </template>

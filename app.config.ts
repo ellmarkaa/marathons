@@ -241,5 +241,17 @@ export default defineAppConfig({
         },
       ],
     },
+
+    calendar: {
+      variants: {
+        color: {
+          primary: {
+            headCell: 'text-(--color-accent-50)',
+            cellTrigger:
+              'focus-visible:ring-(--color-accent-50) data-[selected]:bg-(--color-accent-50) data-today:not-data-[selected]:text-(--color-accent-50) data-[highlighted]:bg-(--color-accent-50)/20 hover:not-data-[selected]:bg-(--color-accent-50)/20',
+          },
+        },
+      },
+    },
   },
 });

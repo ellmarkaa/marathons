@@ -20,7 +20,7 @@
         class="w-full rounded-xl object-cover"
         src="/imgs/card.jpg"
         alt="card"
-      >
+      />
     </div>
 
     <div class="flex flex-col gap-3">

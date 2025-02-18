@@ -64,27 +64,27 @@ console.log('data', data.value?.items);
         ><img
           src="/imgs/london.png"
           alt="London"
-      ></a>
+      /></a>
       <a href="#"
         ><img
           src="/imgs/chicago.png"
           alt="Chicago"
-      ></a>
+      /></a>
       <a href="#"
         ><img
           src="/imgs/copenhagen.png"
           alt="Copenhagen"
-      ></a>
+      /></a>
       <a href="#"
         ><img
           src="/imgs/paris.png"
           alt="Paris"
-      ></a>
+      /></a>
       <a href="#"
         ><img
           src="/imgs/berlin.png"
           alt="Berlin"
-      ></a>
+      /></a>
     </section>
 
     <section class="bg-accent-99">
@@ -106,7 +106,7 @@ console.log('data', data.value?.items);
           src="/imgs/lets-go.svg"
           alt="lets go"
           class="-translate-x-1/2"
-        >
+        />
       </UContainer>
     </section>
   </div>
