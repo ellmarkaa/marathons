@@ -1,5 +1,4 @@
 import type { CSSProperties } from 'vue';
-import type { IField } from '~/stores/marathon/types';
 
 export type ButtonTypes = 'filled' | 'outlined' | 'tonal';
 

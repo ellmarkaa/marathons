@@ -8,14 +8,14 @@
           src="/imgs/logo-footer.png"
           alt="4lmnts"
           class="logo max-md:hidden"
-        >
+        />
         <img
           src="/logo.svg"
           alt="4lmnts"
           class="hidden max-md:block"
           width="280"
           height="auto"
-        >
+        />
 
         <div>
           <p class="mb-5 text-xl font-semibold">Компания</p>

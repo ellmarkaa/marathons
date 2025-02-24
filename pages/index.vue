@@ -13,14 +13,13 @@ const marathonStore = useMarathonStore();
 // }, 1000);
 
 // await useAsyncData('get-token', () => authStore.fetchToken());
-const { data } = await useAsyncData('slider-marathons', () => marathonStore.fetchSliderMarathons());
-
-console.log('data', data.value?.items);
+const { data: sliders } = await useAsyncData('slider-marathons', () => marathonStore.fetchSliderMarathons());
+const { data: marathons } = await useAsyncData('main-marathons', () => marathonStore.fetchMarathons());
 </script>
 
 <template>
   <div class="bg-main-gray">
-    <MainCarouselBlock :sliders="data?.items || []" />
+    <MainCarouselBlock :sliders="sliders || []" />
 
     <div class="bg-neutral-0 mb-16 py-4 max-lg:mb-12">
       <UContainer>
@@ -45,11 +44,18 @@ console.log('data', data.value?.items);
     <UContainer class="flex gap-x-6">
       <MainFilterBlock class="max-lg:hidden" />
 
-      <div>
-        <div class="flex flex-wrap items-start justify-between gap-y-8 max-xl:justify-center max-xl:gap-x-5">
+      <div class="w-full">
+        <div class="flex flex-wrap items-start gap-x-5 gap-y-8 max-xl:justify-center">
           <MainCard
-            v-for="num in 12"
-            :key="num"
+            v-for="marathon in marathons"
+            :key="marathon.id"
+            :city="marathon.city.name_ru"
+            :country="marathon.country.name_ru"
+            :title="marathon.title_ru"
+            :start-date="marathon.marathon_date"
+            :end-date="marathon.marathon_date"
+            :rating="5"
+            :price="200"
           />
         </div>
 
@@ -64,27 +70,27 @@ console.log('data', data.value?.items);
         ><img
           src="/imgs/london.png"
           alt="London"
-      ></a>
+      /></a>
       <a href="#"
         ><img
           src="/imgs/chicago.png"
           alt="Chicago"
-      ></a>
+      /></a>
       <a href="#"
         ><img
           src="/imgs/copenhagen.png"
           alt="Copenhagen"
-      ></a>
+      /></a>
       <a href="#"
         ><img
           src="/imgs/paris.png"
           alt="Paris"
-      ></a>
+      /></a>
       <a href="#"
         ><img
           src="/imgs/berlin.png"
           alt="Berlin"
-      ></a>
+      /></a>
     </section>
 
     <section class="bg-accent-99">
@@ -106,7 +112,7 @@ console.log('data', data.value?.items);
           src="/imgs/lets-go.svg"
           alt="lets go"
           class="-translate-x-1/2"
-        >
+        />
       </UContainer>
     </section>
   </div>

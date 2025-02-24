@@ -4,6 +4,7 @@ import type { IDictionaryResponse } from '~/utils/types';
 export const useMarathonStore = defineStore('marathon', {
   state: (): IMarathonState => ({
     sliderMarathons: [],
+    mainPageMarathons: [],
   }),
   actions: {
     async fetchSliderMarathons() {
@@ -13,7 +14,7 @@ export const useMarathonStore = defineStore('marathon', {
           method: 'GET',
         });
         this.sliderMarathons = res.items;
-        return res;
+        return res.items;
       } catch (e) {
         console.error('error', e);
       }
@@ -22,11 +23,11 @@ export const useMarathonStore = defineStore('marathon', {
     async fetchMarathons() {
       const api = useApi();
       try {
-        const res = await api<IDictionaryResponse<unknown>>('dictionary/Марафоны', {
+        const res = await api<IDictionaryResponse<IMarathon>>('dictionary/Марафоны', {
           method: 'GET',
         });
-        this.sliderMarathons = res.items;
-        return res;
+        this.mainPageMarathons = res.items;
+        return res.items;
       } catch (e) {
         console.error('error', e);
       }
