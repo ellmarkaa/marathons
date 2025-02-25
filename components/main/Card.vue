@@ -5,12 +5,23 @@ type CardProps = {
   endDate: string;
   country: string;
   city: string;
-  price: number;
+  slots: ISlot[];
   rating: number;
 };
 
+const getMinimalPrice = (slots: ISlot[]) => {
+  const price = Math.min(...slots.map(slot => slot.price));
+  return isFinite(price) ? price : 0;
+};
+
+// const getDistanceArr = (slots: ISlot[]) => {
+//   return slots.map(slot => slot.distance).sort()
+// };
+
 const props = defineProps<CardProps>();
 const dateTitle = getDateTitle(props.startDate, props.endDate);
+const minimalPrice = getMinimalPrice(props.slots);
+// const distanceArr = getDistanceArr(props.slots);
 </script>
 
 <template>
@@ -40,13 +51,13 @@ const dateTitle = getDateTitle(props.startDate, props.endDate);
       <h3 class="text-lg font-bold">{{ title }}</h3>
       <p>{{ dateTitle }}</p>
       <p>{{ city }}, {{ country }}</p>
-      <p>Бег 10 км, 21 км, 42,1 км</p>
+      <!--      <p>Бег {{distanceArr.map(dis => `${dis} км, `)}}10 км, 21 км, 42,1 км</p>-->
     </div>
 
     <div class="flex justify-between align-bottom">
       <p class="text-neutral-10 self-end text-lg font-bold">
         <span class="text-sm font-medium text-neutral-50">от</span>
-        ${{ price }}
+        ${{ minimalPrice }}
       </p>
 
       <UButton variant="outline">Подробнее</UButton>

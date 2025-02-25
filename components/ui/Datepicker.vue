@@ -7,7 +7,6 @@ const df = new DateFormatter('ru', {
 
 const model = defineModel<CalendarDate | null>();
 defineProps<{ placeholder: string }>();
-console.log('model', model);
 </script>
 
 <template>

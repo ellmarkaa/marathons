@@ -13,8 +13,8 @@ export const useMarathonStore = defineStore('marathon', {
         const res = await api<IDictionaryResponse<ISliderMarathon>>('dictionary/Слайдеры', {
           method: 'GET',
         });
-        this.sliderMarathons = res.items;
-        return res.items;
+        this.sliderMarathons = res.items.data;
+        return res.items.data;
       } catch (e) {
         console.error('error', e);
       }
@@ -26,8 +26,8 @@ export const useMarathonStore = defineStore('marathon', {
         const res = await api<IDictionaryResponse<IMarathon>>('dictionary/Марафоны', {
           method: 'GET',
         });
-        this.mainPageMarathons = res.items;
-        return res.items;
+        this.mainPageMarathons = res.items.data;
+        return res.items.data;
       } catch (e) {
         console.error('error', e);
       }

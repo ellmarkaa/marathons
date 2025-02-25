@@ -24,7 +24,6 @@ const { data } = await useAsyncData('get-direcotry', () =>
   Promise.all([directoryStore.fetchBloodTypes(), directoryStore.fetchCitizenship(), directoryStore.fetchCountries()]),
 );
 console.log('data', data);
-console.log('directoryStore.countryList', directoryStore.countryList);
 
 const state = reactive<RegisterFormType>(initialRegisterState);
 

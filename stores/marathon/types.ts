@@ -1,21 +1,22 @@
+import type {
+  ICitizenship,
+  IIncludeItem,
+  IMarathonCity,
+  IMarathonCountry,
+  IPicture,
+  ISlot,
+  ITag,
+  IVisa,
+} from '~/utils/types';
+
 export interface IMarathonState {
   sliderMarathons: ISliderMarathon[];
   mainPageMarathons: IMarathon[];
 }
 
-export interface IPicture {
-  date: '2025-02-19 14:32';
-  name: 'фыв.jpg';
-  path: 'task/file/114026bc-4474-48b2-8da3-fb0f53f42d56.jpg';
-  size: 287865;
-}
-
 export interface ISliderMarathon {
-  'id': number;
   'contact_id': null;
-  'country': {
-    scalar: '';
-  };
+  'marathon': IMarathon;
   'end_date': string;
   'pictures': IPicture[];
   'title.en': string;
@@ -26,45 +27,20 @@ export interface ISliderMarathon {
   'marathon_date': string;
 }
 
-export interface IMarathonCity {
-  id: number;
-  country: IMarathonCity;
-  name_en: null;
-  name_kz: null;
-  name_ru: string;
-  contact_id: null;
-}
-
-export interface IMarathonCountry {
-  id: number;
-  iso: null;
-  name_en: string;
-  name_kz: string;
-  name_ru: string;
-  contact_id: null;
-  phone_code: number;
-}
-
-export interface IIncludeItem {
-  id: number;
-  name_en: string;
-  name_kz: string;
-  name_ru: string;
-  contact_id: null;
-}
-
 export interface IMarathon {
-  id: number;
   contact_id: null;
+  tag: ITag;
   city: IMarathonCity;
-  tags: {
-    v: 1;
+  visa: IVisa;
+  slots: ISlot[];
+  hotels: {
+    scalar: '';
   };
   country: IMarathonCountry;
   currency: {
     scalar: '';
   };
-  pictures: object;
+  pictures: IPicture[];
   title_en: string;
   title_kz: string;
   title_ru: string;
@@ -79,8 +55,7 @@ export interface IMarathon {
   included_items: IIncludeItem[];
   is_visa_required: boolean;
   is_hotel_required: boolean;
+  marathon_deadline: string;
+  allowed_citizenships: ICitizenship[];
   is_reminder_required: boolean;
-  prohibited_citizenships: {
-    scalar: '';
-  };
 }

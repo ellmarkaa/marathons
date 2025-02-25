@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { distance, months, sports, years } from '~/utils/filter.data';
+import { distance, months, years } from '~/utils/filter.data';
 import TextField from '~/components/ui/TextField.vue';
 
-const sportsRef = ref(sports);
+// const sportsRef = ref(sports);
 const distanceRef = ref(distance);
 const yearsRef = ref(years);
 const monthsRef = ref(months);
 const duration = 400;
+console.log(`'distanceRef`, distanceRef);
 </script>
 
 <template>
@@ -29,25 +30,25 @@ const duration = 400;
       <span>Очистить все</span>
     </div>
 
-    <Collapse
-      title="Спорт"
-      :duration="duration"
-      open-initially
-    >
-      <ul>
-        <li
-          v-for="sport in sportsRef"
-          :key="sport"
-          class="py-2"
-        >
-          <Checkbox
-            :key="sport.label"
-            v-model="sport.value"
-            :label="sport.label"
-          />
-        </li>
-      </ul>
-    </Collapse>
+    <!--    <Collapse-->
+    <!--      title="Спорт"-->
+    <!--      :duration="duration"-->
+    <!--      open-initially-->
+    <!--    >-->
+    <!--      <ul>-->
+    <!--        <li-->
+    <!--          v-for="sport in sportsRef"-->
+    <!--          :key="sport"-->
+    <!--          class="py-2"-->
+    <!--        >-->
+    <!--          <Checkbox-->
+    <!--            :key="sport.label"-->
+    <!--            v-model="sport.value"-->
+    <!--            :label="sport.label"-->
+    <!--          />-->
+    <!--        </li>-->
+    <!--      </ul>-->
+    <!--    </Collapse>-->
 
     <Collapse
       title="Дистанция"
@@ -56,14 +57,14 @@ const duration = 400;
     >
       <ul>
         <li
-          v-for="distance in distanceRef"
-          :key="distance"
+          v-for="dis in distanceRef"
+          :key="dis"
           class="py-2"
         >
           <Checkbox
-            :key="distance.label"
-            v-model="distance.value"
-            :label="distance.label"
+            :key="dis.label"
+            v-model="dis.value"
+            :label="dis.label"
           />
         </li>
       </ul>

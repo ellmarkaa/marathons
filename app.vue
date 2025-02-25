@@ -8,9 +8,4 @@
   </UApp>
 </template>
 
-<script setup lang="ts">
-import { JWT_COOKIE } from '~/utils/const';
-
-const cookie = useCookie(JWT_COOKIE);
-console.log('ke', cookie);
-</script>
+<script setup lang="ts"></script>

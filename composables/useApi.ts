@@ -7,14 +7,12 @@ export function useApi() {
   const apiFetch = async <T>(endpoint: string, options: NitroFetchOptions<NitroFetchRequest> = {}): Promise<T> => {
     // const storage = useLocalStorage();
     const cookie = useCookie(JWT_COOKIE);
-    console.log('coockeafdsa', cookie.value);
     const token = cookie.value;
 
     options.headers = {
       ...options.headers,
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
-    console.log('options', options);
 
     try {
       // Make the API request using $fetch

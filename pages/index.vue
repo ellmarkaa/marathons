@@ -15,6 +15,8 @@ const marathonStore = useMarathonStore();
 // await useAsyncData('get-token', () => authStore.fetchToken());
 const { data: sliders } = await useAsyncData('slider-marathons', () => marathonStore.fetchSliderMarathons());
 const { data: marathons } = await useAsyncData('main-marathons', () => marathonStore.fetchMarathons());
+console.log('sliders', sliders.value);
+console.log('marathons', marathons.value);
 </script>
 
 <template>
@@ -53,9 +55,9 @@ const { data: marathons } = await useAsyncData('main-marathons', () => marathonS
             :country="marathon.country.name_ru"
             :title="marathon.title_ru"
             :start-date="marathon.marathon_date"
-            :end-date="marathon.marathon_date"
+            :end-date="marathon.marathon_deadline"
             :rating="5"
-            :price="200"
+            :slots="marathon.slots"
           />
         </div>
 

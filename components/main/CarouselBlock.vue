@@ -15,7 +15,7 @@ defineProps<CarouselBlockProps>();
       :id="slide.id"
       :key="slide.id"
       :index="slide.id"
-      :country="slide.country.scalar"
+      :country="slide.marathon.country.name_ru"
       :title="slide['title.ru']"
       :marathon-start="slide.start_date"
       :marathon-end="slide.start_date"

@@ -22,7 +22,6 @@ export const useAuthStore = defineStore('user', {
           method: 'POST',
           body: getCredentialsToCatalog(),
         });
-        console.log('res', res);
         storage.setToken(res.token);
         return res;
       } catch (e) {
