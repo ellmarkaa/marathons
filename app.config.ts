@@ -76,10 +76,10 @@ export default defineAppConfig({
 
     alert: {
       slots: {
-        root: 'px-6 py-5 rounded-xl',
+        root: 'px-4 py-3 rounded-xl',
         title: 'text-base',
-        wrapper: 'gap-4',
-        icon: 'size-6',
+        wrapper: 'gap-1.5',
+        icon: 'size-5',
       },
       compoundVariants: [
         {
@@ -87,6 +87,13 @@ export default defineAppConfig({
           variant: 'outline',
           class: {
             root: 'ring-neutral-80 bg-transparent text-black ring-2',
+          },
+        },
+        {
+          color: 'info',
+          variant: 'solid',
+          class: {
+            root: 'bg-accent-90 text-black',
           },
         },
       ],

@@ -17,6 +17,39 @@ const sexRadio = ref([
   },
 ]);
 
+const state = reactive<RegisterFormType>(initialRegisterState);
+
+const countryCodes = ref([
+  {
+    label: '+7',
+    value: '+997', // Это для отличия кода России и Казахстана. Но в будущем Кз хочет перейти на этот код
+    avatar: {
+      src: '/imgs/circle-kazakhstan.jpg',
+      alt: 'kazakhstan',
+    },
+  },
+  {
+    label: '+998',
+    value: '+998',
+    avatar: {
+      src: '/imgs/circle-uzbekistan.jpg',
+      alt: 'uzbekistan',
+    },
+  },
+  {
+    label: '+7',
+    value: '+7',
+    avatar: {
+      src: '/imgs/circle-russia.png',
+      alt: 'russia',
+    },
+  },
+]);
+const countryAvatar = computed(() => countryCodes.value.find(item => item.value === state.country_phone_code)?.avatar);
+const emergencyCountryAvatar = computed(
+  () => countryCodes.value.find(item => item.value === state.emergency_contact_phone_code)?.avatar,
+);
+
 const tShirtSizes = ref(['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL']);
 
 const directoryStore = useDictionaryStore();
@@ -25,8 +58,6 @@ const { data } = await useAsyncData('get-direcotry', () =>
 );
 console.log('data', data);
 
-const state = reactive<RegisterFormType>(initialRegisterState);
-
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   console.log(event.data);
 }
@@ -34,7 +65,15 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
 <template>
   <div class="register-form">
-    <h3 class="mb-10 text-2xl font-bold">Создать новый аккаунт</h3>
+    <h3 class="mb-8 text-2xl font-bold">Создать новый аккаунт</h3>
+    <UAlert
+      title="Заполните анкету внимательно"
+      description="Эти данные нужны для дальнейшей регистрации на марафоны"
+      color="info"
+      icon="carbon:warning-hex"
+      class="mb-6"
+      :ui="{ icon: 'text-accent-40' }"
+    />
 
     <UForm
       :state="state"
@@ -75,10 +114,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         label="Пол"
         required
         :ui="{ label: 'text-sm', container: 'mt-4' }"
-        name="sex"
+        name="gender"
       >
         <URadioGroup
-          v-model="state.sex"
+          v-model="state.gender"
           :items="sexRadio"
         />
       </UFormField>
@@ -90,12 +129,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       >
         <UButtonGroup class="w-full">
           <USelect
-            v-model="state.emergencyPostCodeId"
-            name="emergencyPostCodeId"
-            :items="directoryStore.countryList"
-            label-key="phone_code"
-            value-key="phone_code"
-            :ui="{ base: 'w-[90px]' }"
+            v-model="state.emergency_contact_phone_code"
+            name="emergency_contact_phone_code"
+            size="md"
+            :avatar="countryAvatar as any"
+            :items="countryCodes"
           />
           <UInput
             v-model="state.phone"
@@ -109,11 +147,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         <UFormField
           class="w-1/2"
           label="Дата рождения"
-          name="birthday"
+          name="birthdate"
           required
         >
           <Datepicker
-            v-model="state.birthday"
+            v-model="state.birthdate"
             placeholder="ДД/ММ/ГГГГ"
           />
         </UFormField>
@@ -151,10 +189,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <UFormField
         label="ИИН"
         required
-        name="iin"
+        name="IIN"
       >
         <UInput
-          v-model="state.iin"
+          v-model="state.IIN"
           class="w-full"
         />
       </UFormField>
@@ -164,10 +202,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           label="Номер паспорта"
           required
           class="w-1/2"
-          name="passportNumber"
+          name="passport_number"
         >
           <UInput
-            v-model="state.passportNumber"
+            v-model="state.passport_number"
             class="w-full"
           />
         </UFormField>
@@ -176,10 +214,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           class="w-1/2"
           label="Срок действия"
           required
-          name="expirationPassportDate"
+          name="passport_validity_period"
         >
           <Datepicker
-            v-model="state.expirationPassportDate"
+            v-model="state.passport_validity_period"
             placeholder="ДД/ММ/ГГГГ"
           />
         </UFormField>
@@ -190,10 +228,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
         <UFormField
           label="Место проживания"
-          name="address"
+          name="residence_place"
         >
           <UInput
-            v-model="state.address"
+            v-model="state.residence_place"
             placeholder="Страна, город, адрес, почтовый индекс"
             class="w-full"
           />
@@ -204,10 +242,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             label="Размер футболки"
             required
             class="w-1/2"
-            name="shirtSize"
+            name="t-shirt_size"
           >
             <USelect
-              v-model="state.shirtSize"
+              v-model="state['t-shirt_size']"
               class="w-full"
               :items="tShirtSizes"
             />
@@ -216,10 +254,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           <UFormField
             label="Беговой клуб"
             class="w-1/2"
-            name="runningClub"
+            name="running_club"
           >
             <UInput
-              v-model="state.runningClub"
+              v-model="state.running_club"
               class="w-full"
             />
           </UFormField>
@@ -246,10 +284,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             label="Имя"
             required
             class="w-1/2"
-            name="emergencyName"
+            name="emergency_contact_name"
           >
             <UInput
-              v-model="state.emergencyName"
+              v-model="state.emergency_contact_name"
               class="w-full"
             />
           </UFormField>
@@ -258,10 +296,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             label="Кем является"
             required
             class="w-1/2"
-            name="emergencyWhoIs"
+            name="emergency_contact_role"
           >
             <USelect
-              v-model="state.emergencyWhoIs"
+              v-model="state.emergency_contact_role"
               class="w-full"
             />
           </UFormField>
@@ -274,17 +312,15 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         >
           <UButtonGroup class="w-full">
             <USelect
-              v-model="state.emergencyPostCodeId"
-              :items="directoryStore.countryList"
-              label-key="phone_code"
-              value-key="phone_code"
-              :ui="{ base: 'w-[90px]' }"
-              name="emergencyPostCodeId"
+              v-model="state.emergency_contact_phone_code"
+              :items="countryCodes"
+              name="emergency_contact_phone_code"
+              :avatar="emergencyCountryAvatar as any"
             />
             <UInput
-              v-model="state.emergencyPhone"
+              v-model="state.emergency_contact_phone"
               class="w-full"
-              name="emergencyPhone"
+              name="emergency_contact_phone"
             />
           </UButtonGroup>
         </UFormField>

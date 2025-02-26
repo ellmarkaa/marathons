@@ -36,7 +36,7 @@ function pad(num: number) {
   return num;
 }
 
-const handleClick = () => {
+const onSubmit = () => {
   props.onVerify(pinValue.value);
 };
 
@@ -71,46 +71,48 @@ const sendAgain = () => {
       :title="authStore.verifyError"
     />
 
-    <UFormField
-      class="mb-8"
-      label="Одноразовый код"
-      :ui="{
-        label: 'text-neutral-40',
-        help: 'text-neutral-40 text-base',
-      }"
-    >
-      <UPinInput
-        v-model="pinValue"
-        otp
-        :length="4"
-        size="xl"
-        type="number"
-      />
-      <p
-        v-if="tryAgain !== 0"
-        class="text-neutral-40 text-base"
+    <form @submit.prevent="onSubmit">
+      <UFormField
+        class="mb-8"
+        label="Одноразовый код"
+        :ui="{
+          label: 'text-neutral-40',
+          help: 'text-neutral-40 text-base',
+        }"
       >
-        Отправить еще раз через 0:{{ pad(tryAgain) }}
-      </p>
-      <UButton
-        v-else
-        class="mt-1 block p-0"
-        variant="link"
-        @click="sendAgain"
-      >
-        Отправить еще раз
-      </UButton>
-    </UFormField>
+        <UPinInput
+          v-model="pinValue"
+          otp
+          :length="4"
+          size="xl"
+          type="number"
+        />
+        <p
+          v-if="tryAgain !== 0"
+          class="text-neutral-40 text-base"
+        >
+          Отправить еще раз через 0:{{ pad(tryAgain) }}
+        </p>
+        <UButton
+          v-else
+          class="mt-1 block p-0"
+          variant="link"
+          type="button"
+          @click="sendAgain"
+        >
+          Отправить еще раз
+        </UButton>
+      </UFormField>
 
-    <UButton
-      block
-      type="button"
-      :disabled="pinValue.length !== 4"
-      :loading="authStore.otpLoading"
-      @click="handleClick"
-    >
-      Продолжить
-    </UButton>
+      <UButton
+        block
+        type="submit"
+        :disabled="pinValue.length !== 4"
+        :loading="authStore.otpLoading"
+      >
+        Продолжить
+      </UButton>
+    </form>
   </div>
 </template>
 
