@@ -7,7 +7,6 @@ const distanceRef = ref(distance);
 const yearsRef = ref(years);
 const monthsRef = ref(months);
 const duration = 400;
-console.log(`'distanceRef`, distanceRef);
 </script>
 
 <template>

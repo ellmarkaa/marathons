@@ -129,8 +129,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       >
         <UButtonGroup class="w-full">
           <USelect
-            v-model="state.emergency_contact_phone_code"
-            name="emergency_contact_phone_code"
+            v-model="state.country_phone_code"
+            name="country_phone_code"
             size="md"
             :avatar="countryAvatar as any"
             :items="countryCodes"
