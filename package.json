@@ -40,13 +40,25 @@
     "@iconify-json/material-symbols": "^1.2.12",
     "@iconify-json/mdi": "^1.2.2",
     "@iconify-json/tabler": "^1.2.13",
-    "@nuxt/eslint": "^0.5.6",
     "autoprefixer": "^10.4.20",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.1.5",
     "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "@nuxt/eslint": "^1.1.0",
+    "eslint": "^9.21.0",
+    "typescript": "^5.7.3"
+  },
+  "overrides": {
+    "tailwindcss": "4.0.7",
+    "@tailwindcss/postcss": "4.0.7",
+    "@tailwindcss/vite": "4.0.7"
+  },
+  "resolutions": {
+    "tailwindcss": "4.0.7",
+    "@tailwindcss/postcss": "4.0.7",
+    "@tailwindcss/vite": "4.0.7"
   },
   "lint-staged": {
     "*.{js,ts,vue}": [
