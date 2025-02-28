@@ -33,8 +33,8 @@ async function onVerify(codeArr: string[]) {
     );
 
     if (data.value?.value === verifyEmail.value) {
-      if (!data.value?.options.isRegistered) navigateTo('/register');
       closeModal();
+      if (!data.value?.options.isRegistered) navigateTo('/register');
     }
   }
 }

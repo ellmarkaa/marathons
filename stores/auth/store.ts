@@ -71,9 +71,6 @@ export const useAuthStore = defineStore('user', {
 
         const userRes = await api<IUser>('contact/info', {
           method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         });
 
         this.user = userRes;
