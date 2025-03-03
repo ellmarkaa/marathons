@@ -3,7 +3,7 @@ interface CheckboxProps {
   modelValue: boolean; // Bound value for v-model
   disabled?: boolean;
   id?: string;
-  label?: string;
+  label?: string | number;
 }
 
 const props = withDefaults(defineProps<CheckboxProps>(), {

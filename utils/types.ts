@@ -121,16 +121,6 @@ export interface ISlot {
   slot_count: number;
 }
 
-export interface ICitizenship {
-  id: number;
-  iso: string;
-  name_en: string;
-  name_kz: string;
-  name_ru: string;
-  contact_id: null;
-  phone_code: number;
-}
-
 export interface IPicture {
   date: string;
   name: string;

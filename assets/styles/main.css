@@ -1,7 +1,7 @@
-@import 'tailwindcss';
+@import 'tailwindcss' theme(static);
 @import '@nuxt/ui';
 
-@theme {
+@theme static {
   --container-2xl: 1384px;
 
   --breakpoint-2xl: 1384px;

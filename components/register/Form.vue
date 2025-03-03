@@ -53,10 +53,15 @@ const emergencyCountryAvatar = computed(
 const tShirtSizes = ref(['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL']);
 
 const directoryStore = useDictionaryStore();
-const { data } = await useAsyncData('get-direcotry', () =>
+await useAsyncData('get-direcotry', () =>
   Promise.all([directoryStore.fetchBloodTypes(), directoryStore.fetchCitizenship(), directoryStore.fetchCountries()]),
 );
-console.log('data', data);
+
+console.log('directoryStore.bloodTypes 22', directoryStore.bloodTypes);
+
+watch(directoryStore.bloodTypes, () => {
+  console.log('directoryStore', directoryStore.bloodTypes);
+});
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   console.log(event.data);
@@ -79,7 +84,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       :state="state"
       :schema="registerSchema"
       class="mb-8 flex flex-col gap-6"
-      :validate-on="['blur', 'change']"
+      :validate-on="['blur', 'change', 'input']"
       @submit="onSubmit"
     >
       <p class="text-base font-semibold">Персональная информация</p>

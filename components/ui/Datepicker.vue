@@ -6,6 +6,9 @@ const df = new DateFormatter('ru', {
 });
 
 const model = defineModel<CalendarDate | null>();
+watch(model, () => {
+  console.log('mode', model.value);
+});
 defineProps<{ placeholder: string }>();
 </script>
 
@@ -18,7 +21,7 @@ defineProps<{ placeholder: string }>();
         trailing-icon="cuida:calendar-outline"
         class="w-full"
         :ui="{
-          base: 'text-left text-input-placeholder cursor-pointer',
+          base: `text-left cursor-pointer ${model ? 'text-black' : 'text-input-placeholder'}`,
         }"
       />
 
