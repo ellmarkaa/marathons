@@ -1,13 +1,5 @@
-import type {
-  ICitizenship,
-  IIncludeItem,
-  IMarathonCity,
-  IMarathonCountry,
-  IPicture,
-  ISlot,
-  ITag,
-  IVisa,
-} from '~/utils/types';
+import type { IIncludeItem, IMarathonCity, IMarathonCountry, IPicture, ISlot, ITag, IVisa } from '~/utils/types';
+import type { ICitizenship } from '~/stores/dictionary/types';
 
 export interface IMarathonState {
   sliderMarathons: ISliderMarathon[];

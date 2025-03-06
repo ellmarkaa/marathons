@@ -20,8 +20,8 @@ export const useDictionaryStore = defineStore('dictionary', {
         });
 
         this.dictionaryLoading = false;
-        this.bloodTypes = res.items;
-        return res.items;
+        this.bloodTypes = res.items.data;
+        return res.items.data;
       } catch (e: any) {
         this.dictionaryLoading = false;
         this.error = e.message;
@@ -39,8 +39,8 @@ export const useDictionaryStore = defineStore('dictionary', {
         });
 
         this.dictionaryLoading = false;
-        this.citizenshipList = res.items;
-        return res.items;
+        this.citizenshipList = res.items.data;
+        return res.items.data;
       } catch (e: any) {
         this.dictionaryLoading = false;
         this.error = e.message;
@@ -58,8 +58,8 @@ export const useDictionaryStore = defineStore('dictionary', {
         });
 
         this.dictionaryLoading = false;
-        this.countryList = res.items;
-        return res.items;
+        this.countryList = res.items.data;
+        return res.items.data;
       } catch (e: any) {
         this.dictionaryLoading = false;
         this.error = e.message;

@@ -50,7 +50,7 @@ const backToLogin = () => {
     :ui="{ content: 'bg-secondary-bg sm:max-w-[532px]' }"
   >
     <template #header>
-      <div class="relative">
+      <div class="relative w-full">
         <img
           src="/imgs/login-header.jpeg"
           alt="marathon"
