@@ -86,6 +86,7 @@ const sendAgain = () => {
           :length="4"
           size="xl"
           type="number"
+          autofocus
         />
         <p
           v-if="tryAgain !== 0"

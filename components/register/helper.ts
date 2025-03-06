@@ -3,18 +3,25 @@ import { REQUIRED_ERROR } from '~/utils/const';
 import type { CalendarDate } from '@internationalized/date';
 // ObjectSchema<IUserOptions>
 
+export enum CitizenValue {
+  Kazakhstan = 'Kazakhstan',
+  Uzbekistan = 'Uzbekistan',
+  Russia = 'Russia',
+}
+
 export type RegisterFormType = {
   'name': string;
   'surname': string;
   'birthdate': null | CalendarDate;
   'passport_validity_period': null | CalendarDate;
+  'passport_date_issue': null | CalendarDate;
   'gender': 'male' | 'female' | '';
   'phone': string;
   'country_phone_code': string;
   'bloodGroupId': number | null;
   't-shirt_size': string;
   'running_club': string | null;
-  'citizenshipId': number | null;
+  'citizenship': CitizenValue | '';
   'IIN': string;
   'passport_number': string;
   'passport_issuer': string;
@@ -37,15 +44,17 @@ export const registerSchema = yup.object<RegisterFormType>({
   'phone': yup.string().matches(onlyNumberReg, 'Не правильный формат').required(REQUIRED_ERROR),
   'country_phone_code': yup.string().required(REQUIRED_ERROR),
   'bloodGroupId': yup.number().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
-  'residence_place': yup.string().notRequired().nullable(),
+  'residence_place': yup.string().required(REQUIRED_ERROR),
   't-shirt_size': yup.string().required(REQUIRED_ERROR),
   'running_club': yup.string().nullable().notRequired(),
-  'citizenshipId': yup.number().required(REQUIRED_ERROR).typeError(REQUIRED_ERROR),
+  'citizenship': yup.string().required(REQUIRED_ERROR).typeError(REQUIRED_ERROR),
   'IIN': yup.string().required(REQUIRED_ERROR).typeError(REQUIRED_ERROR),
   'passport_number': yup.string().required(REQUIRED_ERROR),
   'passport_issuer': yup.string().required(REQUIRED_ERROR),
+  // TODO: условие
   'passport_series': yup.string().required(REQUIRED_ERROR),
-  'passport_validity_period': yup
+  'passport_validity_period': yup.date().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
+  'passport_date_issue': yup
     .date()
     .max(new Date(), 'Ограничение по дате')
     .typeError(REQUIRED_ERROR)
@@ -61,7 +70,7 @@ export const initialRegisterState: RegisterFormType = {
   'residence_place': null,
   'birthdate': null,
   'bloodGroupId': null,
-  'citizenshipId': null,
+  'citizenship': '',
   'emergency_contact_name': '',
   'emergency_contact_phone': '',
   'emergency_contact_role': '',
@@ -74,6 +83,7 @@ export const initialRegisterState: RegisterFormType = {
   'IIN': '',
   'passport_number': '',
   'passport_validity_period': null,
+  'passport_date_issue': null,
   'passport_issuer': '',
   'passport_series': '',
   'country_phone_code': '+997',

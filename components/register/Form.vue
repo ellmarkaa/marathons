@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { useDictionaryStore } from '~/stores/dictionary/store';
-import { initialRegisterState, type RegisterFormType, registerSchema } from '~/components/register/helper';
+import {
+  CitizenValue,
+  initialRegisterState,
+  type RegisterFormType,
+  registerSchema,
+} from '~/components/register/helper';
 import type { FormSubmitEvent } from '#ui/types';
 import type { InferType } from 'yup';
 
@@ -45,6 +50,31 @@ const countryCodes = ref([
     },
   },
 ]);
+
+type CitizenshipType = {
+  name_en: CitizenValue;
+  name_kz: string;
+  name_ru: string;
+};
+
+const citizenshipList = ref<CitizenshipType[]>([
+  {
+    name_en: CitizenValue.Kazakhstan,
+    name_ru: 'Казахстан',
+    name_kz: 'Қазақстан',
+  },
+  {
+    name_en: CitizenValue.Uzbekistan,
+    name_ru: 'Узбекистан',
+    name_kz: 'Өзбекстан',
+  },
+  {
+    name_en: CitizenValue.Russia,
+    name_ru: 'Россия',
+    name_kz: 'Россия',
+  },
+]);
+
 const countryAvatar = computed(() => countryCodes.value.find(item => item.value === state.country_phone_code)?.avatar);
 const emergencyCountryAvatar = computed(
   () => countryCodes.value.find(item => item.value === state.emergency_contact_phone_code)?.avatar,
@@ -58,9 +88,10 @@ await useAsyncData('get-direcotry', () =>
 );
 
 console.log('directoryStore.bloodTypes 22', directoryStore.bloodTypes);
+console.log('directoryStore.citizenshipList', directoryStore.citizenshipList);
 
-watch(directoryStore.bloodTypes, () => {
-  console.log('directoryStore', directoryStore.bloodTypes);
+watch(directoryStore.citizenshipList, () => {
+  console.log('directoryStore', directoryStore.citizenshipList);
 });
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
@@ -83,13 +114,13 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     <UForm
       :state="state"
       :schema="registerSchema"
-      class="mb-8 flex flex-col gap-6"
+      class="mb-8 flex flex-col gap-y-6"
       :validate-on="['blur', 'change', 'input']"
       @submit="onSubmit"
     >
-      <p class="text-base font-semibold">Персональная информация</p>
+      <p class="text-xl font-semibold">Персональная информация</p>
 
-      <div class="flex gap-6">
+      <div class="flex gap-4">
         <UFormField
           class="w-1/2"
           label="Фамилия"
@@ -148,7 +179,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         </UButtonGroup>
       </UFormField>
 
-      <div class="flex gap-6">
+      <div class="flex gap-4">
         <UFormField
           class="w-1/2"
           label="Дата рождения"
@@ -177,32 +208,37 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         </UFormField>
       </div>
 
+      <div class="mt-5">
+        <p class="mb-3 text-xl font-semibold">Персональная информация</p>
+        <p class="text-neutral-50">Введите данные как в документах</p>
+      </div>
+
       <UFormField
         label="Гражданство"
         required
-        name="citizenshipId"
+        name="citizenship"
       >
         <USelect
-          v-model="state.citizenshipId"
+          v-model="state.citizenship"
           class="w-full"
-          :items="directoryStore.citizenshipList"
-          value-key="id"
-          label-key="country.name_ru"
+          :items="citizenshipList"
+          value-key="name_en"
+          label-key="name_ru"
         />
       </UFormField>
 
-      <UFormField
-        label="ИИН"
-        required
-        name="IIN"
-      >
-        <UInput
-          v-model="state.IIN"
-          class="w-full"
-        />
-      </UFormField>
+      <div class="flex gap-4">
+        <UFormField
+          label="ИИН"
+          required
+          name="IIN"
+        >
+          <UInput
+            v-model="state.IIN"
+            class="w-full"
+          />
+        </UFormField>
 
-      <div class="mb-3 flex gap-6">
         <UFormField
           label="Номер паспорта"
           required
@@ -212,6 +248,32 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           <UInput
             v-model="state.passport_number"
             class="w-full"
+          />
+        </UFormField>
+      </div>
+
+      <UFormField
+        label="Кем выдано"
+        required
+        class="w-full"
+        name="passport_issuer"
+      >
+        <UInput
+          v-model="state.passport_issuer"
+          class="w-full"
+        />
+      </UFormField>
+
+      <div class="mb-3 flex gap-4">
+        <UFormField
+          class="w-1/2"
+          label="Дата выдачи"
+          required
+          name="passport_date_issue"
+        >
+          <Datepicker
+            v-model="state.passport_date_issue"
+            placeholder="ДД/ММ/ГГГГ"
           />
         </UFormField>
 
@@ -234,6 +296,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         <UFormField
           label="Место проживания"
           name="residence_place"
+          required
         >
           <UInput
             v-model="state.residence_place"
@@ -242,7 +305,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           />
         </UFormField>
 
-        <div class="flex gap-6">
+        <div class="flex gap-4">
           <UFormField
             label="Размер футболки"
             required
@@ -284,7 +347,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <div class="mb-3 flex flex-col gap-6">
         <p class="text-base font-semibold">Контактные данные для экстренных случаев</p>
 
-        <div class="flex gap-6">
+        <div class="flex gap-4">
           <UFormField
             label="Имя"
             required
@@ -303,7 +366,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             class="w-1/2"
             name="emergency_contact_role"
           >
-            <USelect
+            <UInput
               v-model="state.emergency_contact_role"
               class="w-full"
             />
@@ -313,7 +376,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         <UFormField
           label="Номер телефона"
           required
-          name="emergencyPhone"
+          name="emergency_contact_phone"
         >
           <UButtonGroup class="w-full">
             <USelect
