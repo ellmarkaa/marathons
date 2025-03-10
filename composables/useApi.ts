@@ -13,7 +13,6 @@ export function useApi() {
       ...options.headers,
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
-
     try {
       // Make the API request using $fetch
       const response = await $fetch<T>(`${baseURL}${endpoint}`, options);

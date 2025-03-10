@@ -1,6 +1,7 @@
 import type { IAuthStore, IUser, VerifyParams, IOtpResponse } from '~/stores/auth/types';
 
 import { JWT_COOKIE } from '~/utils/const';
+import type { RegisterFormType } from '~/components/register/helper';
 
 export const useAuthStore = defineStore('user', {
   state: (): IAuthStore => ({
@@ -8,6 +9,7 @@ export const useAuthStore = defineStore('user', {
     verifyError: null,
     token: null,
     user: null,
+    userUpdateLoading: false,
   }),
   actions: {
     async fetchToken() {
@@ -71,6 +73,9 @@ export const useAuthStore = defineStore('user', {
 
         const userRes = await api<IUser>('contact/info', {
           method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         this.user = userRes;
@@ -88,6 +93,42 @@ export const useAuthStore = defineStore('user', {
             color: 'error',
           });
         }
+      }
+    },
+
+    async registerUser(userInfo: RegisterFormType) {
+      const api = useApi();
+      const toast = useToast();
+
+      try {
+        this.userUpdateLoading = true;
+        if (!this.user) throw new Error('no user');
+
+        const response = await api<IUser>('contact', {
+          method: 'POST',
+          body: {
+            ...this.user,
+            options: {
+              ...userInfo,
+              is_registered: true,
+            },
+          },
+        });
+
+        this.userUpdateLoading = false;
+        toast.add({
+          title: 'Аккаунт успешно зарегистрирован',
+          color: 'info',
+        });
+        return response;
+      } catch (e: any) {
+        this.userUpdateLoading = false;
+        console.error('error', e);
+        toast.add({
+          title: 'Ошибка',
+          description: e.message,
+          color: 'error',
+        });
       }
     },
   },

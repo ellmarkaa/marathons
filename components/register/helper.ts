@@ -9,6 +9,12 @@ export enum CitizenValue {
   Russia = 'Russia',
 }
 
+export type CitizenshipType = {
+  name_en: CitizenValue;
+  name_kz: string;
+  name_ru: string;
+};
+
 export type RegisterFormType = {
   'name': string;
   'surname': string;
@@ -21,12 +27,12 @@ export type RegisterFormType = {
   'bloodGroupId': number | null;
   't-shirt_size': string;
   'running_club': string | null;
-  'citizenship': CitizenValue | '';
+  'citizenship': CitizenValue;
   'IIN': string;
   'passport_number': string;
   'passport_issuer': string;
   'passport_series': string;
-  'residence_place': string | null;
+  'residence_place': string;
 
   'emergency_contact_name': string;
   'emergency_contact_role': string;
@@ -48,11 +54,19 @@ export const registerSchema = yup.object<RegisterFormType>({
   't-shirt_size': yup.string().required(REQUIRED_ERROR),
   'running_club': yup.string().nullable().notRequired(),
   'citizenship': yup.string().required(REQUIRED_ERROR).typeError(REQUIRED_ERROR),
-  'IIN': yup.string().required(REQUIRED_ERROR).typeError(REQUIRED_ERROR),
+  'IIN': yup.string().when('citizenship', {
+    is: CitizenValue.Kazakhstan,
+    then: schema => schema.typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
+    otherwise: schema => schema.nullable().notRequired(),
+  }),
   'passport_number': yup.string().required(REQUIRED_ERROR),
   'passport_issuer': yup.string().required(REQUIRED_ERROR),
   // TODO: условие
-  'passport_series': yup.string().required(REQUIRED_ERROR),
+  'passport_series': yup.string().when('citizenship', {
+    is: CitizenValue.Kazakhstan,
+    then: schema => schema.nullable().notRequired(),
+    otherwise: schema => schema.typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
+  }),
   'passport_validity_period': yup.date().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
   'passport_date_issue': yup
     .date()
@@ -67,10 +81,10 @@ export const registerSchema = yup.object<RegisterFormType>({
 });
 
 export const initialRegisterState: RegisterFormType = {
-  'residence_place': null,
+  'residence_place': '',
   'birthdate': null,
   'bloodGroupId': null,
-  'citizenship': '',
+  'citizenship': CitizenValue.Kazakhstan,
   'emergency_contact_name': '',
   'emergency_contact_phone': '',
   'emergency_contact_role': '',

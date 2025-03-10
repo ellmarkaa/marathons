@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { useDictionaryStore } from '~/stores/dictionary/store';
 import {
+  type CitizenshipType,
   CitizenValue,
   initialRegisterState,
   type RegisterFormType,
   registerSchema,
 } from '~/components/register/helper';
 import type { FormSubmitEvent } from '#ui/types';
-import type { InferType } from 'yup';
-
-type Schema = InferType<typeof registerSchema>;
+import { useAuthStore } from '~/stores/auth/store';
 
 const sexRadio = ref([
   {
@@ -30,7 +29,7 @@ const countryCodes = ref([
     value: '+997', // Это для отличия кода России и Казахстана. Но в будущем Кз хочет перейти на этот код
     avatar: {
       src: '/imgs/circle-kazakhstan.jpg',
-      alt: 'kazakhstan',
+      alt: 'Kazakhstan',
     },
   },
   {
@@ -38,7 +37,7 @@ const countryCodes = ref([
     value: '+998',
     avatar: {
       src: '/imgs/circle-uzbekistan.jpg',
-      alt: 'uzbekistan',
+      alt: 'Uzbekistan',
     },
   },
   {
@@ -46,16 +45,10 @@ const countryCodes = ref([
     value: '+7',
     avatar: {
       src: '/imgs/circle-russia.png',
-      alt: 'russia',
+      alt: 'Russia',
     },
   },
 ]);
-
-type CitizenshipType = {
-  name_en: CitizenValue;
-  name_kz: string;
-  name_ru: string;
-};
 
 const citizenshipList = ref<CitizenshipType[]>([
   {
@@ -82,6 +75,8 @@ const emergencyCountryAvatar = computed(
 
 const tShirtSizes = ref(['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL']);
 
+const authStore = useAuthStore();
+
 const directoryStore = useDictionaryStore();
 await useAsyncData('get-direcotry', () =>
   Promise.all([directoryStore.fetchBloodTypes(), directoryStore.fetchCitizenship(), directoryStore.fetchCountries()]),
@@ -94,8 +89,12 @@ watch(directoryStore.citizenshipList, () => {
   console.log('directoryStore', directoryStore.citizenshipList);
 });
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-  console.log(event.data);
+async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
+  const { data } = await useAsyncData('register', () => authStore.registerUser(event.data));
+  if (data.value?.options.is_registered) {
+    navigateTo('/');
+  }
+  console.log(data);
 }
 </script>
 
@@ -229,12 +228,25 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
       <div class="flex gap-4">
         <UFormField
+          v-if="state.citizenship === CitizenValue.Kazakhstan"
           label="ИИН"
           required
           name="IIN"
         >
           <UInput
             v-model="state.IIN"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField
+          v-else
+          label="Серия паспорта"
+          required
+          name="passport_series"
+        >
+          <UInput
+            v-model="state.passport_series"
             class="w-full"
           />
         </UFormField>
