@@ -29,32 +29,35 @@ import Distance from '~/components/icon/Distance.vue';
       <UButton label="Добавить событие" />
     </div>
 
-    <div class="rounded-xl bg-white p-6 flex flex-col gap-6">
+    <div class="flex flex-col gap-6 rounded-xl bg-white p-6">
       <div class="flex justify-between">
-        <h4 class="font-semibold text-xl">Персональная информация</h4>
-        <UButton icon="material-symbols:keyboard-arrow-down-rounded" variant="soft" />
+        <h4 class="text-xl font-semibold">Персональная информация</h4>
+        <UButton
+          icon="material-symbols:keyboard-arrow-down-rounded"
+          variant="soft"
+        />
       </div>
 
       <div class="flex gap-8">
         <ul class="w-1/2">
-          <li class="flex items-center gap-4 mb-4 last-of-type:mb-0">
-            <div class="w-2/3 flex items-end gap-1">
+          <li class="mb-4 flex items-center gap-4 last-of-type:mb-0">
+            <div class="flex w-2/3 items-end gap-1">
               <span class="text-neutral-60">Фамилия </span>
-              <span class="border border-neutral-70 border-dashed w-full inline-block" />
+              <span class="border-neutral-70 inline-block w-full border border-dashed" />
             </div>
             <span>Маликова</span>
           </li>
 
           <li class="flex items-center gap-4">
-            <div class="w-2/3 flex items-end gap-1">
+            <div class="flex w-2/3 items-end gap-1">
               <span class="text-neutral-60">Пол </span>
-              <span class="border border-neutral-70 border-dashed w-full inline-block" />
+              <span class="border-neutral-70 inline-block w-full border border-dashed" />
             </div>
             <span>Женский</span>
           </li>
         </ul>
 
-        <ul class="w-1/2"></ul>
+        <ul class="w-1/2" />
       </div>
 
       <UButton
