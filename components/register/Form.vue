@@ -82,9 +82,6 @@ await useAsyncData('get-direcotry', () =>
   Promise.all([directoryStore.fetchBloodTypes(), directoryStore.fetchCitizenship(), directoryStore.fetchCountries()]),
 );
 
-console.log('directoryStore.bloodTypes 22', directoryStore.bloodTypes);
-console.log('directoryStore.citizenshipList', directoryStore.citizenshipList);
-
 watch(directoryStore.citizenshipList, () => {
   console.log('directoryStore', directoryStore.citizenshipList);
 });

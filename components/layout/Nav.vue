@@ -16,10 +16,11 @@ const items: IDropdownItems[] = [
   },
 ];
 
+const authStore = useAuthStore();
 const lang = ref('RU');
 const openMenu = ref(false);
 const searchMode = defineModel<boolean>({ required: true });
-
+console.log('authStore.user', authStore.user);
 const handleChangeMode = () => {
   searchMode.value = !searchMode.value;
 };
@@ -70,12 +71,18 @@ const handleCloseMenu = () => {
         />
       </LayoutHeaderMenu>
 
-      <LayoutLoginModal>
+      <LayoutLoginModal v-if="!authStore.user">
         <UButton
           icon="cuida:user-outline"
           variant="soft"
         />
       </LayoutLoginModal>
+      <UButton
+        v-else
+        icon="cuida:user-outline"
+        variant="soft"
+        @click="navigateTo('/profile')"
+      />
 
       <Dropdown
         :items="items"

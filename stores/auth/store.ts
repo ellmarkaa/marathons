@@ -131,5 +131,22 @@ export const useAuthStore = defineStore('user', {
         });
       }
     },
+
+    async initUserFetch() {
+      const api = useApi();
+      const cookie = useCookie(JWT_COOKIE);
+      if (!cookie.value) return null;
+
+      try {
+        const userRes = await api<IUser>('contact/info', {
+          method: 'GET',
+        });
+        console.log('userRes', userRes);
+        this.user = userRes;
+        return userRes;
+      } catch (e: any) {
+        cookie.value = null;
+      }
+    },
   },
 });

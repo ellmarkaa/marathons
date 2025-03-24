@@ -127,3 +127,10 @@ export interface IPicture {
   path: string;
   size: number;
 }
+
+export interface IProfileMenu {
+  label: string;
+  icon: string;
+  isActive: boolean;
+  name: 'profile' | 'orders' | 'history' | 'favorite';
+}

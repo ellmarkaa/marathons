@@ -20,6 +20,15 @@ export default defineNuxtConfig({
     storesDirs: ['./stores/**'],
   },
 
+  icon: {
+    customCollections: [
+      {
+        prefix: 'custom',
+        dir: './components/icon',
+      },
+    ],
+  },
+
   devServer: {
     port: 3001,
   },
