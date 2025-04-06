@@ -32,7 +32,14 @@ export type RegisterFormType = {
   'passport_number': string;
   'passport_issuer': string;
   'passport_series': string;
-  'residence_place': string;
+  'passport_name': string;
+  'passport_surname': string;
+
+  'residence_country': string;
+  'residence_city': string;
+  'residence_address': string;
+  'residence_apartment': string;
+  'postal_code': string;
 
   'emergency_contact_name': string;
   'emergency_contact_role': string;
@@ -50,7 +57,7 @@ export const registerSchema = yup.object<RegisterFormType>({
   'phone': yup.string().matches(onlyNumberReg, 'Не правильный формат').required(REQUIRED_ERROR),
   'country_phone_code': yup.string().required(REQUIRED_ERROR),
   'bloodGroupId': yup.number().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
-  'residence_place': yup.string().required(REQUIRED_ERROR),
+  'residence_address': yup.string().required(REQUIRED_ERROR),
   't-shirt_size': yup.string().required(REQUIRED_ERROR),
   'running_club': yup.string().nullable().notRequired(),
   'citizenship': yup.string().required(REQUIRED_ERROR).typeError(REQUIRED_ERROR),
@@ -78,10 +85,22 @@ export const registerSchema = yup.object<RegisterFormType>({
   'emergency_contact_role': yup.string().required(REQUIRED_ERROR),
   'emergency_contact_phone': yup.string().matches(onlyNumberReg, 'Не правильный формат').required(REQUIRED_ERROR),
   'emergency_contact_phone_code': yup.string().required(REQUIRED_ERROR),
+  'passport_name': yup
+    .string()
+    .matches(/^[A-Za-z]+$/, 'Только латинские буквы')
+    .required(REQUIRED_ERROR),
+  'passport_surname': yup
+    .string()
+    .matches(/^[A-Za-z]+$/, 'Только латинские буквы')
+    .required(REQUIRED_ERROR),
+  'residence_city': yup.string().required(REQUIRED_ERROR),
+  'residence_country': yup.string().required(REQUIRED_ERROR),
+  'postal_code': yup.string().required(REQUIRED_ERROR),
+  'residence_apartment': yup.string().required(REQUIRED_ERROR),
 });
 
 export const initialRegisterState: RegisterFormType = {
-  'residence_place': '',
+  'residence_address': '',
   'birthdate': null,
   'bloodGroupId': null,
   'citizenship': CitizenValue.Kazakhstan,
@@ -102,4 +121,10 @@ export const initialRegisterState: RegisterFormType = {
   'passport_series': '',
   'country_phone_code': '+997',
   'emergency_contact_phone_code': '+997',
+  'passport_name': '',
+  'passport_surname': '',
+  'residence_city': '',
+  'residence_country': '',
+  'postal_code': '',
+  'residence_apartment': '',
 };

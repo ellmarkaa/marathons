@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type { IProfileMenu } from '~/utils/types';
+definePageMeta({
+  middleware: 'auth',
+});
 
 const menuList = ref<IProfileMenu[]>([
   {

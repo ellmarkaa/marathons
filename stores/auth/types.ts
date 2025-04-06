@@ -38,7 +38,14 @@ export interface IUserOptions {
   'passport_number': string;
   'passport_issuer': string;
   'passport_series': string;
-  'residence_place': string;
+  'passport_name': string;
+  'passport_surname': string;
+
+  'residence_country': string;
+  'residence_city': string;
+  'residence_address': string;
+  'residence_apartment': string;
+  'postal_code': string;
 
   'emergency_contact_name': string;
   'emergency_contact_role': string;

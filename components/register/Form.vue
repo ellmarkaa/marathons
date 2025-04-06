@@ -205,8 +205,34 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <div class="mt-5">
-        <p class="mb-3 text-xl font-semibold">Персональная информация</p>
+        <p class="mb-3 text-xl font-semibold">Паспортные данные</p>
         <p class="text-neutral-50">Введите данные как в документах</p>
+      </div>
+
+      <div class="flex gap-4">
+        <UFormField
+          class="w-1/2"
+          label="Фамилия"
+          required
+          name="passport_surname"
+        >
+          <UInput
+            v-model="state.passport_surname"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField
+          class="w-1/2"
+          label="Имя"
+          required
+          name="passport_name"
+        >
+          <UInput
+            v-model="state.passport_name"
+            class="w-full"
+          />
+        </UFormField>
       </div>
 
       <UFormField
@@ -300,19 +326,75 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <div class="mb-3 flex flex-col gap-6">
-        <p class="text-base font-semibold">Дополнительная информация</p>
+        <p class="text-base font-semibold">Место проживания</p>
+
+        <div class="flex gap-4">
+          <UFormField
+            label="Страна"
+            name="residence_country"
+            required
+            class="w-1/2"
+          >
+            <USelect
+              v-model="state.residence_country"
+              class="w-full"
+              :items="citizenshipList"
+              value-key="name_en"
+              label-key="name_ru"
+            />
+          </UFormField>
+
+          <UFormField
+            label="Город"
+            class="w-1/2"
+            name="residence_city"
+          >
+            <UInput
+              v-model="state.residence_city"
+              class="w-full"
+            />
+          </UFormField>
+        </div>
 
         <UFormField
-          label="Место проживания"
-          name="residence_place"
+          label="Адрес"
+          name="residence_address"
           required
         >
           <UInput
-            v-model="state.residence_place"
-            placeholder="Страна, город, адрес, почтовый индекс"
+            v-model="state.residence_address"
+            placeholder="Улица, дом"
             class="w-full"
           />
         </UFormField>
+
+        <div class="flex gap-4">
+          <UFormField
+            label="Номер квартиры"
+            class="w-1/2"
+            name="residence_apartment"
+          >
+            <UInput
+              v-model="state.residence_apartment"
+              class="w-full"
+            />
+          </UFormField>
+
+          <UFormField
+            label="Почтовый индекс"
+            class="w-1/2"
+            name="postal_code"
+          >
+            <UInput
+              v-model="state.postal_code"
+              class="w-full"
+            />
+          </UFormField>
+        </div>
+      </div>
+
+      <div class="mb-3 flex flex-col gap-6">
+        <p class="text-base font-semibold">Дополнительная информация</p>
 
         <div class="flex gap-4">
           <UFormField

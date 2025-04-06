@@ -2,6 +2,11 @@ import type { CSSProperties } from 'vue';
 
 export type ButtonTypes = 'filled' | 'outlined' | 'tonal';
 
+export interface ICommonItem {
+  label: string;
+  value: any;
+}
+
 export interface IDropdownItems {
   label: string;
   value: any;

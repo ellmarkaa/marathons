@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import Distance from '~/components/icon/Distance.vue';
+
+const authStore = useAuthStore();
+const profile = authStore.user?.options;
+
+const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more_info'>(null);
+console.log('profile', profile);
 </script>
 
 <template>
-  <div class="flex w-full flex-col gap-6">
+  <div
+    v-if="!editBlock"
+    class="flex w-full flex-col gap-6"
+  >
     <div class="title-block px-8 py-6">
       <h4 class="text-3xl font-bold text-white">Профиль</h4>
     </div>
@@ -29,44 +38,155 @@ import Distance from '~/components/icon/Distance.vue';
       <UButton label="Добавить событие" />
     </div>
 
-    <div class="flex flex-col gap-6 rounded-xl bg-white p-6">
-      <div class="flex justify-between">
-        <h4 class="text-xl font-semibold">Персональная информация</h4>
-        <UButton
-          icon="material-symbols:keyboard-arrow-down-rounded"
-          variant="soft"
-        />
-      </div>
+    <ProfileCollapse
+      v-if="profile"
+      :default-open="true"
+      title="Персональная информация"
+      :first-list="[
+        {
+          label: 'Фамилия',
+          value: profile.surname,
+        },
+        {
+          label: 'Пол',
+          value: profile.gender,
+        },
+        {
+          label: 'Фамилия',
+          value: profile.birthdate,
+        },
+      ]"
+      :second-list="[
+        {
+          label: 'Имя',
+          value: profile.name,
+        },
+        {
+          label: 'Номер телефона',
+          value: profile.phone,
+        },
+        {
+          label: 'Фамилия',
+          value: profile.bloodGroupId,
+        },
+      ]"
+      @on-edit="() => (editBlock = 'personal')"
+    />
 
-      <div class="flex gap-8">
-        <ul class="w-1/2">
-          <li class="mb-4 flex items-center gap-4 last-of-type:mb-0">
-            <div class="flex w-2/3 items-end gap-1">
-              <span class="text-neutral-60">Фамилия </span>
-              <span class="border-neutral-70 inline-block w-full border border-dashed" />
-            </div>
-            <span>Маликова</span>
-          </li>
+    <ProfileCollapse
+      v-if="profile"
+      title="Паспортные данные"
+      :first-list="[
+        {
+          label: 'Фамилия',
+          value: profile.passport_surname,
+        },
+        {
+          label: 'Гражданство',
+          value: profile.citizenship,
+        },
+        {
+          label: 'Номер паспорта',
+          value: profile.passport_number,
+        },
+        {
+          label: 'Дата выдачи',
+          value: profile.passport_date_issue,
+        },
+      ]"
+      :second-list="[
+        {
+          label: 'Имя',
+          value: profile.passport_name,
+        },
+        {
+          label: 'ИИН',
+          value: profile.IIN,
+        },
+        {
+          label: 'Кем выдано',
+          value: profile.passport_issuer,
+        },
+        {
+          label: 'Срок действия',
+          value: profile.passport_validity_period,
+        },
+      ]"
+      @on-edit="() => (editBlock = 'passport')"
+    />
 
-          <li class="flex items-center gap-4">
-            <div class="flex w-2/3 items-end gap-1">
-              <span class="text-neutral-60">Пол </span>
-              <span class="border-neutral-70 inline-block w-full border border-dashed" />
-            </div>
-            <span>Женский</span>
-          </li>
-        </ul>
+    <ProfileCollapse
+      v-if="profile"
+      title="Место проживания"
+      :first-list="[
+        {
+          label: 'Страна',
+          value: profile.residence_country,
+        },
+        {
+          label: 'Адрес',
+          value: profile.residence_address,
+        },
+        {
+          label: 'Почтовый индекс',
+          value: profile.postal_code,
+        },
+      ]"
+      :second-list="[
+        {
+          label: 'Город',
+          value: profile.residence_city,
+        },
+        {
+          label: 'Номер квартиры',
+          value: profile.residence_apartment,
+        },
+      ]"
+      @on-edit="() => (editBlock = 'residence_place')"
+    />
 
-        <ul class="w-1/2" />
-      </div>
-
-      <UButton
-        class="self-end"
-        label="Редактировать"
-        variant="soft"
-      />
-    </div>
+    <ProfileCollapse
+      v-if="profile"
+      title="Дополнительная информация"
+      :first-list="[
+        {
+          label: 'Размер футболки',
+          value: profile['t-shirt_size'],
+        },
+      ]"
+      :second-list="[
+        {
+          label: 'Беговой клуб',
+          value: profile.running_club,
+        },
+      ]"
+      :sub-data="{
+        subTitle: 'Контакт для экстренных случаев ',
+        subFirstList: [
+          {
+            label: 'Имя',
+            value: profile.emergency_contact_name,
+          },
+          {
+            label: 'Номер телефона',
+            value: profile.emergency_contact_phone,
+          },
+        ],
+        subSecondList: [
+          {
+            label: 'Кем является',
+            value: profile.emergency_contact_role,
+          },
+        ],
+      }"
+      @on-edit="() => (editBlock = 'more_info')"
+    />
   </div>
+
+  <ProfileEdit
+    v-else
+    v-model:edit-block="editBlock"
+  />
 </template>
 
 <style scoped>

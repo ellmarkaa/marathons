@@ -80,7 +80,7 @@ const handleCloseMenu = () => {
       <UButton
         v-else
         icon="cuida:user-outline"
-        variant="soft"
+        class="bg-accent-50 hover:bg-accent-50"
         @click="navigateTo('/profile')"
       />
 
