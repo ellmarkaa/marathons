@@ -1,11 +1,33 @@
 <script setup lang="ts">
-const emit = defineEmits<{ (event: 'onClose'): void }>();
+import type { PersonalState } from '~/components/profile/Edit/helper';
+import type { IUserOptions } from '~/stores/auth/types';
+import { useDictionaryStore } from '~/stores/dictionary/store';
+import { useAuthStore } from '~/stores/auth/store';
+import { isoToCalendarDate } from '~/utils/date';
+import { getGenderRus } from '~/utils/base';
 
-const state = reactive<any>({
-  email: '',
+const emit = defineEmits<{ (event: 'onClose'): void }>();
+const authStore = useAuthStore();
+const profile = authStore?.user?.options as IUserOptions;
+
+const state = reactive<PersonalState>({
+  phone: profile.phone,
+  birthdate: isoToCalendarDate(profile.birthdate),
+  country_phone_code: profile.country_phone_code,
+  bloodGroupId: profile.bloodGroupId,
+  gender: profile.gender,
+  name: profile.name,
+  surname: profile.surname,
+});
+
+const selectedDate = ref<string | null>(null);
+watch(selectedDate, () => {
+  console.log('selectedDate', selectedDate);
 });
 
 const directoryStore = useDictionaryStore();
+await useAsyncData('get-blood-types', () => directoryStore.fetchBloodTypes());
+console.log('directoryStore', directoryStore.fetchBloodTypes());
 
 const countryCodes = ref([
   {
@@ -59,6 +81,14 @@ const countryAvatar = computed(() => countryCodes.value.find(item => item.value 
       </div>
     </div>
 
+    <UCalendar
+      v-model="selectedDate"
+      :popover="{ placement: 'bottom-start' }"
+      :masks="{ input: 'DD.MM.YYYY' }"
+      :input-props="{ placeholder: 'ДД.ММ.ГГГГ' }"
+      :first-day-of-week="1"
+    />
+
     <div class="flex flex-col gap-6">
       <div class="flex gap-6">
         <UFormField
@@ -97,7 +127,7 @@ const countryAvatar = computed(() => countryCodes.value.find(item => item.value 
         >
           <UInput
             class="w-full"
-            :model-value="state.gender"
+            :model-value="getGenderRus[state.gender]"
             disabled
           />
         </UFormField>
@@ -135,6 +165,7 @@ const countryAvatar = computed(() => countryCodes.value.find(item => item.value 
           <Datepicker
             v-model="state.birthdate"
             placeholder="ДД/ММ/ГГГГ"
+            disabled
           />
         </UFormField>
 
@@ -146,6 +177,7 @@ const countryAvatar = computed(() => countryCodes.value.find(item => item.value 
         >
           <USelect
             v-model="state.bloodGroupId"
+            disabled
             class="w-full"
             :items="directoryStore.bloodTypes"
             value-key="id"

@@ -20,7 +20,7 @@ const emit = defineEmits<{ (event: 'onEdit'): void }>();
 <template>
   <UCollapsible
     class="flex flex-col gap-6 rounded-xl bg-white p-6"
-    :default-open="defaultOpen"
+    :default-open="defaultOpen || false"
   >
     <div class="flex justify-between">
       <h4 class="text-xl font-semibold">{{ title }}</h4>
@@ -69,6 +69,7 @@ const emit = defineEmits<{ (event: 'onEdit'): void }>();
             <ul class="flex w-1/2 flex-col gap-4">
               <li
                 v-for="item in subData.subFirstList"
+                :key="item.label"
                 class="flex items-center gap-4 last-of-type:mb-0"
               >
                 <div class="flex w-2/3 items-end gap-1">

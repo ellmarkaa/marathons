@@ -27,6 +27,7 @@ const handleChangeMenu = (label: string) => {
     >
       <li
         v-for="element in menu"
+        :key="element.label"
         class="flex cursor-pointer items-center gap-2 px-4 py-2"
         :class="element.isActive && 'active-item'"
         @click="handleChangeMenu(element.label)"

@@ -10,3 +10,8 @@ export const getCredentialsToCatalog = () => {
     password: config.public.catalogPassword,
   };
 };
+
+export const getGenderRus: Record<'male' | 'female', string> = {
+  female: 'Женский',
+  male: 'Мужской',
+};

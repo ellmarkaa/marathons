@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/auth/store';
+
 type Props = {
   email: null | string;
   onVerify: (codeArr: string[]) => Promise<void>;

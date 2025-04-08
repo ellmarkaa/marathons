@@ -145,6 +145,7 @@ export const useAuthStore = defineStore('user', {
         this.user = userRes;
         return userRes;
       } catch (e: any) {
+        console.error(e);
         cookie.value = null;
       }
     },
