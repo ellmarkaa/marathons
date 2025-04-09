@@ -1,4 +1,4 @@
-import { CalendarDate } from '@internationalized/date';
+import { CalendarDate, DateFormatter } from '@internationalized/date';
 
 export const weekNames = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 export const monthNames = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Нояб', 'Дек'];
@@ -19,3 +19,9 @@ export function isoToCalendarDate(iso: string): CalendarDate {
   const d = new Date(iso);
   return new CalendarDate(d.getFullYear(), d.getMonth() + 1, d.getDate());
 }
+
+export const df = new DateFormatter('ru', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+});

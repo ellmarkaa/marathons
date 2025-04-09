@@ -1,5 +1,3 @@
-import type { CitizenValue } from '~/components/register/helper';
-
 export interface IAuthStore {
   otpLoading: boolean;
   verifyError: null | string;
@@ -34,10 +32,10 @@ export interface IUserOptions {
   't-shirt_size': string;
   'running_club': string | null;
   'citizenship': CitizenValue;
-  'IIN': string;
+  'IIN': string | null;
   'passport_number': string;
   'passport_issuer': string;
-  'passport_series': string;
+  'passport_series': string | null;
   'passport_name': string;
   'passport_surname': string;
 

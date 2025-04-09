@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import { useDictionaryStore } from '~/stores/dictionary/store';
-import {
-  type CitizenshipType,
-  CitizenValue,
-  initialRegisterState,
-  type RegisterFormType,
-  registerSchema,
-} from '~/components/register/helper';
+import { initialRegisterState, type RegisterFormType, registerSchema } from '~/components/register/helper';
 import type { FormSubmitEvent } from '#ui/types';
 import { useAuthStore } from '~/stores/auth/store';
 
@@ -21,63 +15,17 @@ const sexRadio = ref([
   },
 ]);
 
-const state = reactive<RegisterFormType>(initialRegisterState);
-
-const countryCodes = ref([
-  {
-    label: '+7',
-    value: '+997', // Это для отличия кода России и Казахстана. Но в будущем Кз хочет перейти на этот код
-    avatar: {
-      src: '/imgs/circle-kazakhstan.jpg',
-      alt: 'Kazakhstan',
-    },
-  },
-  {
-    label: '+998',
-    value: '+998',
-    avatar: {
-      src: '/imgs/circle-uzbekistan.jpg',
-      alt: 'Uzbekistan',
-    },
-  },
-  {
-    label: '+7',
-    value: '+7',
-    avatar: {
-      src: '/imgs/circle-russia.png',
-      alt: 'Russia',
-    },
-  },
-]);
-
-const citizenshipList = ref<CitizenshipType[]>([
-  {
-    name_en: CitizenValue.Kazakhstan,
-    name_ru: 'Казахстан',
-    name_kz: 'Қазақстан',
-  },
-  {
-    name_en: CitizenValue.Uzbekistan,
-    name_ru: 'Узбекистан',
-    name_kz: 'Өзбекстан',
-  },
-  {
-    name_en: CitizenValue.Russia,
-    name_ru: 'Россия',
-    name_kz: 'Россия',
-  },
-]);
-
-const countryAvatar = computed(() => countryCodes.value.find(item => item.value === state.country_phone_code)?.avatar);
+const countryAvatar = computed(() => countryCodes.find(item => item.value === state.country_phone_code)?.avatar);
 const emergencyCountryAvatar = computed(
-  () => countryCodes.value.find(item => item.value === state.emergency_contact_phone_code)?.avatar,
+  () => countryCodes.find(item => item.value === state.emergency_contact_phone_code)?.avatar,
 );
 
-const tShirtSizes = ref(['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL']);
+const state = reactive<RegisterFormType>(initialRegisterState);
 
 const authStore = useAuthStore();
 
 const directoryStore = useDictionaryStore();
+const toast = useToast();
 await useAsyncData('get-direcotry', () =>
   Promise.all([directoryStore.fetchBloodTypes(), directoryStore.fetchCitizenship(), directoryStore.fetchCountries()]),
 );
@@ -89,6 +37,9 @@ watch(directoryStore.citizenshipList, () => {
 async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
   const { data } = await useAsyncData('register', () => authStore.registerUser(event.data));
   if (data.value?.options.is_registered) {
+    toast.add({
+      title: 'Вы успешно зарегистрировались',
+    });
     navigateTo('/');
   }
   console.log(data);
@@ -111,8 +62,9 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       :state="state"
       :schema="registerSchema"
       class="mb-8 flex flex-col gap-y-6"
-      :validate-on="['blur', 'change', 'input']"
+      :validate-on="['blur']"
       @submit="onSubmit"
+      @error="payload => console.log(payload)"
     >
       <p class="text-xl font-semibold">Персональная информация</p>
 
@@ -181,6 +133,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
           label="Дата рождения"
           name="birthdate"
           required
+          :error="false"
         >
           <Datepicker
             v-model="state.birthdate"
@@ -488,7 +441,6 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       <UButton
         type="submit"
         block
-        @click="console.log('123', state)"
       >
         Создать аккаунт
       </UButton>

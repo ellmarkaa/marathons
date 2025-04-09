@@ -1,19 +1,8 @@
 import * as yup from 'yup';
-import { REQUIRED_ERROR } from '~/utils/const';
 import type { CalendarDate } from '@internationalized/date';
+import { CitizenValue } from '~/stores/auth/utils';
+import { ONLY_NUMBER_REG } from '~/utils/const';
 // ObjectSchema<IUserOptions>
-
-export enum CitizenValue {
-  Kazakhstan = 'Kazakhstan',
-  Uzbekistan = 'Uzbekistan',
-  Russia = 'Russia',
-}
-
-export type CitizenshipType = {
-  name_en: CitizenValue;
-  name_kz: string;
-  name_ru: string;
-};
 
 export type RegisterFormType = {
   'name': string;
@@ -47,14 +36,12 @@ export type RegisterFormType = {
   'emergency_contact_phone_code': string;
 };
 
-const onlyNumberReg = /^\d+$/;
-
 export const registerSchema = yup.object<RegisterFormType>({
   'name': yup.string().required(REQUIRED_ERROR),
   'surname': yup.string().required(REQUIRED_ERROR),
   'birthdate': yup.date().max(new Date(), 'Ограничение по дате').required(REQUIRED_ERROR),
   'gender': yup.string().oneOf(['male', 'female'], REQUIRED_ERROR).required(REQUIRED_ERROR),
-  'phone': yup.string().matches(onlyNumberReg, 'Не правильный формат').required(REQUIRED_ERROR),
+  'phone': yup.string().matches(ONLY_NUMBER_REG, 'Не правильный формат').required(REQUIRED_ERROR),
   'country_phone_code': yup.string().required(REQUIRED_ERROR),
   'bloodGroupId': yup.number().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
   'residence_address': yup.string().required(REQUIRED_ERROR),
@@ -83,7 +70,7 @@ export const registerSchema = yup.object<RegisterFormType>({
 
   'emergency_contact_name': yup.string().required(REQUIRED_ERROR),
   'emergency_contact_role': yup.string().required(REQUIRED_ERROR),
-  'emergency_contact_phone': yup.string().matches(onlyNumberReg, 'Не правильный формат').required(REQUIRED_ERROR),
+  'emergency_contact_phone': yup.string().matches(ONLY_NUMBER_REG, 'Не правильный формат').required(REQUIRED_ERROR),
   'emergency_contact_phone_code': yup.string().required(REQUIRED_ERROR),
   'passport_name': yup
     .string()

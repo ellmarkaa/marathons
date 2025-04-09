@@ -1,29 +1,27 @@
 <script setup lang="ts">
-import { DateFormatter, type DateValue, getLocalTimeZone } from '@internationalized/date';
-
-const df = new DateFormatter('ru', {
-  dateStyle: 'medium',
-});
+import type { DateValue } from '@internationalized/date';
+import { df } from '~/utils/date';
 
 const model = defineModel<DateValue | null>();
 defineProps<{ placeholder: string; disabled?: boolean }>();
-
-const timeZone = getLocalTimeZone();
 </script>
 
 <template>
   <div>
     <UPopover>
-      <UInput
-        :model-value="model ? df.format(model.toDate(timeZone)) : ''"
-        :placeholder="placeholder"
-        trailing-icon="cuida:calendar-outline"
-        :disabled="disabled"
-        class="w-full"
-        :ui="{
-          base: `text-left cursor-pointer ${model ? 'text-black' : 'text-input-placeholder'}`,
-        }"
-      />
+      <div
+        class="datepicker-input flex h-12 w-full cursor-pointer items-center justify-between py-3.5 pr-3 pl-4"
+        role="button"
+        :tabindex="0"
+      >
+        <span :class="model ? 'text-black' : 'text-input-placeholder'">{{
+          model ? df.format(model.toDate()) : placeholder
+        }}</span>
+        <UIcon
+          name="cuida:calendar-outline"
+          class="size-6"
+        />
+      </div>
 
       <template #content>
         <UCalendar
@@ -37,4 +35,9 @@ const timeZone = getLocalTimeZone();
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.datepicker-input {
+  border: 1px solid #c6c6c6;
+  border-radius: 20px;
+}
+</style>

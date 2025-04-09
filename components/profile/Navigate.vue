@@ -46,7 +46,7 @@ const handleChangeMenu = (label: string) => {
         label="Выйти из аккаунта"
         variant="link"
         :ui="{
-          base: ['text-neutral-10 px-4 py-2 hover:text-neutral-10 gap-2 font-normal'],
+          base: 'text-neutral-10 px-4 py-2 hover:text-neutral-10 gap-2 font-normal',
         }"
       />
     </div>

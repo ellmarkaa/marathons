@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PersonalState } from '~/components/profile/Edit/helper';
+import { type PersonalState, PersonalValSchema } from '~/components/profile/Edit/helper';
 import type { IUserOptions } from '~/stores/auth/types';
 import { useDictionaryStore } from '~/stores/dictionary/store';
 import { useAuthStore } from '~/stores/auth/store';
@@ -8,7 +8,7 @@ import { getGenderRus } from '~/utils/base';
 
 const emit = defineEmits<{ (event: 'onClose'): void }>();
 const authStore = useAuthStore();
-const profile = authStore?.user?.options as IUserOptions;
+const profile = (authStore?.user as IUser)?.options as IUserOptions;
 
 const state = reactive<PersonalState>({
   phone: profile.phone,
@@ -20,43 +20,10 @@ const state = reactive<PersonalState>({
   surname: profile.surname,
 });
 
-const selectedDate = ref<string | null>(null);
-watch(selectedDate, () => {
-  console.log('selectedDate', selectedDate);
-});
-
 const directoryStore = useDictionaryStore();
 await useAsyncData('get-blood-types', () => directoryStore.fetchBloodTypes());
-console.log('directoryStore', directoryStore.fetchBloodTypes());
 
-const countryCodes = ref([
-  {
-    label: '+7',
-    value: '+997', // Это для отличия кода России и Казахстана. Но в будущем Кз хочет перейти на этот код
-    avatar: {
-      src: '/imgs/circle-kazakhstan.jpg',
-      alt: 'Kazakhstan',
-    },
-  },
-  {
-    label: '+998',
-    value: '+998',
-    avatar: {
-      src: '/imgs/circle-uzbekistan.jpg',
-      alt: 'Uzbekistan',
-    },
-  },
-  {
-    label: '+7',
-    value: '+7',
-    avatar: {
-      src: '/imgs/circle-russia.png',
-      alt: 'Russia',
-    },
-  },
-]);
-
-const countryAvatar = computed(() => countryCodes.value.find(item => item.value === state.country_phone_code)?.avatar);
+const countryAvatar = computed(() => countryCodes.find(item => item.value === state.country_phone_code)?.avatar);
 </script>
 
 <template>
@@ -64,6 +31,8 @@ const countryAvatar = computed(() => countryCodes.value.find(item => item.value 
     class="w-full rounded-xl bg-white p-8"
     :state="state"
     :validate-on="['change']"
+    :schema="PersonalValSchema"
+    @submit="payload => {}"
   >
     <div class="mb-8 flex items-center justify-between">
       <h5 class="text-2xl font-bold">Персональная информация</h5>
@@ -80,14 +49,6 @@ const countryAvatar = computed(() => countryCodes.value.find(item => item.value 
         />
       </div>
     </div>
-
-    <UCalendar
-      v-model="selectedDate"
-      :popover="{ placement: 'bottom-start' }"
-      :masks="{ input: 'DD.MM.YYYY' }"
-      :input-props="{ placeholder: 'ДД.ММ.ГГГГ' }"
-      :first-day-of-week="1"
-    />
 
     <div class="flex flex-col gap-6">
       <div class="flex gap-6">

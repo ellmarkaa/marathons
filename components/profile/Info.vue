@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Distance from '~/components/icon/Distance.vue';
+import { df } from '~/utils/date';
 
 const authStore = useAuthStore();
 const profile = authStore.user?.options;
@@ -49,11 +50,11 @@ console.log('profile', profile);
         },
         {
           label: 'Пол',
-          value: profile.gender,
+          value: getGenderRus[profile.gender],
         },
         {
-          label: 'Фамилия',
-          value: profile.birthdate,
+          label: 'Дата рождения',
+          value: df.format(new Date(profile.birthdate)),
         },
       ]"
       :second-list="[

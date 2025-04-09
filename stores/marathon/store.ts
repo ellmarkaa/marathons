@@ -23,9 +23,10 @@ export const useMarathonStore = defineStore('marathon', {
     async fetchMarathons() {
       const api = useApi();
       try {
-        const res = await api<IDictionaryResponse<IMarathon>>('dictionary/Марафоны', {
+        const res = await api<IDictionaryResponse<IMarathon>>('dictionary/Марафоны?per_page=12', {
           method: 'GET',
         });
+        console.log('res', res);
         this.mainPageMarathons = res.items.data;
         return res.items.data;
       } catch (e) {
