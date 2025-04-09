@@ -3,8 +3,13 @@ import type { IUserOptions } from '~/stores/auth/types';
 import { useAuthStore } from '~/stores/auth/store';
 import { isoToCalendarDate } from '~/utils/date';
 import type { PassportState } from '~/components/profile/Edit/helper';
+import { passportValSchema } from '~/components/profile/Edit/helper';
+import type { FormSubmitEvent } from '#ui/types';
 
-const emit = defineEmits<{ (event: 'onClose'): void }>();
+const emit = defineEmits<{
+  (event: 'onClose'): void;
+  (event: 'onEdit', values: FormSubmitEvent<PassportState>): void;
+}>();
 const authStore = useAuthStore();
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
 
@@ -19,16 +24,19 @@ const state = reactive<PassportState>({
   passport_date_issue: isoToCalendarDate(profile.passport_date_issue),
   passport_validity_period: isoToCalendarDate(profile.passport_validity_period),
 });
+console.log('state', state);
 </script>
 
 <template>
   <UForm
     class="w-full rounded-xl bg-white p-8"
     :state="state"
+    :schema="passportValSchema"
     :validate-on="['change']"
+    @submit="(payload: FormSubmitEvent<PassportState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
-      <h5 class="text-2xl font-bold">Персональная информация</h5>
+      <h5 class="text-2xl font-bold">Паспортные данные</h5>
 
       <div class="flex gap-3">
         <UButton
@@ -39,6 +47,7 @@ const state = reactive<PassportState>({
         <UButton
           label="Сохранить"
           variant="solid"
+          type="submit"
         />
       </div>
     </div>
@@ -152,7 +161,6 @@ const state = reactive<PassportState>({
           <Datepicker
             v-model="state.passport_date_issue"
             placeholder="ДД/ММ/ГГГГ"
-            disabled
           />
         </UFormField>
 
@@ -165,7 +173,6 @@ const state = reactive<PassportState>({
           <Datepicker
             v-model="state.passport_validity_period"
             placeholder="ДД/ММ/ГГГГ"
-            disabled
           />
         </UFormField>
       </div>

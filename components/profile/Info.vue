@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import Distance from '~/components/icon/Distance.vue';
 import { df } from '~/utils/date';
+import type { IUserOptions } from '~/stores/auth/types';
 
 const authStore = useAuthStore();
-const profile = authStore.user?.options;
+const profile = authStore.user?.options as IUserOptions;
 
 const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more_info'>(null);
 console.log('profile', profile);
@@ -67,7 +68,7 @@ console.log('profile', profile);
           value: profile.phone,
         },
         {
-          label: 'Фамилия',
+          label: 'Группа крови',
           value: profile.bloodGroupId,
         },
       ]"

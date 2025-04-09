@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { type MoreInfoState, MoreValSchema } from '~/components/profile/Edit/helper';
+import { type MoreInfoState, moreValSchema } from '~/components/profile/Edit/helper';
 import type { IUserOptions } from '~/stores/auth/types';
 import { useAuthStore } from '~/stores/auth/store';
+import type { FormSubmitEvent } from '#ui/types';
 
-const emit = defineEmits<{ (event: 'onClose'): void }>();
+const emit = defineEmits<{
+  (event: 'onClose'): void;
+  (event: 'onEdit', values: FormSubmitEvent<MoreInfoState>): void;
+}>();
 const authStore = useAuthStore();
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
 
@@ -26,7 +30,8 @@ const state = reactive<MoreInfoState>({
     class="w-full rounded-xl bg-white p-8"
     :state="state"
     :validate-on="['change']"
-    :schema="MoreValSchema"
+    :schema="moreValSchema"
+    @submit="(payload: FormSubmitEvent<MoreInfoState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
       <h5 class="text-2xl font-bold">Дополнительная информация</h5>
@@ -40,6 +45,7 @@ const state = reactive<MoreInfoState>({
         <UButton
           label="Сохранить"
           variant="solid"
+          type="submit"
         />
       </div>
     </div>

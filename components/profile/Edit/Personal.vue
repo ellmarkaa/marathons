@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { type PersonalState, PersonalValSchema } from '~/components/profile/Edit/helper';
-import type { IUserOptions } from '~/stores/auth/types';
+import { type PersonalState, personalValSchema } from '~/components/profile/Edit/helper';
+import type { IUser, IUserOptions } from '~/stores/auth/types';
 import { useDictionaryStore } from '~/stores/dictionary/store';
 import { useAuthStore } from '~/stores/auth/store';
 import { isoToCalendarDate } from '~/utils/date';
 import { getGenderRus } from '~/utils/base';
+import type { FormSubmitEvent } from '#ui/types';
 
-const emit = defineEmits<{ (event: 'onClose'): void }>();
+const emit = defineEmits<{
+  (event: 'onClose'): void;
+  (event: 'onEdit', values: FormSubmitEvent<PersonalState>): void;
+}>();
 const authStore = useAuthStore();
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
 
@@ -31,8 +35,8 @@ const countryAvatar = computed(() => countryCodes.find(item => item.value === st
     class="w-full rounded-xl bg-white p-8"
     :state="state"
     :validate-on="['change']"
-    :schema="PersonalValSchema"
-    @submit="payload => {}"
+    :schema="personalValSchema"
+    @submit="(payload: FormSubmitEvent<PersonalState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
       <h5 class="text-2xl font-bold">Персональная информация</h5>
@@ -46,6 +50,7 @@ const countryAvatar = computed(() => countryCodes.find(item => item.value === st
         <UButton
           label="Сохранить"
           variant="solid"
+          type="submit"
         />
       </div>
     </div>

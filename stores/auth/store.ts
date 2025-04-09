@@ -1,4 +1,4 @@
-import type { IAuthStore, IUser, VerifyParams, IOtpResponse } from '~/stores/auth/types';
+import type { IAuthStore, IUser, VerifyParams, IOtpResponse, IUserOptions } from '~/stores/auth/types';
 
 import { JWT_COOKIE } from '~/utils/const';
 import type { RegisterFormType } from '~/components/register/helper';
@@ -118,6 +118,42 @@ export const useAuthStore = defineStore('user', {
         this.userUpdateLoading = false;
         toast.add({
           title: 'Аккаунт успешно зарегистрирован',
+          color: 'info',
+        });
+        return response;
+      } catch (e: any) {
+        this.userUpdateLoading = false;
+        console.error('error', e);
+        toast.add({
+          title: 'Ошибка',
+          description: e.message,
+          color: 'error',
+        });
+      }
+    },
+
+    async updateUser(userInfo: Partial<IUserOptions>) {
+      console.log('userInfo', userInfo);
+      const api = useApi();
+      const toast = useToast();
+
+      try {
+        this.userUpdateLoading = true;
+        if (!this.user) throw new Error('no user');
+
+        const response = await api<IUser>('contact', {
+          method: 'POST',
+          body: {
+            ...this.user,
+            options: {
+              ...userInfo,
+            },
+          },
+        });
+
+        this.userUpdateLoading = false;
+        toast.add({
+          title: 'Данные успешно обновлены',
           color: 'info',
         });
         return response;

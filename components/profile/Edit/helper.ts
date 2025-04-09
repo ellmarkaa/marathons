@@ -43,7 +43,7 @@ export type MoreInfoState = {
   'emergency_contact_phone_code': string;
 };
 
-export const PersonalValSchema = yup.object<PersonalState>({
+export const personalValSchema = yup.object<PersonalState>({
   name: yup.string().required(REQUIRED_ERROR),
   surname: yup.string().required(REQUIRED_ERROR),
   birthdate: yup.date().max(new Date(), 'Ограничение по дате').required(REQUIRED_ERROR),
@@ -53,7 +53,7 @@ export const PersonalValSchema = yup.object<PersonalState>({
   bloodGroupId: yup.number().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
 });
 
-export const PassportValSchema = yup.object<PassportState>({
+export const passportValSchema = yup.object<PassportState>({
   passport_name: yup
     .string()
     .matches(/^[A-Za-z]+$/, 'Только латинские буквы')
@@ -83,7 +83,7 @@ export const PassportValSchema = yup.object<PassportState>({
     .required(REQUIRED_ERROR),
 });
 
-export const ResidenceValSchema = yup.object<ResidenceState>({
+export const residenceValSchema = yup.object<ResidenceState>({
   residence_city: yup.string().required(REQUIRED_ERROR),
   residence_country: yup.string().required(REQUIRED_ERROR),
   postal_code: yup.string().required(REQUIRED_ERROR),
@@ -91,7 +91,7 @@ export const ResidenceValSchema = yup.object<ResidenceState>({
   residence_address: yup.string().required(REQUIRED_ERROR),
 });
 
-export const MoreValSchema = yup.object<MoreInfoState>({
+export const moreValSchema = yup.object<MoreInfoState>({
   't-shirt_size': yup.string().required(REQUIRED_ERROR),
   'running_club': yup.string().nullable().notRequired(),
 

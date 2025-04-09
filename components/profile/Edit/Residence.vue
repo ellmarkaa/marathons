@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { type ResidenceState, ResidenceValSchema } from '~/components/profile/Edit/helper';
+import { type ResidenceState, residenceValSchema } from '~/components/profile/Edit/helper';
 import type { IUserOptions } from '~/stores/auth/types';
 import { useAuthStore } from '~/stores/auth/store';
+import type { FormSubmitEvent } from '#ui/types';
 
-const emit = defineEmits<{ (event: 'onClose'): void }>();
+const emit = defineEmits<{
+  (event: 'onClose'): void;
+  (event: 'onEdit', values: FormSubmitEvent<ResidenceState>): void;
+}>();
 const authStore = useAuthStore();
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
 
@@ -21,10 +25,11 @@ const state = reactive<ResidenceState>({
     class="w-full rounded-xl bg-white p-8"
     :state="state"
     :validate-on="['change']"
-    :schema="ResidenceValSchema"
+    :schema="residenceValSchema"
+    @submit="(payload: FormSubmitEvent<ResidenceState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
-      <h5 class="text-2xl font-bold">Персональная информация</h5>
+      <h5 class="text-2xl font-bold">Место проживания</h5>
 
       <div class="flex gap-3">
         <UButton
@@ -35,6 +40,7 @@ const state = reactive<ResidenceState>({
         <UButton
           label="Сохранить"
           variant="solid"
+          type="submit"
         />
       </div>
     </div>
@@ -42,15 +48,17 @@ const state = reactive<ResidenceState>({
     <div class="flex flex-col gap-6">
       <div class="flex gap-6">
         <UFormField
-          class="w-1/2"
           label="Страна"
           name="residence_country"
           required
+          class="w-1/2"
         >
-          <UInput
+          <USelect
             v-model="state.residence_country"
-            name="residence_country"
             class="w-full"
+            :items="citizenshipList"
+            value-key="name_en"
+            label-key="name_ru"
           />
         </UFormField>
 
