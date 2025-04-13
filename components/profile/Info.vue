@@ -2,9 +2,13 @@
 import Distance from '~/components/icon/Distance.vue';
 import { df } from '~/utils/date';
 import type { IUserOptions } from '~/stores/auth/types';
+import { useDictionaryStore } from '~/stores/dictionary/store';
+import { getRusCitizenName } from '~/stores/auth/utils';
 
 const authStore = useAuthStore();
-const profile = authStore.user?.options as IUserOptions;
+const directoryStore = useDictionaryStore();
+const profile = computed(() => authStore.user?.options as IUserOptions);
+useAsyncData<IBloodType[]>('get-blood-types', () => directoryStore.fetchBloodTypes());
 
 const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more_info'>(null);
 console.log('profile', profile);
@@ -65,11 +69,11 @@ console.log('profile', profile);
         },
         {
           label: 'Номер телефона',
-          value: profile.phone,
+          value: getFullNumber(profile.country_phone_code, profile.phone),
         },
         {
           label: 'Группа крови',
-          value: profile.bloodGroupId,
+          value: directoryStore.bloodTypes.find(type => type.id === profile.bloodGroupId)?.Name || '',
         },
       ]"
       @on-edit="() => (editBlock = 'personal')"
@@ -85,7 +89,7 @@ console.log('profile', profile);
         },
         {
           label: 'Гражданство',
-          value: profile.citizenship,
+          value: getRusCitizenName[profile.citizenship],
         },
         {
           label: 'Номер паспорта',
@@ -93,7 +97,7 @@ console.log('profile', profile);
         },
         {
           label: 'Дата выдачи',
-          value: profile.passport_date_issue,
+          value: df.format(new Date(profile.passport_date_issue)),
         },
       ]"
       :second-list="[
@@ -111,7 +115,7 @@ console.log('profile', profile);
         },
         {
           label: 'Срок действия',
-          value: profile.passport_validity_period,
+          value: df.format(new Date(profile.passport_validity_period)),
         },
       ]"
       @on-edit="() => (editBlock = 'passport')"
@@ -159,7 +163,7 @@ console.log('profile', profile);
       :second-list="[
         {
           label: 'Беговой клуб',
-          value: profile.running_club,
+          value: profile.running_club || 'Нет данных',
         },
       ]"
       :sub-data="{
@@ -171,7 +175,7 @@ console.log('profile', profile);
           },
           {
             label: 'Номер телефона',
-            value: profile.emergency_contact_phone,
+            value: getFullNumber(profile.emergency_contact_phone_code, profile.emergency_contact_phone),
           },
         ],
         subSecondList: [

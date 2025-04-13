@@ -11,6 +11,7 @@ defineProps<{ placeholder: string; disabled?: boolean }>();
     <UPopover>
       <div
         class="datepicker-input flex h-12 w-full cursor-pointer items-center justify-between py-3.5 pr-3 pl-4"
+        :class="disabled && 'datepicker-input__disabled'"
         role="button"
         :tabindex="0"
       >
@@ -39,5 +40,11 @@ defineProps<{ placeholder: string; disabled?: boolean }>();
 .datepicker-input {
   border: 1px solid #c6c6c6;
   border-radius: 20px;
+}
+.datepicker-input__disabled {
+  background-color: #f5f5f5;
+  border-color: var(--color-neutral-50);
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 </style>

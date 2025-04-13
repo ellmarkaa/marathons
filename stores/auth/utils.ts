@@ -28,6 +28,12 @@ export const citizenshipList: CitizenshipType[] = [
   },
 ];
 
+export const getRusCitizenName: Record<CitizenValue, string> = {
+  [CitizenValue.Kazakhstan]: 'Казахстан',
+  [CitizenValue.Russia]: 'Россия',
+  [CitizenValue.Uzbekistan]: 'Узбекистан',
+};
+
 export const countryCodes = [
   {
     label: '+7',

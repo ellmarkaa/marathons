@@ -133,7 +133,6 @@ export const useAuthStore = defineStore('user', {
     },
 
     async updateUser(userInfo: Partial<IUserOptions>) {
-      console.log('userInfo', userInfo);
       const api = useApi();
       const toast = useToast();
 
@@ -151,6 +150,7 @@ export const useAuthStore = defineStore('user', {
           },
         });
 
+        this.user = response;
         this.userUpdateLoading = false;
         toast.add({
           title: 'Данные успешно обновлены',

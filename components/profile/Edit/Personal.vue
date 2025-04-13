@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { type PersonalState, personalValSchema } from '~/components/profile/Edit/helper';
 import type { IUser, IUserOptions } from '~/stores/auth/types';
-import { useDictionaryStore } from '~/stores/dictionary/store';
 import { useAuthStore } from '~/stores/auth/store';
 import { isoToCalendarDate } from '~/utils/date';
 import { getGenderRus } from '~/utils/base';
@@ -12,6 +11,7 @@ const emit = defineEmits<{
   (event: 'onEdit', values: FormSubmitEvent<PersonalState>): void;
 }>();
 const authStore = useAuthStore();
+const directoryStore = useDictionaryStore();
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
 
 const state = reactive<PersonalState>({
@@ -23,9 +23,6 @@ const state = reactive<PersonalState>({
   name: profile.name,
   surname: profile.surname,
 });
-
-const directoryStore = useDictionaryStore();
-await useAsyncData('get-blood-types', () => directoryStore.fetchBloodTypes());
 
 const countryAvatar = computed(() => countryCodes.find(item => item.value === state.country_phone_code)?.avatar);
 </script>
@@ -45,12 +42,14 @@ const countryAvatar = computed(() => countryCodes.find(item => item.value === st
         <UButton
           label="Отмена"
           variant="outline"
+          :loading="authStore.userUpdateLoading"
           @click="emit('onClose')"
         />
         <UButton
           label="Сохранить"
           variant="solid"
           type="submit"
+          :loading="authStore.userUpdateLoading"
         />
       </div>
     </div>

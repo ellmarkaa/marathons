@@ -42,12 +42,14 @@ console.log('state', state);
         <UButton
           label="Отмена"
           variant="outline"
+          :loading="authStore.userUpdateLoading"
           @click="emit('onClose')"
         />
         <UButton
           label="Сохранить"
           variant="solid"
           type="submit"
+          :loading="authStore.userUpdateLoading"
         />
       </div>
     </div>

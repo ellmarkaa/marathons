@@ -3,28 +3,23 @@ import { useAuthStore } from '~/stores/auth/store';
 import type { MoreInfoState, PassportState, PersonalState, ResidenceState } from '~/components/profile/Edit/helper';
 import type { IUser, IUserOptions } from '~/stores/auth/types';
 import type { FormSubmitEvent } from '#ui/types';
-import { RegisterFormType } from '~/components/register/helper';
 
 const authStore = useAuthStore();
 const editBlock = defineModel<null | 'personal' | 'passport' | 'residence_place' | 'more_info'>('editBlock');
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
-const toast = useToast();
 
 const onClose = () => {
   editBlock.value = null;
 };
 const onEdit = async (event: FormSubmitEvent<PersonalState | PassportState | ResidenceState | MoreInfoState>) => {
   try {
-    //@ts-ignore
-    const { data } = await useAsyncData('update', () =>
+    await useAsyncData('update', () =>
       authStore.updateUser({
         ...profile,
         ...event.data,
       }),
     );
-    if (data.value?.options.is_registered) {
-      navigateTo('/');
-    }
+    editBlock.value = null;
   } catch (e: any) {
     console.error(e);
   }
