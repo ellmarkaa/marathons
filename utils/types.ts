@@ -67,7 +67,7 @@ export interface ILink {
 
 export interface IMarathonCity {
   id: number;
-  country: IMarathonCity;
+  country: IMarathonCountry;
   name_en: null;
   name_kz: null;
   name_ru: string;

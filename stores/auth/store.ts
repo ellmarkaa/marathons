@@ -111,6 +111,7 @@ export const useAuthStore = defineStore('user', {
             options: {
               ...userInfo,
               is_registered: true,
+              favorite_marathons: [],
             },
           },
         });
@@ -168,6 +169,52 @@ export const useAuthStore = defineStore('user', {
       }
     },
 
+    async handleMarathonFavorite(marathonId: number) {
+      const api = useApi();
+      const toast = useToast();
+      const favorites = [...this.favoriteMarathons];
+      const isFavorite = favorites.includes(marathonId);
+
+      if (isFavorite) {
+        const index = favorites.findIndex(fav => fav === marathonId);
+        if (index >= 0) favorites.splice(index, 1);
+      } else {
+        favorites.push(marathonId);
+      }
+
+      try {
+        this.userUpdateLoading = true;
+        if (!this.user) throw new Error('no user');
+
+        const response = await api<IUser>('contact', {
+          method: 'POST',
+          body: {
+            ...this.user,
+            options: {
+              ...this.user.options,
+              favorite_marathons: favorites,
+            },
+          },
+        });
+
+        this.user = response;
+        this.userUpdateLoading = false;
+        toast.add({
+          title: 'Данные успешно обновлены',
+          color: 'info',
+        });
+        return response;
+      } catch (e: any) {
+        this.userUpdateLoading = false;
+        console.error('error', e);
+        toast.add({
+          title: 'Ошибка',
+          description: e.message,
+          color: 'error',
+        });
+      }
+    },
+
     async initUserFetch() {
       const api = useApi();
       const cookie = useCookie(JWT_COOKIE);
@@ -184,6 +231,14 @@ export const useAuthStore = defineStore('user', {
         console.error(e);
         cookie.value = null;
       }
+    },
+  },
+  getters: {
+    profile(state): IUserOptions | null {
+      return state.user?.options?.is_registered ? state.user?.options : null;
+    },
+    favoriteMarathons(state): number[] {
+      return state.user?.options?.favorite_marathons || [];
     },
   },
 });

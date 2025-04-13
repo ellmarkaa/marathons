@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useAuthStore } from '#imports';
+
 type CardProps = {
   title: string;
   startDate: string;
@@ -7,6 +9,7 @@ type CardProps = {
   city: string;
   slots: ISlot[];
   rating: number;
+  id: number;
 };
 
 const getMinimalPrice = (slots: ISlot[]) => {
@@ -18,10 +21,20 @@ const getMinimalPrice = (slots: ISlot[]) => {
 //   return slots.map(slot => slot.distance).sort()
 // };
 
+const authStore = useAuthStore();
+
 const props = defineProps<CardProps>();
 const dateTitle = getDateTitle(props.startDate, props.endDate);
 const minimalPrice = getMinimalPrice(props.slots);
+
+const isFavorite = computed(() => authStore.favoriteMarathons.includes(props.id));
 // const distanceArr = getDistanceArr(props.slots);
+
+const handleFavorite = () => {
+  if (!authStore.userUpdateLoading) {
+    authStore.handleMarathonFavorite(props.id);
+  }
+};
 </script>
 
 <template>
@@ -33,10 +46,20 @@ const minimalPrice = getMinimalPrice(props.slots);
       </p>
 
       <div
-        tabindex="-1"
+        tabindex="0"
         class="absolute top-1.5 right-1.5 cursor-pointer"
+        :aria-disabled="authStore.userUpdateLoading"
+        @click="handleFavorite"
       >
-        <IconFavorite />
+        <Loader
+          v-if="authStore.userUpdateLoading"
+          :width="28"
+          :height="28"
+        />
+        <IconFavorite
+          v-else
+          :is-favorite="isFavorite"
+        />
       </div>
 
       <img

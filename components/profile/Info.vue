@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import Distance from '~/components/icon/Distance.vue';
 import { df } from '~/utils/date';
-import type { IUserOptions } from '~/stores/auth/types';
 import { useDictionaryStore } from '~/stores/dictionary/store';
 import { getRusCitizenName } from '~/stores/auth/utils';
 
 const authStore = useAuthStore();
 const directoryStore = useDictionaryStore();
-const profile = computed(() => authStore.user?.options as IUserOptions);
+const profile = computed(() => authStore.profile);
 useAsyncData<IBloodType[]>('get-blood-types', () => directoryStore.fetchBloodTypes());
 
 const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more_info'>(null);
-console.log('profile', profile);
 </script>
 
 <template>
   <div
-    v-if="!editBlock"
+    v-if="!editBlock && profile"
     class="flex w-full flex-col gap-6"
   >
     <div class="title-block px-8 py-6">
@@ -73,7 +71,7 @@ console.log('profile', profile);
         },
         {
           label: 'Группа крови',
-          value: directoryStore.bloodTypes.find(type => type.id === profile.bloodGroupId)?.Name || '',
+          value: directoryStore.bloodTypes.find(type => type.id === profile?.bloodGroupId)?.Name || '',
         },
       ]"
       @on-edit="() => (editBlock = 'personal')"

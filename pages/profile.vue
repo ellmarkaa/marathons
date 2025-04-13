@@ -4,7 +4,7 @@ definePageMeta({
   middleware: 'auth',
 });
 
-const menuList = ref<IProfileMenu[]>([
+const menuList: Ref<IProfileMenu[]> = ref([
   {
     label: 'Профиль',
     icon: 'cuida:user-outline',
@@ -42,6 +42,9 @@ const activeEl = computed(() => {
       <ProfileNavigate v-model:menu="menuList" />
 
       <ProfileInfo v-if="activeEl?.name === 'profile'" />
+      <ProfileOrders v-if="activeEl?.name === 'orders'" />
+      <ProfileHistory v-if="activeEl?.name === 'history'" />
+      <ProfileFavorite v-if="activeEl?.name === 'favorite'" />
     </UContainer>
   </div>
 </template>

@@ -5,7 +5,7 @@ import type { IProfileMenu } from '~/utils/types';
 const authStore = useAuthStore();
 const userOption = authStore.user?.options as IUserOptions;
 const user = authStore.user;
-const menu = defineModel<IProfileMenu[]>('menu', { required: true });
+const menu = defineModel<Ref<IProfileMenu[]>>('menu', { required: true });
 
 const handleChangeMenu = (label: string) => {
   menu.value.forEach(element => {

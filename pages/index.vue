@@ -14,12 +14,18 @@ const marathonStore = useMarathonStore();
 
 // await useAsyncData('get-token', () => authStore.fetchToken());
 const { data: sliders } = await useAsyncData('slider-marathons', () => marathonStore.fetchSliderMarathons());
+console.log('sliders', sliders.value);
 const { data: marathons } = await useAsyncData('main-marathons', () => marathonStore.fetchMarathons());
+// const { data: aa } = await useAsyncData('main-dasda', () => marathonStore.fetchMarathonById(1244));
+// console.log('aa', aa.value);
 </script>
 
 <template>
   <div class="bg-main-gray">
-    <MainCarouselBlock :sliders="sliders || []" />
+    <MainCarouselBlock
+      :is-loading="marathonStore.sliderLoading"
+      :sliders="sliders || []"
+    />
 
     <div class="bg-neutral-0 mb-16 py-4 max-lg:mb-12">
       <UContainer>
@@ -48,6 +54,7 @@ const { data: marathons } = await useAsyncData('main-marathons', () => marathonS
         <div class="flex flex-wrap items-start gap-x-5 gap-y-8 max-xl:justify-center">
           <MainCard
             v-for="marathon in marathons"
+            :id="marathon.id"
             :key="marathon.id"
             :city="marathon.city.name_ru"
             :country="marathon.country.name_ru"

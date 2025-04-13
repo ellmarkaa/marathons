@@ -14,7 +14,7 @@ export type VerifyParams = {
 export interface IUser {
   vendor: 'client';
   value: string; // email
-  options: Partial<IUserOptions>;
+  options: IUserOptions;
   created_at: string;
   updated_at: string;
 }
@@ -51,7 +51,7 @@ export interface IUserOptions {
   'emergency_contact_phone_code': string;
 
   'is_registered': boolean;
-  // TODO: favorite
+  'favorite_marathons': number[];
 }
 
 export interface IOtpResponse {

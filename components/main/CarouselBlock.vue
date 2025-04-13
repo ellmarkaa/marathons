@@ -3,23 +3,37 @@ import type { ISliderMarathon } from '~/stores/marathon/types';
 
 interface CarouselBlockProps {
   sliders: ISliderMarathon[];
+  isLoading: boolean;
 }
-
 defineProps<CarouselBlockProps>();
 </script>
 
 <template>
   <Carousel>
-    <CarouselItem
-      v-for="slide in sliders"
-      :id="slide.id"
-      :key="slide.id"
-      :index="slide.id"
-      :country="slide.marathon.country.name_ru"
-      :title="slide['title.ru']"
-      :marathon-start="slide.start_date"
-      :marathon-end="slide.start_date"
-    />
+    <div
+      v-if="isLoading"
+      style="height: 500px"
+      class="flex w-full items-center justify-center"
+    >
+      <Loader
+        :height="60"
+        :width="200"
+      />
+    </div>
+
+    <template v-else>
+      <CarouselItem
+        v-for="slide in sliders"
+        :id="slide.id"
+        :key="slide.id"
+        :index="slide.id"
+        :country="slide.marathon.country.name_ru"
+        :title="slide['title.ru']"
+        :marathon-start="slide.start_date"
+        :marathon-end="slide.start_date"
+        :image-path="slide.pictures[0]?.path || ''"
+      />
+    </template>
 
     <template #addons>
       <Pagination />

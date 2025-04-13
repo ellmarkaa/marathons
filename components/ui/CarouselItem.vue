@@ -7,15 +7,31 @@ interface ICarouselItem {
   marathonStart: string;
   marathonEnd: string;
   id: number | string;
+  imagePath: string;
 }
 const props = defineProps<ICarouselItem>();
+const api = useApi();
 
 const dateTitle = getDateTitle(props.marathonStart, props.marathonEnd);
+const image = ref('');
+const getImage = async () => {
+  console.log('props.imagePath', props.imagePath);
+  const res = await api(`${props.imagePath.replace('task/', '')}`, { method: 'GET' });
+  console.log('res', res);
+  image.value = res;
+  return res;
+};
+onMounted(() => {
+  getImage();
+});
 </script>
 
 <template>
   <Slide :index="index">
-    <div class="slider">
+    <div
+      class="slider"
+      :style="{ backgroundImage: `url(${image})` }"
+    >
       <div class="flex flex-col justify-center">
         <div class="mb-8 text-white max-sm:mb-10">
           <h3 class="title mb-3.5 font-bold max-sm:mb-2.5">{{ title }}</h3>
