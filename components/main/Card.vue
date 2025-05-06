@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useAuthStore } from '#imports';
+import {useAuthStore} from '#imports';
+import type {IDistance} from "~/stores/marathon/types";
 
 type CardProps = {
   title: string;
@@ -8,10 +9,11 @@ type CardProps = {
   country: string;
   city: string;
   slots: ISlot[];
-  rating: number;
+  // rating: number;
   id: number;
+  picture: IPicture | null
+  distances: IDistance[]
 };
-
 const getMinimalPrice = (slots: ISlot[]) => {
   const price = Math.min(...slots.map(slot => slot.price));
   return isFinite(price) ? price : 0;
@@ -40,13 +42,14 @@ const handleFavorite = () => {
 <template>
   <div class="card border-primary-99 flex flex-col gap-5 border bg-white px-3 pt-3 pb-4">
     <div class="relative">
-      <p class="absolute top-1.5 left-1.5 flex items-center gap-1 rounded-lg bg-white px-1.5 py-1">
-        <IconStar />
-        <span class="rating-text text-primary-60">{{ rating.toFixed(1) }}</span>
-      </p>
+<!--      <p class="absolute top-1.5 left-1.5 flex items-center gap-1 rounded-lg bg-white px-1.5 py-1">-->
+<!--        <IconStar />-->
+<!--        <span class="rating-text text-primary-60">{{ rating.toFixed(1) }}</span>-->
+<!--      </p>-->
 
       <div
         tabindex="0"
+        v-if="authStore.isAuth"
         class="absolute top-1.5 right-1.5 cursor-pointer"
         :aria-disabled="authStore.userUpdateLoading"
         @click="handleFavorite"
@@ -62,9 +65,16 @@ const handleFavorite = () => {
         />
       </div>
 
-      <img
+      <Image
+        v-if="picture"
         height="220"
-        class="w-full rounded-xl object-cover"
+        class="w-full rounded-xl object-cover image"
+        :picture="picture"
+      />
+      <img
+        v-else
+        height="220"
+        class="w-full rounded-xl object-cover image"
         src="/imgs/card.jpg"
         alt="card"
       />
@@ -74,7 +84,7 @@ const handleFavorite = () => {
       <h3 class="text-lg font-bold">{{ title }}</h3>
       <p>{{ dateTitle }}</p>
       <p>{{ city }}, {{ country }}</p>
-      <!--      <p>Бег {{distanceArr.map(dis => `${dis} км, `)}}10 км, 21 км, 42,1 км</p>-->
+      <p class="flex items-center gap-2"><IconDistance /> Бег {{distances.map(dis => ` ${dis?.distance} км`).toString()}}</p>
     </div>
 
     <div class="flex justify-between align-bottom">
@@ -96,6 +106,9 @@ const handleFavorite = () => {
 }
 .rating-text {
   font-size: 10px;
+}
+.image {
+  height: 220px;
 }
 
 @media (width < 1180px) {

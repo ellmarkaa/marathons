@@ -7,6 +7,12 @@ export const useMarathonStore = defineStore('marathon', {
     mainPageMarathons: [],
     mainLoading: false,
     sliderLoading: false,
+    marathonPagination: {
+      perPage: 3,
+      total: 0,
+      page: 1,
+      lastPage: 1
+    }
   }),
   actions: {
     async fetchSliderMarathons() {
@@ -16,20 +22,46 @@ export const useMarathonStore = defineStore('marathon', {
         const res = await api<IDictionaryResponse<ISliderMarathon>>('dictionary/Слайдеры', {
           method: 'GET',
         });
-        console.log('ready');
-        const promises = res.items.data.map(slider => {
-          console.log('slider.pictures[0]', slider.pictures[0]);
-          if (slider.pictures[0]) {
-            return api(slider.pictures[0].path.replace('task/', ''), { method: 'GET' });
-          }
-        });
-        const pictures = await Promise.all(promises);
-        console.log('pictures', pictures);
-        this.sliderMarathons = res.items.data;
+        // const promises = res.items.data.map(slider => {
+        //   console.log('slider.pictures[0]', slider.pictures[0]);
+        //   if (slider.pictures[0]) {
+        //     return api(slider.pictures[0].path.replace('task/', ''), { method: 'GET' });
+        //   }
+        // });
+        // const pictures = await Promise.all(promises);
+        // console.log('pictures', pictures);
+        const sliders = res.items.data.sort((a, b) => a.order - b.order)
+        this.sliderMarathons = sliders;
         this.sliderLoading = false;
-        return res.items.data;
+        return sliders;
       } catch (e) {
         this.sliderLoading = false;
+        console.error('error', e);
+      }
+    },
+
+    async fetchMoreMarathons() {
+      const api = useApi();
+      try {
+        this.mainLoading = true;
+        const res = await api<IDictionaryResponse<IMarathon>>(`dictionary/Марафоны`, {
+          params: {
+            perpage: this.marathonPagination.perPage,
+            page: this.marathonPagination.page + 1
+          },
+          method: 'GET',
+        });
+        this.marathonPagination = {
+          page: res.items.current_page,
+          lastPage: res.items.last_page,
+          perPage: res.items.per_page,
+          total: res.items.total
+        }
+        this.mainPageMarathons = this.mainPageMarathons.concat(res.items.data)
+        this.mainLoading = false;
+        return res.items.data;
+      } catch (e) {
+        this.mainLoading = false;
         console.error('error', e);
       }
     },
@@ -38,11 +70,21 @@ export const useMarathonStore = defineStore('marathon', {
       const api = useApi();
       try {
         this.mainLoading = true;
-        const res = await api<IDictionaryResponse<IMarathon>>('dictionary/Марафоны?per_page=12', {
+        const res = await api<IDictionaryResponse<IMarathon>>(`dictionary/Марафоны`, {
+          params: {
+            perpage: this.marathonPagination.perPage,
+            page: this.marathonPagination.page
+          },
           method: 'GET',
         });
         console.log('res', res);
-        this.mainPageMarathons = res.items.data;
+        this.marathonPagination = {
+          page: res.items.current_page,
+          lastPage: res.items.last_page,
+          perPage: res.items.per_page,
+          total: res.items.total
+        }
+        this.mainPageMarathons = res.items.data
         this.mainLoading = false;
         return res.items.data;
       } catch (e) {

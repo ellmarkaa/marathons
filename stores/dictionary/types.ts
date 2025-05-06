@@ -1,9 +1,12 @@
+import type {IDistance} from "~/stores/marathon/types";
+
 export interface IDictionaryState {
   bloodTypes: IBloodType[];
   dictionaryLoading: boolean;
   error: null | string;
   citizenshipList: ICitizenship[];
   countryList: ICountry[];
+  distances: IDistance[]
 }
 
 export interface IBloodType {

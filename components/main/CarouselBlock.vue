@@ -24,14 +24,15 @@ defineProps<CarouselBlockProps>();
     <template v-else>
       <CarouselItem
         v-for="slide in sliders"
-        :id="slide.id"
-        :key="slide.id"
-        :index="slide.id"
+        :id="slide.marathon.id"
+        :key="slide.marathon.id"
+        :index="slide.marathon.id"
         :country="slide.marathon.country.name_ru"
-        :title="slide['title.ru']"
+        :title="slide.marathon.title_ru"
         :marathon-start="slide.start_date"
-        :marathon-end="slide.start_date"
+        :marathon-end="slide.end_date"
         :image-path="slide.pictures[0]?.path || ''"
+        :city="slide.marathon.city.name_ru"
       />
     </template>
 

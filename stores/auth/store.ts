@@ -2,6 +2,7 @@ import type { IAuthStore, IUser, VerifyParams, IOtpResponse, IUserOptions } from
 
 import { JWT_COOKIE } from '~/utils/const';
 import type { RegisterFormType } from '~/components/register/helper';
+import {boolean} from "yup";
 
 export const useAuthStore = defineStore('user', {
   state: (): IAuthStore => ({
@@ -240,5 +241,8 @@ export const useAuthStore = defineStore('user', {
     favoriteMarathons(state): number[] {
       return state.user?.options?.favorite_marathons || [];
     },
+    isAuth(state): boolean {
+      return !!state.user;
+    }
   },
 });

@@ -16,7 +16,6 @@ export function useApi() {
     try {
       // Make the API request using $fetch
       const response = await $fetch<T>(`${baseURL}${endpoint}`, options);
-      console.log('baseURL', baseURL);
       return response;
     } catch (error: any) {
       console.dir(error);

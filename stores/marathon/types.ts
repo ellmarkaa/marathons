@@ -6,22 +6,30 @@ export interface IMarathonState {
   mainPageMarathons: IMarathon[];
   mainLoading: boolean;
   sliderLoading: boolean;
+  marathonPagination: {
+    perPage: number;
+    total: number;
+    lastPage: number;
+    page: number;
+  }
 }
 
 export interface ISliderMarathon {
   'contact_id': null;
   'marathon': IMarathon;
   'end_date': string;
+  'order': number;
   'pictures': IPicture[];
-  'title.en': string;
-  'title.kz': string;
-  'title.ru': string;
   'start_date': string;
   'marathon_url': string;
   'marathon_date': string;
-  'id': number;
 }
 
+export interface IDistance {
+  "id"?: number;
+  "distance": number;
+  "contact_id": null;
+}
 export interface IMarathon {
   id: number;
   faq: {
@@ -48,4 +56,5 @@ export interface IMarathon {
   marathon_deadline: string;
   allowed_citizenships: ICountry[];
   is_reminder_required: boolean;
+  distances: IDistance[]
 }
