@@ -11,8 +11,8 @@ export const useMarathonStore = defineStore('marathon', {
       perPage: 3,
       total: 0,
       page: 1,
-      lastPage: 1
-    }
+      lastPage: 1,
+    },
   }),
   actions: {
     async fetchSliderMarathons() {
@@ -30,7 +30,7 @@ export const useMarathonStore = defineStore('marathon', {
         // });
         // const pictures = await Promise.all(promises);
         // console.log('pictures', pictures);
-        const sliders = res.items.data.sort((a, b) => a.order - b.order)
+        const sliders = res.items.data.sort((a, b) => a.order - b.order);
         this.sliderMarathons = sliders;
         this.sliderLoading = false;
         return sliders;
@@ -47,7 +47,7 @@ export const useMarathonStore = defineStore('marathon', {
         const res = await api<IDictionaryResponse<IMarathon>>(`dictionary/Марафоны`, {
           params: {
             perpage: this.marathonPagination.perPage,
-            page: this.marathonPagination.page + 1
+            page: this.marathonPagination.page + 1,
           },
           method: 'GET',
         });
@@ -55,9 +55,9 @@ export const useMarathonStore = defineStore('marathon', {
           page: res.items.current_page,
           lastPage: res.items.last_page,
           perPage: res.items.per_page,
-          total: res.items.total
-        }
-        this.mainPageMarathons = this.mainPageMarathons.concat(res.items.data)
+          total: res.items.total,
+        };
+        this.mainPageMarathons = this.mainPageMarathons.concat(res.items.data);
         this.mainLoading = false;
         return res.items.data;
       } catch (e) {
@@ -73,7 +73,7 @@ export const useMarathonStore = defineStore('marathon', {
         const res = await api<IDictionaryResponse<IMarathon>>(`dictionary/Марафоны`, {
           params: {
             perpage: this.marathonPagination.perPage,
-            page: this.marathonPagination.page
+            page: this.marathonPagination.page,
           },
           method: 'GET',
         });
@@ -82,9 +82,9 @@ export const useMarathonStore = defineStore('marathon', {
           page: res.items.current_page,
           lastPage: res.items.last_page,
           perPage: res.items.per_page,
-          total: res.items.total
-        }
-        this.mainPageMarathons = res.items.data
+          total: res.items.total,
+        };
+        this.mainPageMarathons = res.items.data;
         this.mainLoading = false;
         return res.items.data;
       } catch (e) {

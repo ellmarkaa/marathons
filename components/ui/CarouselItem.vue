@@ -4,7 +4,7 @@ interface ICarouselItem {
   title?: string;
   imageUrl?: string;
   country?: string;
-  city?: string
+  city?: string;
   marathonStart: string;
   marathonEnd: string;
   id: number | string;
@@ -28,10 +28,12 @@ onMounted(() => {
   <Slide :index="index">
     <div
       class="slider"
-      :style="{ backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%), url(${image})` }"
+      :style="{
+        backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%), url(${image})`,
+      }"
     >
       <div class="flex flex-col justify-center">
-        <div class="mb-8 text-white max-sm:mb-10 text-center">
+        <div class="mb-8 text-center text-white max-sm:mb-10">
           <h3 class="title mb-3.5 font-bold max-sm:mb-2.5">{{ title }}</h3>
           <p class="mb-3.5 text-base max-sm:mb-2">{{ city }}, {{ country }}</p>
           <p class="text-sm">{{ dateTitle }}</p>

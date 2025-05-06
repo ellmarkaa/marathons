@@ -8,7 +8,7 @@ export const useDictionaryStore = defineStore('dictionary', {
     error: null,
     citizenshipList: [],
     countryList: [],
-    distances: []
+    distances: [],
   }),
   actions: {
     async fetchBloodTypes() {

@@ -11,24 +11,24 @@ export interface IMarathonState {
     total: number;
     lastPage: number;
     page: number;
-  }
+  };
 }
 
 export interface ISliderMarathon {
-  'contact_id': null;
-  'marathon': IMarathon;
-  'end_date': string;
-  'order': number;
-  'pictures': IPicture[];
-  'start_date': string;
-  'marathon_url': string;
-  'marathon_date': string;
+  contact_id: null;
+  marathon: IMarathon;
+  end_date: string;
+  order: number;
+  pictures: IPicture[];
+  start_date: string;
+  marathon_url: string;
+  marathon_date: string;
 }
 
 export interface IDistance {
-  "id"?: number;
-  "distance": number;
-  "contact_id": null;
+  id?: number;
+  distance: number;
+  contact_id: null;
 }
 export interface IMarathon {
   id: number;
@@ -56,5 +56,5 @@ export interface IMarathon {
   marathon_deadline: string;
   allowed_citizenships: ICountry[];
   is_reminder_required: boolean;
-  distances: IDistance[]
+  distances: IDistance[];
 }
