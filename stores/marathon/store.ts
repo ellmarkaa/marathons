@@ -1,5 +1,6 @@
 import type { IMarathonState, ISliderMarathon } from '~/stores/marathon/types';
 import type { IDictionaryResponse } from '~/utils/types';
+import type { TagType } from '~/components/main/types';
 
 export const useMarathonStore = defineStore('marathon', {
   state: (): IMarathonState => ({
@@ -66,14 +67,54 @@ export const useMarathonStore = defineStore('marathon', {
       }
     },
 
+    async fetchMarathonsWithParams(filterParams: TagType[]) {
+      console.log('num');
+      const api = useApi();
+      try {
+        this.mainLoading = true;
+
+        const searchParam = new URLSearchParams();
+        filterParams.forEach(filter => {
+          if (filter.param === 'distance') {
+            searchParam.append('dict_arr[]', `distances:${filter.value}`);
+          } else if (filter.param === 'year') {
+            searchParam.append('dict_arr[]', `marathon_date:${filter.value}`);
+          }
+        });
+        searchParam.append('perpage', '20');
+        const res = await api<IDictionaryResponse<IMarathon>>(`dictionary/Марафоны?${searchParam.toString()}`, {
+          method: 'GET',
+        });
+        this.marathonPagination = {
+          page: res.items.current_page,
+          lastPage: res.items.last_page,
+          perPage: res.items.per_page,
+          total: res.items.total,
+        };
+        this.mainPageMarathons = res.items.data;
+        this.mainLoading = false;
+        return res.items.data;
+      } catch (e) {
+        this.mainLoading = false;
+        console.error('error', e);
+      }
+    },
+
     async fetchMarathons() {
       const api = useApi();
       try {
         this.mainLoading = true;
+        const date = new Date();
+        date.setMonth(2);
+        console.log('date.toDateString()', date.toDateString());
         const res = await api<IDictionaryResponse<IMarathon>>(`dictionary/Марафоны`, {
           params: {
             perpage: this.marathonPagination.perPage,
             page: this.marathonPagination.page,
+            // 'dict_arr[]': 'distances:100',
+            // 'marathon_date': date.toISOString(),
+            // 'dict_arr[]': `marathon_date:${date.toISOString()}`
+            // 'filter_date[]': 'start=2025-10-01.end=2025-01-09'
           },
           method: 'GET',
         });

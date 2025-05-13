@@ -260,5 +260,23 @@ export default defineAppConfig({
         },
       },
     },
+
+    checkbox: {
+      compoundVariants: [
+        {
+          color: 'primary',
+          checked: true,
+          class: 'bg-accent-50 ring-accent-50',
+        },
+        {
+          color: 'primary',
+          checked: false,
+          class: 'ring-primary-70',
+        },
+      ],
+      slots: {
+        label: 'text-neutral-50',
+      },
+    },
   },
 });

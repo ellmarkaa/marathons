@@ -42,12 +42,12 @@ export const distance = [
 
 export const years = [
   {
-    label: 2024,
-    value: false,
+    label: '2024',
+    value: 2024,
   },
   {
-    label: 2025,
-    value: false,
+    label: '2025',
+    value: 2025,
   },
 ];
 

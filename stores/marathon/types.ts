@@ -14,6 +14,11 @@ export interface IMarathonState {
   };
 }
 
+export type FetchMarathonsParams = {
+  year?: number | string;
+  distance?: number | string;
+};
+
 export interface ISliderMarathon {
   contact_id: null;
   marathon: IMarathon;

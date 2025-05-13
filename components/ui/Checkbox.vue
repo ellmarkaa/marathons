@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
   disabled: false,
   id: '',
   label: '',
+  modelValue: false,
 });
 const random = useId();
 const emits = defineEmits(['update:modelValue']);

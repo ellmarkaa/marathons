@@ -4,6 +4,7 @@ import { useMarathonStore } from '~/stores/marathon/store';
 const filterMenu = ref(false);
 // const authStore = useAuthStore();
 const marathonStore = useMarathonStore();
+const directoryStore = useDictionaryStore();
 const pagination = computed(() => marathonStore.marathonPagination);
 // const test = useI18n();
 // console.log('test', test.fallbackLocale.value);
@@ -14,8 +15,11 @@ const pagination = computed(() => marathonStore.marathonPagination);
 // }, 1000);
 
 // await useAsyncData('get-token', () => authStore.fetchToken());
+useAsyncData('distance-directory', () => directoryStore.fetchDistances());
 const { data: sliders } = await useAsyncData('slider-marathons', () => marathonStore.fetchSliderMarathons());
 useAsyncData('main-marathons', () => marathonStore.fetchMarathons());
+console.log('marathonStore.mainPageMarathons', marathonStore.mainPageMarathons);
+console.log('sliders', sliders);
 // const { data: aa } = await useAsyncData('main-dasda', () => marathonStore.fetchMarathonById(1244));
 // console.log('aa', aa.value);
 </script>

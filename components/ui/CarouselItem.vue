@@ -20,7 +20,7 @@ const getImage = async () => {
   image.value = url;
 };
 onMounted(() => {
-  getImage();
+  if (props.imagePath) getImage();
 });
 </script>
 
