@@ -126,13 +126,13 @@ const value = ref('');
           <p class="text-neutral-20 mb-8 text-base">Выберите нужную вам дистанцию</p>
 
           <div class="flex flex-wrap justify-between gap-y-4">
-            <MarathonDistanceCard
-              v-for="info of distanceInfo"
-              :key="info.distance"
-              :distance="info.distance"
-              :distance-name="info.distanceName"
-              :price="info.price"
-            />
+<!--            <MarathonDistanceCard-->
+<!--              v-for="info of distanceInfo"-->
+<!--              :key="info.distance"-->
+<!--              :distance="info.distance"-->
+<!--              :distance-name="info.distanceName"-->
+<!--              :price="info.price"-->
+<!--            />-->
           </div>
         </div>
 
@@ -244,8 +244,8 @@ const value = ref('');
 
         <div class="mb-30 flex gap-6">
           <!--          TODO: think about it-->
-          <MainCard class="card" />
-          <MainCard class="card" />
+<!--          <MainCard class="card" />-->
+<!--          <MainCard class="card" />-->
         </div>
       </div>
 
