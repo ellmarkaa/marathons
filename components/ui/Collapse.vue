@@ -5,18 +5,20 @@ interface CollapseProps {
   openInitially?: boolean; // Whether the collapse is open initially
   duration?: number; // Animation duration in milliseconds
   title: string;
+  disabled?: boolean;
 }
 
 const props = withDefaults(defineProps<CollapseProps>(), {
   openInitially: false,
   duration: 300,
+  disabled: false,
 });
 
 const isOpen = ref(props.openInitially);
 
 // Toggle the collapse state
 const toggleCollapse = () => {
-  isOpen.value = !isOpen.value;
+  if (!props.disabled) isOpen.value = !isOpen.value;
 };
 </script>
 

@@ -1,4 +1,4 @@
-import type { IBloodType, ICitizenship, IDictionaryState } from '~/stores/dictionary/types';
+import type { IBloodType, ICitizenship, IDictionaryState, IUserAgreement } from '~/stores/dictionary/types';
 import type { IDictionaryResponse } from '~/utils/types';
 import type { IDistance } from '~/stores/marathon/types';
 
@@ -10,6 +10,7 @@ export const useDictionaryStore = defineStore('dictionary', {
     citizenshipList: [],
     countryList: [],
     distances: [],
+    userAgreement: null,
   }),
   actions: {
     async fetchBloodTypes() {
@@ -81,6 +82,25 @@ export const useDictionaryStore = defineStore('dictionary', {
         this.dictionaryLoading = false;
         this.distances = res.items.data;
         return res.items.data;
+      } catch (e: any) {
+        this.dictionaryLoading = false;
+        this.error = e.message;
+        console.error('error', e);
+      }
+    },
+
+    async fetchUserAgreement() {
+      const api = useApi();
+      try {
+        this.dictionaryLoading = true;
+
+        const res = await api<IDictionaryResponse<IUserAgreement>>('dictionary/Пользовательское соглашение/', {
+          method: 'GET',
+        });
+
+        this.dictionaryLoading = false;
+        this.userAgreement = res.items.data[0] || null;
+        return res.items.data[0] || null;
       } catch (e: any) {
         this.dictionaryLoading = false;
         this.error = e.message;

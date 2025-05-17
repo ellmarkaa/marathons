@@ -44,7 +44,8 @@ const buttonUi = {
         <UCollapsible>
           <UButton
             block
-            variant="text"
+            variant="ghost"
+            color="neutral"
             trailing-icon="material-symbols:keyboard-arrow-down-rounded"
             :ui="buttonUi"
           >
@@ -63,7 +64,8 @@ const buttonUi = {
         <UCollapsible>
           <UButton
             block
-            variant="text"
+            variant="ghost"
+            color="neutral"
             trailing-icon="material-symbols:keyboard-arrow-down-rounded"
             :ui="buttonUi"
           >
@@ -81,7 +83,8 @@ const buttonUi = {
 
         <UButton
           block
-          variant="text"
+          variant="ghost"
+          color="neutral"
           :ui="buttonUi"
           class="justify-start"
         >
@@ -90,7 +93,8 @@ const buttonUi = {
 
         <UButton
           block
-          variant="text"
+          variant="ghost"
+          color="neutral"
           :ui="buttonUi"
           class="justify-start"
         >

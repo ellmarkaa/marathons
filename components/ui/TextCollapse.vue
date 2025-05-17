@@ -42,7 +42,8 @@ const handleButton = () => {
 
     <UButton
       v-if="showButton"
-      variant="text"
+      variant="ghost"
+      color="neutral"
       :trailing-icon="
         open ? 'material-symbols:keyboard-arrow-up-rounded' : 'material-symbols:keyboard-arrow-down-rounded'
       "

@@ -40,6 +40,11 @@ export default defineAppConfig({
             'bg-primary-80 text-primary-0 shadow-md hover:bg-[var(--color-hover-tonal)] disabled:bg-primary-80 focus-visible:bg-[var(--color-focus-tonal)]',
         },
         {
+          color: 'neutral',
+          variant: 'ghost',
+          class: 'hover:bg-transparent',
+        },
+        {
           size: 'md',
           square: true,
           class: 'p-3',

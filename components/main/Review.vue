@@ -36,7 +36,8 @@
     </p>
 
     <UButton
-      variant="text"
+      variant="ghost"
+      color="neutral"
       class="self-start py-1 pl-0"
       >Прочитать все</UButton
     >

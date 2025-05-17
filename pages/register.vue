@@ -10,7 +10,8 @@ const goBack = () => {
     <UContainer>
       <div class="relative flex justify-center">
         <UButton
-          variant="text"
+          variant="ghost"
+          color="neutral"
           class="absolute top-0 left-0"
           leading-icon="material-symbols:arrow-back-ios-new-rounded"
           @click="goBack"

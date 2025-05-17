@@ -7,6 +7,7 @@ export interface IDictionaryState {
   citizenshipList: ICitizenship[];
   countryList: ICountry[];
   distances: IDistance[];
+  userAgreement: IUserAgreement | null;
 }
 
 export interface IBloodType {
@@ -29,4 +30,11 @@ export interface ICountry {
   name_ru: string;
   contact_id: null;
   phone_code: number;
+}
+
+export interface IUserAgreement {
+  id: number;
+  contact_id: null;
+  text: string;
+  title: string;
 }

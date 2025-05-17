@@ -1,44 +1,56 @@
 <script setup lang="ts">
-const includes = [
-  'Медаль финишера',
-  'Футболка финишера',
-  'Фотографии',
-  'Вход на марафон',
-  'Питьевые станции',
-  'Трансфер',
-  'Медицинская помощь',
-  'Туалеты',
-];
-const distanceInfo = [
-  {
-    distance: 10,
-    distanceName: '10 км',
-    price: 200,
-  },
-  {
-    distance: 21.1,
-    distanceName: 'Half Marathon',
-    price: 400,
-  },
-  {
-    distance: 42.1,
-    distanceName: 'Marathon',
-    price: 600,
-  },
-  {
-    distance: 100,
-    distanceName: 'Ultra Marathon',
-    price: 800,
-  },
-];
+const route = useRoute();
+const marathonStore = useMarathonStore();
+console.log(route.params.id);
+
+const { data: marathon } = await useAsyncData('marathon', () =>
+  marathonStore.fetchMarathonById(route.params.id as string),
+);
+console.log('marathon', marathon);
+
+// const includes = [
+//   'Медаль финишера',
+//   'Футболка финишера',
+//   'Фотографии',
+//   'Вход на марафон',
+//   'Питьевые станции',
+//   'Трансфер',
+//   'Медицинская помощь',
+//   'Туалеты',
+// ];
+// const distanceInfo = [
+//   {
+//     distance: 10,
+//     distanceName: '10 км',
+//     price: 200,
+//   },
+//   {
+//     distance: 21.1,
+//     distanceName: 'Half Marathon',
+//     price: 400,
+//   },
+//   {
+//     distance: 42.1,
+//     distanceName: 'Marathon',
+//     price: 600,
+//   },
+//   {
+//     distance: 100,
+//     distanceName: 'Ultra Marathon',
+//     price: 800,
+//   },
+// ];
 
 const items = ref(['Backlog', 'Todo', 'In Progress', 'Done']);
 const value = ref('');
 </script>
 
 <template>
-  <UContainer class="marathon-container pt-18">
-    <h1 class="mb-5 text-3xl font-bold">Vestel Manisa Half Marathon - Manisa</h1>
+  <UContainer
+    v-if="marathon"
+    class="marathon-container pt-18"
+  >
+    <h1 class="mb-5 text-3xl font-bold">{{ marathon.title_ru }}</h1>
 
     <div class="mb-4 flex items-center gap-1.5">
       <span class="inline-flex gap-0.5">
@@ -54,11 +66,16 @@ const value = ref('');
     </div>
 
     <div class="mb-15">
-      <img
-        class="marathon-image"
-        src="/imgs/marathon-main.jpeg"
-        alt="marathon"
+      <Image
+        image-class="marathon-image"
+        :picture="marathon.pictures[0]"
+        second-url="/imgs/marathon-main.jpeg"
       />
+      <!--      <img-->
+      <!--        class="marathon-image"-->
+      <!--        src="/imgs/marathon-main.jpeg"-->
+      <!--        :alt="marathon.title_ru"-->
+      <!--      >-->
     </div>
 
     <div class="flex gap-x-20">
@@ -68,14 +85,12 @@ const value = ref('');
           class="mb-8"
           :max-height="72"
           :row-count="3"
-          text="Если, как и многие другие бегуны с севера Европы, вы ищете отличный зимний отдых и забег в красивом месте, то
-          Maratón Málaga может быть тем, что вы ищете. Это ежегодное мероприятие по бегу по шоссе проводится в декабре в
-          городе Малага, Испания, столице Коста-дель-Соль. Малагаский марафон и полумарафон проводятся по воскресеньям."
+          :text="marathon.description_ru"
         />
 
         <div class="mb-4 flex gap-4 py-3">
           <IconRunner />
-          <span class="text-base">10 км, 21 км, 42,1 км</span>
+          <span class="text-base">{{ marathon.distances.map(dis => ` ${dis?.distance} км`).toString() }}</span>
         </div>
 
         <p class="mb-4 flex items-center gap-3">
@@ -90,7 +105,7 @@ const value = ref('');
           icon="fluent:clock-alarm-16-regular"
           variant="outline"
           color="neutral"
-          title="Регистрация закрывается 31 октября (осталось 43 дня)"
+          :title="`Регистрация закрывается ${new Date(marathon.marathon_deadline).toLocaleDateString()} (осталось 43 дня)`"
           class="mb-8"
           :ui="{
             icon: 'text-error-30',
@@ -101,38 +116,38 @@ const value = ref('');
 
         <ul class="flex flex-wrap gap-y-4">
           <li
-            v-for="title of includes"
-            :key="title"
+            v-for="item of marathon.included_items"
+            :key="item.id"
             class="flex w-1/3 items-center gap-3 text-base"
           >
             <IconCheckmark />
-            {{ title }}
+            {{ item.name_ru }}
           </li>
         </ul>
 
         <div class="border-neutral-90 my-14 border-b" />
 
-        <h5 class="mb-8 text-2xl font-bold">Карта маршрута</h5>
-        <img
-          src="/imgs/marathon-map.png"
-          alt="map"
-          class="marathon-map h-auto w-full rounded-xl"
-        />
+        <!--        <h5 class="mb-8 text-2xl font-bold">Карта маршрута</h5>-->
+        <!--        <img-->
+        <!--          src="/imgs/marathon-map.png"-->
+        <!--          alt="map"-->
+        <!--          class="marathon-map h-auto w-full rounded-xl"-->
+        <!--        >-->
 
-        <div class="border-neutral-90 my-14 border-b" />
+        <!--        <div class="border-neutral-90 my-14 border-b" />-->
 
         <div class="bg-main-gray border-neutral-99 mb-14 rounded-xl border p-6">
           <h5 class="mb-4 text-2xl font-bold">Доступные дистанции</h5>
           <p class="text-neutral-20 mb-8 text-base">Выберите нужную вам дистанцию</p>
 
           <div class="flex flex-wrap justify-between gap-y-4">
-<!--            <MarathonDistanceCard-->
-<!--              v-for="info of distanceInfo"-->
-<!--              :key="info.distance"-->
-<!--              :distance="info.distance"-->
-<!--              :distance-name="info.distanceName"-->
-<!--              :price="info.price"-->
-<!--            />-->
+            <!--            <MarathonDistanceCard-->
+            <!--              v-for="info of distanceInfo"-->
+            <!--              :key="info.distance"-->
+            <!--              :distance="info.distance"-->
+            <!--              :distance-name="info.distanceName"-->
+            <!--              :price="info.price"-->
+            <!--            />-->
           </div>
         </div>
 
@@ -244,8 +259,8 @@ const value = ref('');
 
         <div class="mb-30 flex gap-6">
           <!--          TODO: think about it-->
-<!--          <MainCard class="card" />-->
-<!--          <MainCard class="card" />-->
+          <!--          <MainCard class="card" />-->
+          <!--          <MainCard class="card" />-->
         </div>
       </div>
 

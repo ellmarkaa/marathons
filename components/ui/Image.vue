@@ -2,6 +2,7 @@
   <img
     v-if="imageUrl"
     :style="style"
+    :class="imageClass"
     :src="imageUrl"
     :alt="picture?.name"
   />
@@ -23,8 +24,10 @@ import type { CSSProperties } from 'vue';
 import type { IPicture } from '~/utils/types';
 
 const props = defineProps<{
-  picture: IPicture;
+  picture?: IPicture;
   style?: CSSProperties;
+  imageClass?: string;
+  secondUrl?: string;
 }>();
 const api = useApi();
 const imageUrl = ref<string | null>(null);
@@ -34,6 +37,7 @@ const fetchImageUrl = async (path: string) => {
     const url = await api<string>(path.replace('task/', ''), { method: 'GET' });
     imageUrl.value = url || null;
   } catch (e) {
+    imageUrl.value = props.secondUrl || null;
     console.error('Исключение при получении изображения:', e);
   }
 };
@@ -42,6 +46,8 @@ const fetchImageUrl = async (path: string) => {
 onMounted(() => {
   if (props.picture?.path) {
     fetchImageUrl(props.picture?.path);
+  } else {
+    imageUrl.value = props.secondUrl || null;
   }
 });
 

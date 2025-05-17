@@ -134,14 +134,14 @@ export const useMarathonStore = defineStore('marathon', {
       }
     },
 
-    async fetchMarathonById(marathonId: number) {
+    async fetchMarathonById(marathonId: string | number) {
       const api = useApi();
       try {
-        const res = await api<IDictionaryResponse<IMarathon>>(`dictionary/Марафоны/${marathonId}`, {
+        const res = await api<IDictionaryResponse<IMarathon>>(`dictionary/Марафоны/?id=${marathonId}`, {
           method: 'GET',
         });
         console.log('fetchMarathon', res);
-        return res.items.data;
+        return res.items.data[0];
       } catch (e) {
         console.error('error', e);
       }

@@ -48,7 +48,8 @@ watch(filterValues, newFilter => {
       />
       <UButton
         v-if="!!filterValues.length"
-        variant="text"
+        variant="ghost"
+        color="neutral"
         class="p-0"
         @click="filterValues = []"
       >
@@ -120,6 +121,7 @@ watch(filterValues, newFilter => {
     <Collapse
       title="Месяц"
       :duration="duration"
+      :disabled
     >
       <ul>
         <li

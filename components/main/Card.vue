@@ -95,7 +95,11 @@ const handleFavorite = () => {
         ${{ minimalPrice }}
       </p>
 
-      <UButton variant="outline">Подробнее</UButton>
+      <UButton
+        variant="outline"
+        @click="navigateTo(`/marathon/${id}`)"
+        >Подробнее</UButton
+      >
     </div>
   </div>
 </template>

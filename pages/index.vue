@@ -58,7 +58,7 @@ console.log('sliders', sliders);
         <div class="flex flex-wrap items-start gap-x-5 gap-y-8 max-xl:justify-center">
           <MainCard
             v-for="marathon in marathonStore.mainPageMarathons"
-            :id="1"
+            :id="marathon.id"
             :key="marathon.title_ru"
             :city="marathon.city.name_ru"
             :country="marathon.country.name_ru"
