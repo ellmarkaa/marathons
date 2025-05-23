@@ -1,4 +1,14 @@
-import type { IIncludeItem, IMarathonCity, IMarathonCountry, IPicture, ISlot, ITag, IVisa } from '~/utils/types';
+import type {
+  HTMLstring,
+  ICurrency,
+  IIncludeItem,
+  IMarathonCity,
+  IMarathonCountry,
+  IPicture,
+  ISlot,
+  ITag,
+  IVisa,
+} from '~/utils/types';
 import type { ICountry } from '~/stores/dictionary/types';
 
 export interface IMarathonState {
@@ -35,6 +45,7 @@ export interface IDistance {
   distance: number;
   contact_id: null;
 }
+
 export interface IMarathon {
   id: number;
   faq: {
@@ -62,4 +73,74 @@ export interface IMarathon {
   allowed_citizenships: ICountry[];
   is_reminder_required: boolean;
   distances: IDistance[];
+}
+
+export interface IPrice {
+  id: number;
+  contact_id: null;
+  visa: {
+    scalar: null;
+  };
+  price: number;
+  currency: ICurrency;
+  distance: IDistance;
+  marathon: IMarathon;
+  total_count: number;
+  hotel_number: {
+    scalar: null;
+  };
+  is_buy_required: true;
+}
+
+export interface IHotelNumber {
+  id: 1225;
+  hotel: IHotel;
+  price: 20000;
+  currency: {
+    scalar: null;
+  };
+  contact_id: null;
+  stay_dates: string[];
+  night_count: number;
+  number_count: number;
+  placement_type: {
+    id: number;
+    name_en: string;
+    name_kz: string;
+    name_ru: string;
+    contact_id: null;
+  };
+}
+
+export interface IHotel {
+  id: number;
+  Name: string;
+  city: {
+    v: 1;
+  };
+  rating: number;
+  country: ICountry;
+  address_en: string;
+  address_kz: string;
+  address_ru: string;
+  contact_id: null;
+  booking_url: string;
+  description: string;
+  included_items: IIncludeItem[];
+  name_for_site_en: string;
+  name_for_site_kz: string;
+  name_for_site_ru: string;
+}
+
+export interface IFAQ {
+  id: number;
+  contact_id: null;
+  meta: {
+    scalar: '';
+  };
+  title: '123';
+  marathon: IMarathon;
+  profile_template: HTMLstring;
+  marathon_auto_mailing: HTMLstring;
+  marathon_manual_mailing: HTMLstring;
 }

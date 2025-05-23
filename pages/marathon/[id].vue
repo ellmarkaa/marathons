@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type { IMarathon } from '~/stores/marathon/types';
+import { getDaysDifference } from '~/utils/helpers';
+
 const route = useRoute();
 const marathonStore = useMarathonStore();
 console.log(route.params.id);
@@ -6,7 +9,9 @@ console.log(route.params.id);
 const { data: marathon } = await useAsyncData('marathon', () =>
   marathonStore.fetchMarathonById(route.params.id as string),
 );
+const { data: prices } = await useAsyncData('prices', () => marathonStore.fetchPrices(route.params.id as string));
 console.log('marathon', marathon);
+console.log('prices', prices);
 
 // const includes = [
 //   'Медаль финишера',
@@ -41,8 +46,18 @@ console.log('marathon', marathon);
 //   },
 // ];
 
-const items = ref(['Backlog', 'Todo', 'In Progress', 'Done']);
-const value = ref('');
+const getDiffrence = (marathon: IMarathon) => {
+  const deadline = new Date(marathon.marathon_deadline);
+  const now = new Date();
+  if (deadline.getTime() > now.getTime()) {
+    return getDaysDifference(deadline, now);
+  }
+
+  return 0;
+};
+
+// const items = ref(['Backlog', 'Todo', 'In Progress', 'Done']);
+// const value = ref('');
 </script>
 
 <template>
@@ -93,19 +108,19 @@ const value = ref('');
           <span class="text-base">{{ marathon.distances.map(dis => ` ${dis?.distance} км`).toString() }}</span>
         </div>
 
-        <p class="mb-4 flex items-center gap-3">
-          <span class="text-base font-semibold">Стартовый адрес</span> Av. de Cervantes, 4, 29016 Málaga, Spain
-        </p>
+        <!--        <p class="mb-4 flex items-center gap-3">-->
+        <!--          <span class="text-base font-semibold">Стартовый адрес</span> Av. de Cervantes, 4, 29016 Málaga, Spain-->
+        <!--        </p>-->
 
-        <p class="mb-8 flex items-center gap-3">
-          <span class="text-base font-semibold">Финишный адрес</span> Av. de Cervantes, 4, 29016 Málaga, Spain
-        </p>
+        <!--        <p class="mb-8 flex items-center gap-3">-->
+        <!--          <span class="text-base font-semibold">Финишный адрес</span> Av. de Cervantes, 4, 29016 Málaga, Spain-->
+        <!--        </p>-->
 
         <UAlert
           icon="fluent:clock-alarm-16-regular"
           variant="outline"
           color="neutral"
-          :title="`Регистрация закрывается ${new Date(marathon.marathon_deadline).toLocaleDateString()} (осталось 43 дня)`"
+          :title="`Регистрация закрывается ${new Date(marathon.marathon_deadline).toLocaleDateString()} (осталось ${getDiffrence(marathon)} дня)`"
           class="mb-8"
           :ui="{
             icon: 'text-error-30',
@@ -126,8 +141,6 @@ const value = ref('');
         </ul>
 
         <div class="border-neutral-90 my-14 border-b" />
-
-        <!--        <h5 class="mb-8 text-2xl font-bold">Карта маршрута</h5>-->
         <!--        <img-->
         <!--          src="/imgs/marathon-map.png"-->
         <!--          alt="map"-->
@@ -136,98 +149,105 @@ const value = ref('');
 
         <!--        <div class="border-neutral-90 my-14 border-b" />-->
 
-        <div class="bg-main-gray border-neutral-99 mb-14 rounded-xl border p-6">
-          <h5 class="mb-4 text-2xl font-bold">Доступные дистанции</h5>
-          <p class="text-neutral-20 mb-8 text-base">Выберите нужную вам дистанцию</p>
+        <!--        <div class="bg-main-gray border-neutral-99 mb-14 rounded-xl border p-6">-->
+        <!--          <h5 class="mb-4 text-2xl font-bold">Доступные дистанции</h5>-->
+        <!--          <p class="text-neutral-20 mb-8 text-base">Выберите нужную вам дистанцию</p>-->
 
-          <div class="flex flex-wrap justify-between gap-y-4">
-            <!--            <MarathonDistanceCard-->
-            <!--              v-for="info of distanceInfo"-->
-            <!--              :key="info.distance"-->
-            <!--              :distance="info.distance"-->
-            <!--              :distance-name="info.distanceName"-->
-            <!--              :price="info.price"-->
-            <!--            />-->
-          </div>
-        </div>
+        <!--          <div class="flex flex-wrap justify-between gap-y-4">-->
+        <!--            <MarathonDistanceCard-->
+        <!--              v-for="info of distanceInfo"-->
+        <!--              :key="info.distance"-->
+        <!--              :distance="info.distance"-->
+        <!--              :distance-name="info.distanceName"-->
+        <!--              :price="info.price"-->
+        <!--            />-->
+        <!--          </div>-->
+        <!--        </div>-->
+
+        <h5 class="mb-8 text-2xl font-bold">Предложения</h5>
 
         <div class="bg-main-gray border-neutral-99 flex flex-col gap-6 rounded-xl border p-6">
-          <div class="rounded-xl bg-white p-5">
-            <div class="mb-3 flex items-center justify-between">
-              <div>
-                <h4 class="mb-2 text-2xl font-bold">Виза</h4>
-                <p>Поможем вам получить визу</p>
-              </div>
-              <UButton variant="outline">Добавить</UButton>
-            </div>
-
-            <div class="flex items-end gap-4">
-              <span class="font-semibold">Стоимость</span>
-              <span class="text-accent-50 text-xl font-semibold">400$</span>
-            </div>
-
-            <div class="border-neutral-90 my-6 border-b" />
-
-            <h5 class="mb-3 text-base font-semibold">Шенген виза</h5>
-            <p class="mb-3 text-neutral-50">В визовую услугу входит:</p>
-
-            <ContentCollapse :max-height="40">
-              <ul class="visa-list text-neutral-50">
-                <li>консультация по процессу до получения визы;</li>
-                <li>запись на ближайшую дату;</li>
-                <li>консультация по списку необходимых документов;</li>
-                <li>заполнение анкеты;</li>
-                <li>подготовим и запишем на подачу;</li>
-                <li>бронирование отелей и билетов для визы;</li>
-                <li>оформление страховки (оплачивается отдельно).</li>
-              </ul>
-            </ContentCollapse>
+          <div>
+            <h5 class="mb-3 text-xl font-semibold">Готовые пакеты</h5>
+            <p class="text-neutral-20">Выберите подходящий для вас вариант</p>
           </div>
 
-          <div class="rounded-xl bg-white p-5">
-            <h4 class="mb-2 text-2xl font-bold">Виза</h4>
-            <p>Выберете отель, где будете размещены</p>
+          <!--          <div class="rounded-xl bg-white p-5">-->
+          <!--            <div class="mb-3 flex items-center justify-between">-->
+          <!--              <div>-->
+          <!--                <h4 class="mb-2 text-2xl font-bold">Виза</h4>-->
+          <!--                <p>Поможем вам получить визу</p>-->
+          <!--              </div>-->
+          <!--              <UButton variant="outline">Добавить</UButton>-->
+          <!--            </div>-->
 
-            <div class="border-neutral-90 my-8 border-b" />
+          <!--            <div class="flex items-end gap-4">-->
+          <!--              <span class="font-semibold">Стоимость</span>-->
+          <!--              <span class="text-accent-50 text-xl font-semibold">400$</span>-->
+          <!--            </div>-->
 
-            <div class="flex gap-6">
-              <UFormField
-                label="Отель"
-                class="w-2/3"
-              >
-                <UInputMenu
-                  v-model="value"
-                  :items="items"
-                  class="w-full"
-                />
-              </UFormField>
+          <!--            <div class="border-neutral-90 my-6 border-b" />-->
 
-              <UFormField
-                label="Количество дней"
-                class="w-1/3"
-              >
-                <UInputMenu
-                  v-model="value"
-                  :items="items"
-                  class="w-full"
-                />
-              </UFormField>
-            </div>
+          <!--            <h5 class="mb-3 text-base font-semibold">Шенген виза</h5>-->
+          <!--            <p class="mb-3 text-neutral-50">В визовую услугу входит:</p>-->
 
-            <div class="border-neutral-90 my-8 border-b" />
+          <!--            <ContentCollapse :max-height="40">-->
+          <!--              <ul class="visa-list text-neutral-50">-->
+          <!--                <li>консультация по процессу до получения визы;</li>-->
+          <!--                <li>запись на ближайшую дату;</li>-->
+          <!--                <li>консультация по списку необходимых документов;</li>-->
+          <!--                <li>заполнение анкеты;</li>-->
+          <!--                <li>подготовим и запишем на подачу;</li>-->
+          <!--                <li>бронирование отелей и билетов для визы;</li>-->
+          <!--                <li>оформление страховки (оплачивается отдельно).</li>-->
+          <!--              </ul>-->
+          <!--            </ContentCollapse>-->
+          <!--          </div>-->
 
-            <a
-              href="#"
-              class="mb-8 flex items-center gap-2 text-base"
-              >Подробная информация о размещении <IconRightUp
-            /></a>
+          <!--          <div class="rounded-xl bg-white p-5">-->
+          <!--            <h4 class="mb-2 text-2xl font-bold">Виза</h4>-->
+          <!--            <p>Выберете отель, где будете размещены</p>-->
 
-            <UButton
-              variant="outline"
-              disabled
-              >Добавить</UButton
-            >
-          </div>
+          <!--            <div class="border-neutral-90 my-8 border-b" />-->
+
+          <!--            <div class="flex gap-6">-->
+          <!--              <UFormField-->
+          <!--                label="Отель"-->
+          <!--                class="w-2/3"-->
+          <!--              >-->
+          <!--                <UInputMenu-->
+          <!--                  v-model="value"-->
+          <!--                  :items="items"-->
+          <!--                  class="w-full"-->
+          <!--                />-->
+          <!--              </UFormField>-->
+
+          <!--              <UFormField-->
+          <!--                label="Количество дней"-->
+          <!--                class="w-1/3"-->
+          <!--              >-->
+          <!--                <UInputMenu-->
+          <!--                  v-model="value"-->
+          <!--                  :items="items"-->
+          <!--                  class="w-full"-->
+          <!--                />-->
+          <!--              </UFormField>-->
+          <!--            </div>-->
+
+          <!--            <div class="border-neutral-90 my-8 border-b" />-->
+
+          <!--            <a-->
+          <!--              href="#"-->
+          <!--              class="mb-8 flex items-center gap-2 text-base"-->
+          <!--            >Подробная информация о размещении <IconRightUp-->
+          <!--            /></a>-->
+
+          <!--            <UButton-->
+          <!--              variant="outline"-->
+          <!--              disabled-->
+          <!--            >Добавить</UButton-->
+          <!--            >-->
+          <!--          </div>-->
         </div>
 
         <div class="border-neutral-90 my-14 border-b" />

@@ -1,6 +1,6 @@
-import type { IMarathonState, ISliderMarathon } from '~/stores/marathon/types';
 import type { IDictionaryResponse } from '~/utils/types';
 import type { TagType } from '~/components/main/types';
+import type { IFAQ, IMarathon, IPrice } from '~/stores/marathon/types';
 
 export const useMarathonStore = defineStore('marathon', {
   state: (): IMarathonState => ({
@@ -142,6 +142,36 @@ export const useMarathonStore = defineStore('marathon', {
         });
         console.log('fetchMarathon', res);
         return res.items.data[0];
+      } catch (e) {
+        console.error('error', e);
+      }
+    },
+
+    async fetchPrices(marathonId: string | number) {
+      const api = useApi();
+      try {
+        const res = await api<IDictionaryResponse<IPrice>>(`dictionary/Прайс%20(Каталог)`, {
+          method: 'GET',
+          params: {
+            'dict_arr[]': `marathon.id:${marathonId}`,
+          },
+        });
+        return res.items.data;
+      } catch (e) {
+        console.error('error', e);
+      }
+    },
+
+    async fetchFAQ(marathonId: string | number) {
+      const api = useApi();
+      try {
+        const res = await api<IDictionaryResponse<IFAQ>>(`dictionary/FAQ`, {
+          method: 'GET',
+          params: {
+            'dict_arr[]': `marathon.id:${marathonId}`,
+          },
+        });
+        return res.items.data;
       } catch (e) {
         console.error('error', e);
       }

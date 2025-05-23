@@ -93,11 +93,11 @@ export interface IIncludeItem {
 }
 
 export interface ICurrency {
-  id: 173;
-  Name: null;
-  symbol: 'AMD';
+  id: number;
+  Name: string;
+  symbol: string;
   contact_id: null;
-  extra_charge: 7;
+  extra_charge: number;
   exchange_rate: null;
 }
 
@@ -139,3 +139,5 @@ export interface IProfileMenu {
   isActive: boolean;
   name: 'profile' | 'orders' | 'history' | 'favorite';
 }
+
+export type HTMLstring = string;
