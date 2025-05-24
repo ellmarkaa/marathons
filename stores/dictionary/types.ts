@@ -8,6 +8,14 @@ export interface IDictionaryState {
   countryList: ICountry[];
   distances: IDistance[];
   userAgreement: IUserAgreement | null;
+  consultationLoading: boolean;
+}
+
+export interface ICreateConsultation {
+  name: string;
+  phone?: string | number | null;
+  comment: string;
+  email?: string | null;
 }
 
 export interface IBloodType {

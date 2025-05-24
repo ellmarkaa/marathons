@@ -47,7 +47,7 @@ const backToLogin = () => {
 <template>
   <UModal
     v-model:open="openLoginModal"
-    :ui="{ content: 'bg-secondary-bg sm:max-w-[532px]' }"
+    :ui="{ content: 'bg-secondary-bg sm:max-w-[532px]', body: 'max-md:p-4 max-md:pt-0', header: 'max-md:p-4' }"
   >
     <template #header>
       <div class="relative w-full">

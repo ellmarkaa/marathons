@@ -53,7 +53,7 @@ const sendAgain = () => {
 </script>
 
 <template>
-  <div class="rounded-2xl bg-white px-10 py-8">
+  <div class="rounded-2xl bg-white px-10 py-8 max-md:p-3">
     <h4 class="mb-3 text-xl font-semibold">
       Отправили код на почту {{ email }}
       <UButton

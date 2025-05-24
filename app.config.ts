@@ -159,6 +159,24 @@ export default defineAppConfig({
       ],
     },
 
+    textarea: {
+      slots: {
+        base: 'rounded-xl placeholder:text-input-placeholder',
+      },
+      variants: {
+        variant: {
+          outline: 'text-black ring-input-border',
+        },
+      },
+      compoundVariants: [
+        {
+          color: 'primary',
+          variant: 'outline',
+          class: 'focus-visible:ring-input-focus',
+        },
+      ],
+    },
+
     select: {
       slots: {
         base: 'rounded-3xl placeholder:text-input-placeholder',
@@ -281,6 +299,14 @@ export default defineAppConfig({
       ],
       slots: {
         label: 'text-neutral-50',
+      },
+    },
+
+    toast: {
+      slots: {
+        root: 'bg-secondary-bg',
+        title: 'text-accent-0 font-bold',
+        description: 'text-neutral-40 font-medium',
       },
     },
   },

@@ -1,4 +1,10 @@
-import type { IBloodType, ICitizenship, IDictionaryState, IUserAgreement } from '~/stores/dictionary/types';
+import type {
+  IBloodType,
+  ICitizenship,
+  ICreateConsultation,
+  IDictionaryState,
+  IUserAgreement,
+} from '~/stores/dictionary/types';
 import type { IDictionaryResponse } from '~/utils/types';
 import type { IDistance } from '~/stores/marathon/types';
 
@@ -11,6 +17,7 @@ export const useDictionaryStore = defineStore('dictionary', {
     countryList: [],
     distances: [],
     userAgreement: null,
+    consultationLoading: false,
   }),
   actions: {
     async fetchBloodTypes() {
@@ -105,6 +112,34 @@ export const useDictionaryStore = defineStore('dictionary', {
         this.dictionaryLoading = false;
         this.error = e.message;
         console.error('error', e);
+      }
+    },
+
+    async sendConsultation(consultation: ICreateConsultation) {
+      const api = useApi();
+      const toast = useToast();
+
+      try {
+        this.consultationLoading = true;
+
+        const response = await api<unknown>('webhook/cms/form', {
+          method: 'POST',
+          body: consultation,
+        });
+        toast.add({
+          title: 'Спасибо! В ближайшее время мы с вами свяжемся',
+        });
+
+        this.consultationLoading = false;
+        return response;
+      } catch (e: any) {
+        this.consultationLoading = false;
+        console.error('error', e);
+        toast.add({
+          title: 'Ошибка',
+          description: e.message,
+          color: 'error',
+        });
       }
     },
   },

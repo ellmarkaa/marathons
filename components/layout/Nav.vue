@@ -19,11 +19,11 @@ const items: IDropdownItems[] = [
 const authStore = useAuthStore();
 const lang = ref('RU');
 const openMenu = ref(false);
-const searchMode = defineModel<boolean>({ required: true });
+// const searchMode = defineModel<boolean>({ required: true });
 console.log('authStore.user', authStore.user);
-const handleChangeMode = () => {
-  searchMode.value = !searchMode.value;
-};
+// const handleChangeMode = () => {
+//   searchMode.value = !searchMode.value;
+// };
 
 const onChange = (value: string) => {
   lang.value = value;
@@ -54,11 +54,11 @@ const handleCloseMenu = () => {
     </div>
 
     <div class="flex items-center gap-x-4 self-end max-lg:self-center max-sm:gap-x-3">
-      <UButton
-        variant="soft"
-        icon="material-symbols:search-rounded"
-        @click="handleChangeMode"
-      />
+      <!--      <UButton-->
+      <!--        variant="soft"-->
+      <!--        icon="material-symbols:search-rounded"-->
+      <!--        @click="handleChangeMode"-->
+      <!--      />-->
       <LayoutHeaderMenu
         v-model="openMenu"
         @close-menu="handleCloseMenu"

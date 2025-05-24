@@ -19,7 +19,7 @@ const state = reactive<{ email: string }>({
 </script>
 
 <template>
-  <div class="rounded-2xl bg-white px-10 py-8">
+  <div class="rounded-2xl bg-white px-10 py-8 max-md:p-3">
     <h4 class="mb-6 text-xl font-semibold">Войти в аккаунт</h4>
 
     <UForm

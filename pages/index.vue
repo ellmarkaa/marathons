@@ -121,13 +121,7 @@ console.log('sliders', sliders);
         <p class="leave-text mb-8 text-center text-4xl font-bold max-md:text-2xl">
           Оставьте заявку, чтобы получить всю информацию перед принятием решения
         </p>
-        <UButton
-          size="lg"
-          class="mb-9"
-          trailing-icon="material-symbols:arrow-right-alt-rounded"
-        >
-          Получить консультацию
-        </UButton>
+        <MainConsultationModal />
         <img
           src="/imgs/lets-go.svg"
           alt="lets go"
