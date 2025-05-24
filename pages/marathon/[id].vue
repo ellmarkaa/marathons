@@ -172,6 +172,34 @@ const getDiffrence = (marathon: IMarathon) => {
             <p class="text-neutral-20">Выберите подходящий для вас вариант</p>
           </div>
 
+          <div class="border-neutral-80 rounded-xl border">
+            <div class="flex w-full">
+              <div class="border-neutral-90 w-2/3 border-r p-5 pb-8">
+                <h5 class="text-primary-0 mb-6 text-lg font-semibold">BASIC PACKAGE – Rixos Hotel</h5>
+
+                <ul class="flex flex-col gap-3 text-base">
+                  <li>Дистанция: 42.195 км</li>
+                  <li>Даты: Февраль 26 – Март 3, 2025 (5 ночей)</li>
+                  <li>Отель: Rixos Hotel</li>
+                  <li>Тип размещения: Twin - 2 single beds</li>
+                </ul>
+              </div>
+
+              <div class="flex w-1/3 flex-col items-end justify-between p-5 pb-8">
+                <UBadge label="Осталось 4 пакета" />
+
+                <div class="w-full text-right">
+                  <p class="mb-1 text-2xl font-bold">KZT 216 900</p>
+                  <p class="mb-3 text-xs">Слот + отель</p>
+                  <UButton
+                    label="Выбрать"
+                    block
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!--          <div class="rounded-xl bg-white p-5">-->
           <!--            <div class="mb-3 flex items-center justify-between">-->
           <!--              <div>-->
