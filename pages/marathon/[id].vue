@@ -10,43 +10,10 @@ const { data: marathon } = await useAsyncData('marathon', () =>
   marathonStore.fetchMarathonById(route.params.id as string),
 );
 const { data: prices } = await useAsyncData('prices', () => marathonStore.fetchPrices(route.params.id as string));
-const { data: reviews } = await useAsyncData('reviews', () => marathonStore.fetchReviews(route.params.id as string));
+const { data: reviews = [] } = await useAsyncData('reviews', () => marathonStore.fetchReviews(route.params.id as string));
 console.log('reviews', reviews);
 console.log('marathon', marathon);
 console.log('prices', prices);
-
-// const includes = [
-//   'Медаль финишера',
-//   'Футболка финишера',
-//   'Фотографии',
-//   'Вход на марафон',
-//   'Питьевые станции',
-//   'Трансфер',
-//   'Медицинская помощь',
-//   'Туалеты',
-// ];
-// const distanceInfo = [
-//   {
-//     distance: 10,
-//     distanceName: '10 км',
-//     price: 200,
-//   },
-//   {
-//     distance: 21.1,
-//     distanceName: 'Half Marathon',
-//     price: 400,
-//   },
-//   {
-//     distance: 42.1,
-//     distanceName: 'Marathon',
-//     price: 600,
-//   },
-//   {
-//     distance: 100,
-//     distanceName: 'Ultra Marathon',
-//     price: 800,
-//   },
-// ];
 
 const getDiffrence = (marathon: IMarathon) => {
   const deadline = new Date(marathon.marathon_deadline);
@@ -57,9 +24,6 @@ const getDiffrence = (marathon: IMarathon) => {
 
   return 0;
 };
-
-// const items = ref(['Backlog', 'Todo', 'In Progress', 'Done']);
-// const value = ref('');
 </script>
 
 <template>
@@ -142,14 +106,14 @@ const getDiffrence = (marathon: IMarathon) => {
           </li>
         </ul>
 
-        <div class="border-neutral-90 my-14 border-b" />
+        <div class="border-neutral-90 my-10 border-b" />
         <!--        <img-->
         <!--          src="/imgs/marathon-map.png"-->
         <!--          alt="map"-->
         <!--          class="marathon-map h-auto w-full rounded-xl"-->
         <!--        >-->
 
-        <!--        <div class="border-neutral-90 my-14 border-b" />-->
+        <!--        <div class="border-neutral-90 my-10 border-b" />-->
 
         <!--        <div class="bg-main-gray border-neutral-99 mb-14 rounded-xl border p-6">-->
         <!--          <h5 class="mb-4 text-2xl font-bold">Доступные дистанции</h5>-->
@@ -175,93 +139,16 @@ const getDiffrence = (marathon: IMarathon) => {
           </div>
 
           <MarathonPriceCard v-for="price in prices" :key="price.id" :price="price" />
-
-          <!--          <div class="rounded-xl bg-white p-5">-->
-          <!--            <div class="mb-3 flex items-center justify-between">-->
-          <!--              <div>-->
-          <!--                <h4 class="mb-2 text-2xl font-bold">Виза</h4>-->
-          <!--                <p>Поможем вам получить визу</p>-->
-          <!--              </div>-->
-          <!--              <UButton variant="outline">Добавить</UButton>-->
-          <!--            </div>-->
-
-          <!--            <div class="flex items-end gap-4">-->
-          <!--              <span class="font-semibold">Стоимость</span>-->
-          <!--              <span class="text-accent-50 text-xl font-semibold">400$</span>-->
-          <!--            </div>-->
-
-          <!--            <div class="border-neutral-90 my-6 border-b" />-->
-
-          <!--            <h5 class="mb-3 text-base font-semibold">Шенген виза</h5>-->
-          <!--            <p class="mb-3 text-neutral-50">В визовую услугу входит:</p>-->
-
-          <!--            <ContentCollapse :max-height="40">-->
-          <!--              <ul class="visa-list text-neutral-50">-->
-          <!--                <li>консультация по процессу до получения визы;</li>-->
-          <!--                <li>запись на ближайшую дату;</li>-->
-          <!--                <li>консультация по списку необходимых документов;</li>-->
-          <!--                <li>заполнение анкеты;</li>-->
-          <!--                <li>подготовим и запишем на подачу;</li>-->
-          <!--                <li>бронирование отелей и билетов для визы;</li>-->
-          <!--                <li>оформление страховки (оплачивается отдельно).</li>-->
-          <!--              </ul>-->
-          <!--            </ContentCollapse>-->
-          <!--          </div>-->
-
-          <!--          <div class="rounded-xl bg-white p-5">-->
-          <!--            <h4 class="mb-2 text-2xl font-bold">Виза</h4>-->
-          <!--            <p>Выберете отель, где будете размещены</p>-->
-
-          <!--            <div class="border-neutral-90 my-8 border-b" />-->
-
-          <!--            <div class="flex gap-6">-->
-          <!--              <UFormField-->
-          <!--                label="Отель"-->
-          <!--                class="w-2/3"-->
-          <!--              >-->
-          <!--                <UInputMenu-->
-          <!--                  v-model="value"-->
-          <!--                  :items="items"-->
-          <!--                  class="w-full"-->
-          <!--                />-->
-          <!--              </UFormField>-->
-
-          <!--              <UFormField-->
-          <!--                label="Количество дней"-->
-          <!--                class="w-1/3"-->
-          <!--              >-->
-          <!--                <UInputMenu-->
-          <!--                  v-model="value"-->
-          <!--                  :items="items"-->
-          <!--                  class="w-full"-->
-          <!--                />-->
-          <!--              </UFormField>-->
-          <!--            </div>-->
-
-          <!--            <div class="border-neutral-90 my-8 border-b" />-->
-
-          <!--            <a-->
-          <!--              href="#"-->
-          <!--              class="mb-8 flex items-center gap-2 text-base"-->
-          <!--            >Подробная информация о размещении <IconRightUp-->
-          <!--            /></a>-->
-
-          <!--            <UButton-->
-          <!--              variant="outline"-->
-          <!--              disabled-->
-          <!--            >Добавить</UButton-->
-          <!--            >-->
-          <!--          </div>-->
         </div>
 
-        <div class="border-neutral-90 my-14 border-b" />
+        <div class="border-neutral-90 my-10 border-b" />
 
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between mb-8">
           <h4 class="text-2xl font-bold">Отзывы</h4>
-          <UButton icon="mdi-light:pencil" label="Оставить отзыв" variant="link" />
+          <UButton class="text-neutral-0 text-base hover:text-neutral-0" icon="mdi-light:pencil" label="Оставить отзыв" variant="link" />
         </div>
 
-        <div class="mb-4 flex flex-wrap justify-between gap-y-4">
+        <div v-if="!!reviews?.length" class="mb-4 flex flex-wrap justify-between gap-y-4">
           <MainReview
             v-for="review in reviews"
             :key="review.id"
@@ -269,17 +156,23 @@ const getDiffrence = (marathon: IMarathon) => {
           />
         </div>
 
-        <UButton variant="soft">Посмотреть все 25 отзывов</UButton>
+        <p v-else class="text-base text-neutral-30 mb-4" v-if="!reviews?.length">На данный момент у марафона нету отзыва</p>
+        <UButton v-if="reviews && reviews.length > 4" variant="soft">Посмотреть все 25 отзывов</UButton>
 
-        <div class="border-neutral-90 my-14 border-b" />
+        <div class="border-neutral-90 my-10 border-b" />
 
-        <h4 class="mb-8 text-2xl font-bold">Бестселлеры</h4>
-
-        <div class="mb-30 flex gap-6">
-          <!--          TODO: think about it-->
-          <!--          <MainCard class="card" />-->
-          <!--          <MainCard class="card" />-->
+        <div class="flex flex-wrap gap-4 items-center">
+          <Image v-for="image in marathon.pictures" :style="{width: 'calc(50% - 16px)'}" class="rounded-xl" :picture="image" />
+          <p class="text-base text-neutral-30 mb-10" v-if="!marathon.pictures.length">На данный момент у марафона нету фотографий</p>
         </div>
+
+<!--        <h4 class="mb-8 text-2xl font-bold">Бестселлеры</h4>-->
+
+<!--        <div class="mb-30 flex gap-6">-->
+<!--                    TODO: think about it-->
+<!--                    <MainCard class="card" />-->
+<!--                    <MainCard class="card" />-->
+<!--        </div>-->
       </div>
 
       <MarathonInfoCard />
