@@ -10,7 +10,9 @@ const { data: marathon } = await useAsyncData('marathon', () =>
   marathonStore.fetchMarathonById(route.params.id as string),
 );
 const { data: prices } = await useAsyncData('prices', () => marathonStore.fetchPrices(route.params.id as string));
-const { data: reviews = [] } = await useAsyncData('reviews', () => marathonStore.fetchReviews(route.params.id as string));
+const { data: reviews = [] } = await useAsyncData('reviews', () =>
+  marathonStore.fetchReviews(route.params.id as string),
+);
 console.log('reviews', reviews);
 console.log('marathon', marathon);
 console.log('prices', prices);
@@ -89,7 +91,7 @@ const getDiffrence = (marathon: IMarathon) => {
           :title="`Регистрация закрывается ${new Date(marathon.marathon_deadline).toLocaleDateString()} (осталось ${getDiffrence(marathon)} дня)`"
           class="mb-8"
           :ui="{
-            icon: 'text-error-30'
+            icon: 'text-error-30',
           }"
         />
 
@@ -138,17 +140,29 @@ const getDiffrence = (marathon: IMarathon) => {
             <p class="text-neutral-20">Выберите подходящий для вас вариант</p>
           </div>
 
-          <MarathonPriceCard v-for="price in prices" :key="price.id" :price="price" />
+          <MarathonPriceCard
+            v-for="price in prices"
+            :key="price.id"
+            :price="price"
+          />
         </div>
 
         <div class="border-neutral-90 my-10 border-b" />
 
-        <div class="flex items-center justify-between mb-8">
+        <div class="mb-8 flex items-center justify-between">
           <h4 class="text-2xl font-bold">Отзывы</h4>
-          <UButton class="text-neutral-0 text-base hover:text-neutral-0" icon="mdi-light:pencil" label="Оставить отзыв" variant="link" />
+          <UButton
+            class="text-neutral-0 hover:text-neutral-0 text-base"
+            icon="mdi-light:pencil"
+            label="Оставить отзыв"
+            variant="link"
+          />
         </div>
 
-        <div v-if="!!reviews?.length" class="mb-4 flex flex-wrap justify-between gap-y-4">
+        <div
+          v-if="!!reviews?.length"
+          class="mb-4 flex flex-wrap justify-between gap-y-4"
+        >
           <MainReview
             v-for="review in reviews"
             :key="review.id"
@@ -156,23 +170,43 @@ const getDiffrence = (marathon: IMarathon) => {
           />
         </div>
 
-        <p v-else class="text-base text-neutral-30 mb-4" v-if="!reviews?.length">На данный момент у марафона нету отзыва</p>
-        <UButton v-if="reviews && reviews.length > 4" variant="soft">Посмотреть все 25 отзывов</UButton>
+        <p
+          v-else
+          v-if="!reviews?.length"
+          class="text-neutral-30 mb-4 text-base"
+        >
+          На данный момент у марафона нету отзыва
+        </p>
+        <UButton
+          v-if="reviews && reviews.length > 4"
+          variant="soft"
+          >Посмотреть все 25 отзывов</UButton
+        >
 
         <div class="border-neutral-90 my-10 border-b" />
 
-        <div class="flex flex-wrap gap-4 items-center">
-          <Image v-for="image in marathon.pictures" :style="{width: 'calc(50% - 16px)'}" class="rounded-xl" :picture="image" />
-          <p class="text-base text-neutral-30 mb-10" v-if="!marathon.pictures.length">На данный момент у марафона нету фотографий</p>
+        <div class="flex flex-wrap items-center gap-4">
+          <Image
+            v-for="image in marathon.pictures"
+            :style="{ width: 'calc(50% - 16px)' }"
+            class="rounded-xl"
+            :picture="image"
+          />
+          <p
+            v-if="!marathon.pictures.length"
+            class="text-neutral-30 mb-10 text-base"
+          >
+            На данный момент у марафона нету фотографий
+          </p>
         </div>
 
-<!--        <h4 class="mb-8 text-2xl font-bold">Бестселлеры</h4>-->
+        <!--        <h4 class="mb-8 text-2xl font-bold">Бестселлеры</h4>-->
 
-<!--        <div class="mb-30 flex gap-6">-->
-<!--                    TODO: think about it-->
-<!--                    <MainCard class="card" />-->
-<!--                    <MainCard class="card" />-->
-<!--        </div>-->
+        <!--        <div class="mb-30 flex gap-6">-->
+        <!--                    TODO: think about it-->
+        <!--                    <MainCard class="card" />-->
+        <!--                    <MainCard class="card" />-->
+        <!--        </div>-->
       </div>
 
       <MarathonInfoCard />

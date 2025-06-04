@@ -222,7 +222,7 @@ export default defineAppConfig({
         header: 'pt-8 px-8 sm:px-8 pb-6',
         body: 'px-8 pb-8 pt-0 sm:px-8 sm:pt-0 sm:pb-8',
         content: 'divide-none',
-        title: 'text-neutral-0 font-bold text-2xl'
+        title: 'text-neutral-0 font-bold text-2xl',
       },
       variants: {
         fullscreen: {

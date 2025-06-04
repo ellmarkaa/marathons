@@ -142,15 +142,15 @@ export interface IFAQ {
 }
 
 export interface IReview {
-  id: number,
-  contact_id: null,
-  value: string,
+  id: number;
+  contact_id: null;
+  value: string;
   status: {
-    "key": string,
-    "color": string,
-    "title": string
-  },
-  "marathon": IMarathon,
-  "created_at": string,
-  "created_by": IUser
+    key: string;
+    color: string;
+    title: string;
+  };
+  marathon: IMarathon;
+  created_at: string;
+  created_by: IUser;
 }

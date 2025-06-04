@@ -157,8 +157,8 @@ export const useMarathonStore = defineStore('marathon', {
     async fetchReviews(marathonId: string | number) {
       const api = useApi();
       const searchParam = new URLSearchParams();
-      searchParam.append('dict_arr[]', `marathon.id:${marathonId}`)
-      searchParam.append('dict_arr[]', `status.key:completed`)
+      searchParam.append('dict_arr[]', `marathon.id:${marathonId}`);
+      searchParam.append('dict_arr[]', `status.key:completed`);
       try {
         const res = await api<IDictionaryResponse<IReview>>(`dictionary/Отзывы%20марафонов?${searchParam.toString()}`, {
           method: 'GET',
