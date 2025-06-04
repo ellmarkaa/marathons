@@ -1,46 +1,39 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { IReview } from '~/stores/marathon/types';
+
+defineProps<{review: IReview}>()
+function formatMonthYearRu(dateStr: string): string {
+  const date = new Date(dateStr)
+
+  const formatter = new Intl.DateTimeFormat('ru-RU', {
+    month: 'long',
+    year: 'numeric',
+  })
+
+  const formatted = formatter.format(date) // например: "сентябрь 2019"
+
+  // Разделим и сделаем первую букву месяца заглавной
+  const [month, year] = formatted.split(' ')
+
+  let capitalizedMonth = ''
+  if (month) {
+    capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1)
+  }
+
+  return `${capitalizedMonth} ${year}`
+}
+</script>
 
 <template>
   <div class="review border-neutral-80 flex flex-col gap-4 rounded-xl border px-8 py-6">
-    <div class="flex items-center gap-3">
-      <UAvatar
-        src="/imgs/avatar-example.jpeg"
-        size="3xl"
-      />
-
-      <div class="flex flex-col justify-between">
-        <span>Акбай Д.</span>
-
-        <div class="flex">
-          <IconStar
-            v-for="index of 5"
-            :key="index"
-          />
-        </div>
-      </div>
-    </div>
-
-    <div class="text-neutral-20 flex items-center gap-3">
-      <IconDistance />
-      <span>42.195 km</span>
-      <span>Сентябрь 2019</span>
+    <div class="flex items-center justify-between">
+      <p class="font-bold text-base capitalize">{{review.created_by.options.name}} {{review.created_by.options.surname[0]}}.</p>
+      <span class="text-neutral-20">{{formatMonthYearRu(review.created_at)}}</span>
     </div>
 
     <p class="comment text-base text-neutral-50">
-      Участвовал в марафоне, и это было невероятное событие! Организация на высшем уровне – начиная от регистрации и
-      заканчивая поддержкой на каждом этапе дистанции. Маршрут был прекрасно продуман, с живописными видами и хорошо
-      обозначенными точками питания. Атмосфера заряжала энергией, все участники поддерживали друг друга, а волонтёры
-      создавали позитивный настрой. Финиш был особенно эмоциональным моментом – ощущение победы над собой
-      непередаваемое. Определенно рекомендую всем, кто хочет испытать свои силы и ощутить настоящую радость от
-      преодоления!
+      {{review.value}}
     </p>
-
-    <UButton
-      variant="ghost"
-      color="neutral"
-      class="self-start py-1 pl-0"
-      >Прочитать все</UButton
-    >
   </div>
 </template>
 

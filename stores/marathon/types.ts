@@ -78,24 +78,20 @@ export interface IMarathon {
 export interface IPrice {
   id: number;
   contact_id: null;
-  visa: {
-    scalar: null;
-  };
+  visa: IVisa;
   price: number;
   currency: ICurrency;
   distance: IDistance;
   marathon: IMarathon;
   total_count: number;
-  hotel_number: {
-    scalar: null;
-  };
+  hotel_number?: IHotelNumber;
   is_buy_required: true;
 }
 
 export interface IHotelNumber {
-  id: 1225;
+  id: number;
   hotel: IHotel;
-  price: 20000;
+  price: number;
   currency: {
     scalar: null;
   };
@@ -143,4 +139,18 @@ export interface IFAQ {
   profile_template: HTMLstring;
   marathon_auto_mailing: HTMLstring;
   marathon_manual_mailing: HTMLstring;
+}
+
+export interface IReview {
+  id: number,
+  contact_id: null,
+  value: string,
+  status: {
+    "key": string,
+    "color": string,
+    "title": string
+  },
+  "marathon": IMarathon,
+  "created_at": string,
+  "created_by": IUser
 }

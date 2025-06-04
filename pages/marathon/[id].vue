@@ -10,6 +10,8 @@ const { data: marathon } = await useAsyncData('marathon', () =>
   marathonStore.fetchMarathonById(route.params.id as string),
 );
 const { data: prices } = await useAsyncData('prices', () => marathonStore.fetchPrices(route.params.id as string));
+const { data: reviews } = await useAsyncData('reviews', () => marathonStore.fetchReviews(route.params.id as string));
+console.log('reviews', reviews);
 console.log('marathon', marathon);
 console.log('prices', prices);
 
@@ -123,7 +125,7 @@ const getDiffrence = (marathon: IMarathon) => {
           :title="`Регистрация закрывается ${new Date(marathon.marathon_deadline).toLocaleDateString()} (осталось ${getDiffrence(marathon)} дня)`"
           class="mb-8"
           :ui="{
-            icon: 'text-error-30',
+            icon: 'text-error-30'
           }"
         />
 
@@ -172,33 +174,7 @@ const getDiffrence = (marathon: IMarathon) => {
             <p class="text-neutral-20">Выберите подходящий для вас вариант</p>
           </div>
 
-          <div class="border-neutral-80 rounded-xl border">
-            <div class="flex w-full">
-              <div class="border-neutral-90 w-2/3 border-r p-5 pb-8">
-                <h5 class="text-primary-0 mb-6 text-lg font-semibold">BASIC PACKAGE – Rixos Hotel</h5>
-
-                <ul class="flex flex-col gap-3 text-base">
-                  <li>Дистанция: 42.195 км</li>
-                  <li>Даты: Февраль 26 – Март 3, 2025 (5 ночей)</li>
-                  <li>Отель: Rixos Hotel</li>
-                  <li>Тип размещения: Twin - 2 single beds</li>
-                </ul>
-              </div>
-
-              <div class="flex w-1/3 flex-col items-end justify-between p-5 pb-8">
-                <UBadge label="Осталось 4 пакета" />
-
-                <div class="w-full text-right">
-                  <p class="mb-1 text-2xl font-bold">KZT 216 900</p>
-                  <p class="mb-3 text-xs">Слот + отель</p>
-                  <UButton
-                    label="Выбрать"
-                    block
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <MarathonPriceCard v-for="price in prices" :key="price.id" :price="price" />
 
           <!--          <div class="rounded-xl bg-white p-5">-->
           <!--            <div class="mb-3 flex items-center justify-between">-->
@@ -280,22 +256,16 @@ const getDiffrence = (marathon: IMarathon) => {
 
         <div class="border-neutral-90 my-14 border-b" />
 
-        <h4 class="mb-2 text-2xl font-bold">Отзывы</h4>
-        <div class="mb-8 flex items-center gap-1.5">
-          <div class="flex">
-            <IconStar
-              v-for="index of 5"
-              :key="index"
-            />
-          </div>
-
-          <span class="text-xl font-semibold">4.95</span>
+        <div class="flex items-center justify-between">
+          <h4 class="text-2xl font-bold">Отзывы</h4>
+          <UButton icon="mdi-light:pencil" label="Оставить отзыв" variant="link" />
         </div>
 
         <div class="mb-4 flex flex-wrap justify-between gap-y-4">
           <MainReview
-            v-for="index of 4"
-            :key="index"
+            v-for="review in reviews"
+            :key="review.id"
+            :review="review"
           />
         </div>
 

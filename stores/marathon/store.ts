@@ -1,6 +1,6 @@
 import type { IDictionaryResponse } from '~/utils/types';
 import type { TagType } from '~/components/main/types';
-import type { IFAQ, IMarathon, IPrice } from '~/stores/marathon/types';
+import type { IFAQ, IMarathon, IPrice, IReview } from '~/stores/marathon/types';
 
 export const useMarathonStore = defineStore('marathon', {
   state: (): IMarathonState => ({
@@ -23,14 +23,6 @@ export const useMarathonStore = defineStore('marathon', {
         const res = await api<IDictionaryResponse<ISliderMarathon>>('dictionary/Слайдеры', {
           method: 'GET',
         });
-        // const promises = res.items.data.map(slider => {
-        //   console.log('slider.pictures[0]', slider.pictures[0]);
-        //   if (slider.pictures[0]) {
-        //     return api(slider.pictures[0].path.replace('task/', ''), { method: 'GET' });
-        //   }
-        // });
-        // const pictures = await Promise.all(promises);
-        // console.log('pictures', pictures);
         const sliders = res.items.data.sort((a, b) => a.order - b.order);
         this.sliderMarathons = sliders;
         this.sliderLoading = false;
@@ -155,6 +147,21 @@ export const useMarathonStore = defineStore('marathon', {
           params: {
             'dict_arr[]': `marathon.id:${marathonId}`,
           },
+        });
+        return res.items.data;
+      } catch (e) {
+        console.error('error', e);
+      }
+    },
+
+    async fetchReviews(marathonId: string | number) {
+      const api = useApi();
+      const searchParam = new URLSearchParams();
+      searchParam.append('dict_arr[]', `marathon.id:${marathonId}`)
+      searchParam.append('dict_arr[]', `status.key:completed`)
+      try {
+        const res = await api<IDictionaryResponse<IReview>>(`dictionary/Отзывы%20марафонов?${searchParam.toString()}`, {
+          method: 'GET',
         });
         return res.items.data;
       } catch (e) {
