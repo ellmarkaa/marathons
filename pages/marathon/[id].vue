@@ -10,12 +10,14 @@ const { data: marathon } = await useAsyncData('marathon', () =>
   marathonStore.fetchMarathonById(route.params.id as string),
 );
 const { data: prices } = await useAsyncData('prices', () => marathonStore.fetchPrices(route.params.id as string));
+const { data: faq } = await useAsyncData('faq', () => marathonStore.fetchFAQ(route.params.id as string));
 const { data: reviews = [] } = await useAsyncData('reviews', () =>
   marathonStore.fetchReviews(route.params.id as string),
 );
 console.log('reviews', reviews);
 console.log('marathon', marathon);
 console.log('prices', prices);
+console.log('faq', faq.value);
 
 const getDiffrence = (marathon: IMarathon) => {
   const deadline = new Date(marathon.marathon_deadline);
@@ -36,16 +38,7 @@ const getDiffrence = (marathon: IMarathon) => {
     <h1 class="mb-5 text-3xl font-bold">{{ marathon.title_ru }}</h1>
 
     <div class="mb-4 flex items-center gap-1.5">
-      <span class="inline-flex gap-0.5">
-        <IconStar
-          v-for="star in 5"
-          :key="star"
-          :width="18"
-          :height="18"
-        />
-      </span>
-      <span class="text-base font-semibold">4.95</span>
-      <span class="text-base">(25 отзывов)</span>
+      <span class="text-base">{{reviews?.length || 0}} отзывов</span>
     </div>
 
     <div class="mb-15">
@@ -151,12 +144,7 @@ const getDiffrence = (marathon: IMarathon) => {
 
         <div class="mb-8 flex items-center justify-between">
           <h4 class="text-2xl font-bold">Отзывы</h4>
-          <UButton
-            class="text-neutral-0 hover:text-neutral-0 text-base"
-            icon="mdi-light:pencil"
-            label="Оставить отзыв"
-            variant="link"
-          />
+          <MarathonReviewModal :marathon-id="marathon.id" />
         </div>
 
         <div
@@ -172,44 +160,41 @@ const getDiffrence = (marathon: IMarathon) => {
 
         <p
           v-else
-          v-if="!reviews?.length"
           class="text-neutral-30 mb-4 text-base"
         >
           На данный момент у марафона нету отзыва
         </p>
-        <UButton
-          v-if="reviews && reviews.length > 4"
-          variant="soft"
-          >Посмотреть все 25 отзывов</UButton
-        >
+<!--        <UButton-->
+<!--          v-if="reviews && reviews.length > 4"-->
+<!--          variant="soft"-->
+<!--          label="Посмотреть остальные отзывы"-->
+<!--        />-->
 
         <div class="border-neutral-90 my-10 border-b" />
 
-        <div class="flex flex-wrap items-center gap-4">
+        <div class="flex flex-wrap items-center gap-4 max-md:flex-col">
           <Image
             v-for="image in marathon.pictures"
-            :style="{ width: 'calc(50% - 16px)' }"
-            class="rounded-xl"
+            :key="image.path"
+            class="rounded-xl marathon-info-image"
             :picture="image"
           />
           <p
             v-if="!marathon.pictures.length"
-            class="text-neutral-30 mb-10 text-base"
+            class="text-neutral-30 text-base"
           >
             На данный момент у марафона нету фотографий
           </p>
         </div>
 
-        <!--        <h4 class="mb-8 text-2xl font-bold">Бестселлеры</h4>-->
+        <div class="border-neutral-90 my-10 border-b" />
 
-        <!--        <div class="mb-30 flex gap-6">-->
-        <!--                    TODO: think about it-->
-        <!--                    <MainCard class="card" />-->
-        <!--                    <MainCard class="card" />-->
-        <!--        </div>-->
+        <h5 class="mb-3 text-xl font-semibold">Часто задаваемые вопросы</h5>
+        <p v-for="f in faq" :key="f.id" class="mb-4" v-html="f.profile_template"/>
+        <p v-if="!faq?.length" class="mb-5">Пока тут пусто</p>
       </div>
 
-      <MarathonInfoCard />
+      <MarathonInfoCard class="marathon-info-card" />
     </div>
   </UContainer>
 </template>
@@ -242,5 +227,16 @@ const getDiffrence = (marathon: IMarathon) => {
 }
 .card {
   width: 334px !important;
+}
+.marathon-info-card {
+  @media (width < 1130px) {
+    display: none;
+  }
+}
+.marathon-info-image {
+  width: calc(50% - 16px);
+  @media (width < 730px) {
+    width: 100%;
+  }
 }
 </style>

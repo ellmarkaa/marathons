@@ -183,5 +183,22 @@ export const useMarathonStore = defineStore('marathon', {
         console.error('error', e);
       }
     },
+
+    async createReview(title: string, marathonId: number) {
+      const api = useApi();
+      try {
+        const res = await api<IDictionaryResponse<IReview>>(`dictionary/Отзывы%20марафонов`, {
+          method: 'POST',
+          body: {
+            value: title,
+            marathon: marathonId
+          }
+        });
+        console.log('res', res);
+        return res.items.data;
+      } catch (e) {
+        console.error('error', e);
+      }
+    }
   },
 });

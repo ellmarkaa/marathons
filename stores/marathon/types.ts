@@ -134,7 +134,7 @@ export interface IFAQ {
   meta: {
     scalar: '';
   };
-  title: '123';
+  title: string;
   marathon: IMarathon;
   profile_template: HTMLstring;
   marathon_auto_mailing: HTMLstring;

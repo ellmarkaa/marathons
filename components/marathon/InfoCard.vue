@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="info-card bg-white">
+  <div class="info-card bg-white sticky top-5">
     <Badge
       color="red"
       class="mb-4"

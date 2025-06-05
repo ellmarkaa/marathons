@@ -30,8 +30,8 @@ const lastDay = props.price.hotel_number?.stay_dates[1];
 
 <template>
   <div class="border-neutral-80 overflow-hidden rounded-xl border">
-    <div class="flex w-full bg-white">
-      <div class="border-neutral-90 w-2/3 border-r p-5 pb-8">
+    <div class="flex w-full bg-white max-md:flex-col">
+      <div class="border-neutral-90 w-2/3 border-r p-5 pb-8 max-md:w-full">
         <h5 class="text-primary-0 mb-6 text-lg font-semibold">
           BASIC PACKAGE – {{ price.hotel_number?.hotel?.name_for_site_ru }}
         </h5>
@@ -49,7 +49,7 @@ const lastDay = props.price.hotel_number?.stay_dates[1];
         </ul>
       </div>
 
-      <div class="flex w-1/3 flex-col items-end justify-between p-5 pb-8">
+      <div class="flex w-1/3 flex-col items-end justify-between p-5 pb-8 max-md:w-full">
         <UBadge label="Осталось 4 ВОПРОС пакета" />
 
         <div class="w-full text-right">
