@@ -7,7 +7,7 @@ const authStore = useAuthStore();
 const verifyMode = ref(false);
 const verifyEmail = ref<null | string>(null);
 
-const open = defineModel('open')
+const open = defineModel('open');
 
 const closeModal = () => {
   open.value = false;

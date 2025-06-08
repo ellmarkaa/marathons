@@ -8,7 +8,7 @@ const authStore = useAuthStore();
 const directoryStore = useDictionaryStore();
 const profile = computed(() => authStore.profile);
 useAsyncData<IBloodType[]>('get-blood-types', () => directoryStore.fetchBloodTypes());
-const {t} = useI18n()
+const { t } = useI18n();
 
 const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more_info'>(null);
 </script>
@@ -19,7 +19,7 @@ const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more
     class="flex w-full flex-col gap-6"
   >
     <div class="title-block px-8 py-6">
-      <h4 class="text-3xl font-bold text-white">{{t('profile')}}</h4>
+      <h4 class="text-3xl font-bold text-white">{{ t('profile') }}</h4>
     </div>
 
     <div class="flex items-center justify-between rounded-xl bg-white p-6">
@@ -30,13 +30,13 @@ const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more
 
         <div>
           <p class="mb-2 flex items-center gap-1 text-lg font-semibold">
-            {{t('my-events')}}
+            {{ t('my-events') }}
             <Icon
               name="ph:info"
               class="size-4 text-neutral-50"
             />
           </p>
-          <p class="text-neutral-50">0 {{t('events')}}</p>
+          <p class="text-neutral-50">0 {{ t('events') }}</p>
         </div>
       </div>
 

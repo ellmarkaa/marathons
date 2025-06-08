@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineEmits(['close-menu']);
 const model = defineModel<boolean>({ required: true });
-const {t} = useI18n()
+const { t } = useI18n();
 </script>
 
 <template>
@@ -19,7 +19,7 @@ const {t} = useI18n()
     <slot />
 
     <template #header>
-      <p class="text-2xl font-bold">{{t('filter')}}</p>
+      <p class="text-2xl font-bold">{{ t('filter') }}</p>
 
       <UButton
         variant="soft"
@@ -34,7 +34,7 @@ const {t} = useI18n()
 
     <template #footer>
       <div class="py-3">
-        <UButton block>{{t('show')}}</UButton>
+        <UButton block>{{ t('show') }}</UButton>
       </div>
     </template>
   </UDrawer>

@@ -6,7 +6,7 @@ const filterMenu = ref(false);
 const marathonStore = useMarathonStore();
 const directoryStore = useDictionaryStore();
 const pagination = computed(() => marathonStore.marathonPagination);
-const { t } = useI18n()
+const { t } = useI18n();
 // const test = useI18n();
 // console.log('test', test.fallbackLocale.value);
 // setTimeout(() => {
@@ -18,7 +18,7 @@ const { t } = useI18n()
 useAsyncData('distance-directory', () => directoryStore.fetchDistances());
 const { data: sliders } = await useAsyncData('slider-marathons', () => marathonStore.fetchSliderMarathons());
 useAsyncData('main-marathons', () => marathonStore.fetchMarathons());
-const { get } = useLocalized()
+const { get } = useLocalized();
 // const { data: aa } = await useAsyncData('main-dasda', () => marathonStore.fetchMarathonById(1244));
 </script>
 
@@ -44,7 +44,7 @@ const { get } = useLocalized()
           trailing-icon="mdi:mixer-settings"
           variant="outline"
           class="filter-button"
-          >{{t('filter')}}</UButton
+          >{{ t('filter') }}</UButton
         >
       </MainFilterMenu>
     </UContainer>
@@ -77,7 +77,7 @@ const { get } = useLocalized()
             :disabled="marathonStore.mainLoading"
             @click="marathonStore.fetchMoreMarathons"
           >
-            {{t('show-more')}}
+            {{ t('show-more') }}
           </UButton>
         </div>
       </div>
@@ -114,10 +114,10 @@ const { get } = useLocalized()
     <section class="bg-accent-99">
       <UContainer class="flex flex-col items-center py-16">
         <p class="text-neutral-60 mb-5 text-center text-xl font-semibold max-md:text-lg">
-          {{t('get-consultation')}}
+          {{ t('get-consultation') }}
         </p>
         <p class="leave-text mb-8 text-center text-4xl font-bold max-md:text-2xl">
-          {{t('leave-consultation')}}
+          {{ t('leave-consultation') }}
         </p>
         <MainConsultationModal />
         <img

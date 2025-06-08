@@ -6,7 +6,7 @@ interface CarouselBlockProps {
   isLoading: boolean;
 }
 defineProps<CarouselBlockProps>();
-const { get } = useLocalized()
+const { get } = useLocalized();
 </script>
 
 <template>

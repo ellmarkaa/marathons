@@ -10,7 +10,7 @@ const emit = defineEmits<{
 }>();
 const authStore = useAuthStore();
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
-const {t} = useI18n()
+const { t } = useI18n();
 
 const state = reactive<ResidenceState>({
   residence_apartment: profile.residence_apartment,
@@ -30,7 +30,7 @@ const state = reactive<ResidenceState>({
     @submit="(payload: FormSubmitEvent<ResidenceState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
-      <h5 class="text-2xl font-bold">{{t('live-place')}}</h5>
+      <h5 class="text-2xl font-bold">{{ t('live-place') }}</h5>
 
       <div class="flex gap-3">
         <UButton

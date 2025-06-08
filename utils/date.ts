@@ -26,7 +26,6 @@ export const df = new DateFormatter('ru', {
   year: 'numeric',
 });
 
-
 export function formatRuMonthDay(date: string | undefined): string {
   if (!date) return '';
 

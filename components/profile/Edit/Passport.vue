@@ -24,7 +24,7 @@ const state = reactive<PassportState>({
   passport_date_issue: isoToCalendarDate(profile.passport_date_issue),
   passport_validity_period: isoToCalendarDate(profile.passport_validity_period),
 });
-const {t} = useI18n()
+const { t } = useI18n();
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const {t} = useI18n()
     @submit="(payload: FormSubmitEvent<PassportState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
-      <h5 class="text-2xl font-bold">{{t('passport-data')}}</h5>
+      <h5 class="text-2xl font-bold">{{ t('passport-data') }}</h5>
 
       <div class="flex gap-3">
         <UButton

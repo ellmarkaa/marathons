@@ -36,7 +36,7 @@ export type RegisterFormType = {
   'emergency_contact_phone_code': string;
 };
 
-const {t} = useI18n()
+const { t } = useI18n();
 
 export const registerSchema = yup.object<RegisterFormType>({
   'name': yup.string().required(REQUIRED_ERROR),
@@ -64,11 +64,7 @@ export const registerSchema = yup.object<RegisterFormType>({
     otherwise: schema => schema.typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
   }),
   'passport_validity_period': yup.date().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
-  'passport_date_issue': yup
-    .date()
-    .max(new Date(), t('date-ogr'))
-    .typeError(REQUIRED_ERROR)
-    .required(REQUIRED_ERROR),
+  'passport_date_issue': yup.date().max(new Date(), t('date-ogr')).typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
 
   'emergency_contact_name': yup.string().required(REQUIRED_ERROR),
   'emergency_contact_role': yup.string().required(REQUIRED_ERROR),

@@ -1,19 +1,16 @@
 <script setup lang="ts">
 defineEmits(['close-menu']);
 const model = defineModel<boolean>({ required: true });
-const buttonUi = {
-  base: 'text-lg font-bold px-0 py-1.5',
-};
 const contactClick = () => {
   setTimeout(() => {
-    const button = document.querySelector('#consultation-button')
+    const button = document.querySelector('#consultation-button');
     model.value = false;
     if (button) {
-      button?.click()
+      button?.click();
     }
-  }, 500)
-}
-const {t} = useI18n()
+  }, 500);
+};
+const { t } = useI18n();
 </script>
 
 <template>
@@ -51,9 +48,24 @@ const {t} = useI18n()
 
     <template #body>
       <ul class="m-0 flex list-none flex-col gap-5 p-0 text-base">
-        <li class="font-semibold" @click="model = false"><NuxtLink to="/about">{{t('about')}}</NuxtLink></li>
-        <li class="font-semibold" @click="model = false"><NuxtLink to="/agreement">{{t('agreement')}}</NuxtLink></li>
-        <li class="font-semibold" @click="contactClick"><NuxtLink to="/">{{t('contact')}}</NuxtLink></li>
+        <li
+          class="font-semibold"
+          @click="model = false"
+        >
+          <NuxtLink to="/about">{{ t('about') }}</NuxtLink>
+        </li>
+        <li
+          class="font-semibold"
+          @click="model = false"
+        >
+          <NuxtLink to="/agreement">{{ t('agreement') }}</NuxtLink>
+        </li>
+        <li
+          class="font-semibold"
+          @click="contactClick"
+        >
+          <NuxtLink to="/">{{ t('contact') }}</NuxtLink>
+        </li>
       </ul>
     </template>
 

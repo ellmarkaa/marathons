@@ -39,7 +39,7 @@ export default defineNuxtConfig({
       { code: 'en', name: 'EN', file: 'en.json' },
       { code: 'ru', name: 'RU', file: 'ru.json' },
       { code: 'kz', name: 'KZ', file: 'kk.json' },
-    ]
+    ],
   },
   future: {
     compatibilityVersion: 4,

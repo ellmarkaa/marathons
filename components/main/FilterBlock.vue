@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { months, years } from '~/utils/filter.data';
+import { years } from '~/utils/filter.data';
 import TextField from '~/components/ui/TextField.vue';
 import type { TagType } from '~/components/main/types';
 
@@ -7,9 +7,9 @@ import type { TagType } from '~/components/main/types';
 const store = useMarathonStore();
 const directoryStore = useDictionaryStore();
 const yearsRef = ref(years);
-const monthsRef = ref(months);
+// const monthsRef = ref(months);
 const duration = 400;
-const {t} = useI18n()
+const { t } = useI18n();
 const filterValues = reactive<TagType[]>([]);
 const removeFilter = (tagValue: any) => {
   const index = filterValues.findIndex(filter => filter.value === tagValue);
@@ -33,8 +33,8 @@ watch(filterValues, newFilter => {
 });
 
 const clearAll = () => {
-  filterValues.splice(0, filterValues.length)
-}
+  filterValues.splice(0, filterValues.length);
+};
 </script>
 
 <template>
@@ -56,7 +56,7 @@ const clearAll = () => {
         class="p-0"
         @click="clearAll"
       >
-        {{t('clean-all')}}
+        {{ t('clean-all') }}
       </UButton>
     </div>
 
@@ -102,7 +102,7 @@ const clearAll = () => {
     </Collapse>
 
     <div>
-      <h2 class="text-neutral-10 mb-1 py-2 text-base font-semibold">{{t('country')}}</h2>
+      <h2 class="text-neutral-10 mb-1 py-2 text-base font-semibold">{{ t('country') }}</h2>
       <TextField
         class="pb-3"
         disabled

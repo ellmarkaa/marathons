@@ -15,7 +15,7 @@ type Props = {
 
 defineProps<Props>();
 const emit = defineEmits<{ (event: 'onEdit'): void }>();
-const {t} = useI18n()
+const { t } = useI18n();
 </script>
 
 <template>

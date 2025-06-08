@@ -3,7 +3,7 @@
 <template>
   <div class="flex w-full flex-col gap-6">
     <div class="title-block px-8 py-6">
-      <h4 class="text-3xl font-bold text-white">{{$t('history')}}</h4>
+      <h4 class="text-3xl font-bold text-white">{{ $t('history') }}</h4>
     </div>
   </div>
 </template>

@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('user', {
     token: null,
     user: null,
     userUpdateLoading: false,
-    openLogin: false
+    openLogin: false,
   }),
   actions: {
     async fetchToken() {
@@ -239,7 +239,7 @@ export const useAuthStore = defineStore('user', {
       }
       this.user = null;
       this.token = null;
-    }
+    },
   },
   getters: {
     profile(state): IUserOptions | null {

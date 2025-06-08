@@ -2,7 +2,7 @@
 const router = useRouter();
 const dictionaryStore = useDictionaryStore();
 const { data: userAggreement } = await useAsyncData('slider-marathons', () => dictionaryStore.fetchUserAgreement());
-const {t} = useI18n()
+const { t } = useI18n();
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const {t} = useI18n()
           leading-icon="material-symbols:arrow-back-ios-new-rounded"
           @click="router.back()"
         >
-          {{t('back')}}
+          {{ t('back') }}
         </UButton>
 
         <template v-if="userAggreement">
@@ -30,7 +30,7 @@ const {t} = useI18n()
           />
         </template>
 
-        <div v-else>{{t('some-wrong')}}</div>
+        <div v-else>{{ t('some-wrong') }}</div>
       </div>
     </section>
   </UContainer>

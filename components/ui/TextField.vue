@@ -3,14 +3,14 @@ interface TextFieldType {
   leftIcon?: boolean;
   error?: boolean;
   placeholder?: string;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 const props = withDefaults(defineProps<TextFieldType>(), {
   leftIcon: false,
   error: false,
   placeholder: '',
-  disabled: false
+  disabled: false,
 });
 
 const inputClass = computed<Record<string, boolean>>(() => ({

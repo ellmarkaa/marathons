@@ -6,7 +6,7 @@ interface LoginFormProps {
   onSubmit: (event: FormSubmitEvent<{ email: string }>) => Promise<void>;
   isLoading: boolean;
 }
-const {t} = useI18n()
+const { t } = useI18n();
 
 const schema = object({
   email: string().email(t('incorrect-email')).required(t('required-field')),
@@ -21,7 +21,7 @@ const state = reactive<{ email: string }>({
 
 <template>
   <div class="rounded-2xl bg-white px-10 py-8 max-md:p-3">
-    <h4 class="mb-6 text-xl font-semibold">{{t('login')}}</h4>
+    <h4 class="mb-6 text-xl font-semibold">{{ t('login') }}</h4>
 
     <UForm
       :schema="schema"
@@ -46,24 +46,24 @@ const state = reactive<{ email: string }>({
         type="submit"
         :loading="isLoading"
       >
-        {{t('continue')}}
+        {{ t('continue') }}
       </UButton>
     </UForm>
 
     <p class="text-sm">
-      {{t('continue-condition')}}
+      {{ t('continue-condition') }}
       <a
         class="text-accent-40"
         href="#"
       >
-        {{t('user-agreement')}}
+        {{ t('user-agreement') }}
       </a>
-      {{t('confirm-user')}}
+      {{ t('confirm-user') }}
       <a
         class="text-accent-40"
         href="#"
       >
-        {{t('politic-user')}}
+        {{ t('politic-user') }}
       </a>
     </p>
   </div>

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 const marathonStore = useMarathonStore();
 const authStore = useAuthStore();
-const {get} = useLocalized()
-const {t} = useI18n()
+const { get } = useLocalized();
+const { t } = useI18n();
 </script>
 
 <template>
   <div class="flex w-full flex-col gap-6">
     <div class="title-block px-8 py-6">
-      <h4 class="text-3xl font-bold text-white">{{t('favorite')}}</h4>
+      <h4 class="text-3xl font-bold text-white">{{ t('favorite') }}</h4>
     </div>
 
     <Loader v-if="marathonStore.mainLoading" />

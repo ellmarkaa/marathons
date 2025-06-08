@@ -1,6 +1,6 @@
 import type { IDictionaryResponse } from '~/utils/types';
 import type { TagType } from '~/components/main/types';
-import type { IFAQ, IMarathon, IMarathonState, IPrice, IReview, ISuccessBuyRequest } from "~/stores/marathon/types";
+import type { IFAQ, IMarathon, IMarathonState, IPrice, IReview, ISuccessBuyRequest } from '~/stores/marathon/types';
 
 export const useMarathonStore = defineStore('marathon', {
   state: (): IMarathonState => ({
@@ -131,7 +131,7 @@ export const useMarathonStore = defineStore('marathon', {
         const res = await api<IDictionaryResponse<IMarathon>>(`dictionary/Марафоны/?id=${marathonId}`, {
           method: 'GET',
         });
-        this.marathon = res.items.data[0] || null
+        this.marathon = res.items.data[0] || null;
         return res.items.data[0];
       } catch (e) {
         console.error('error', e);
@@ -190,8 +190,8 @@ export const useMarathonStore = defineStore('marathon', {
           method: 'POST',
           body: {
             value: title,
-            marathon: marathonId
-          }
+            marathon: marathonId,
+          },
         });
         return res.items.data;
       } catch (e) {
@@ -201,32 +201,34 @@ export const useMarathonStore = defineStore('marathon', {
 
     async buyMarathon(price: IPrice) {
       const api = useApi();
-      const marathon = price.marathon
+      const marathon = price.marathon;
       const totalPrice = () => {
         if (price) {
-          return (price?.hotel_number?.price || 0) + (price.visa?.service?.price || 0) + (price.visa?.consular_fees?.price || 0);
+          return (
+            (price?.hotel_number?.price || 0) +
+            (price.visa?.service?.price || 0) +
+            (price.visa?.consular_fees?.price || 0)
+          );
         }
         return 0;
-      }
+      };
 
       try {
         const res = await api<ISuccessBuyRequest>(`509c39ae-f0ce-4cad-aee8-d526bf89c4fb/pay/onevision`, {
           method: 'POST',
           body: {
             amount: totalPrice(),
-            provider: "onevision",
+            provider: 'onevision',
             comment: `${marathon.title_ru} - ${marathon.country.name_ru}`,
             name: marathon.title_ru,
             success: `${window.location.origin}/marathon/${marathon.id}?payment=success`,
-            failure: `${window.location.origin}/marathon/${marathon.id}?payment=error`
-          }
+            failure: `${window.location.origin}/marathon/${marathon.id}?payment=error`,
+          },
         });
         return res;
       } catch (e) {
         console.error('error', e);
       }
-    }
-
+    },
   },
-
 });

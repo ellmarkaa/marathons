@@ -3,7 +3,7 @@ import type { IProfileMenu } from '~/utils/types';
 definePageMeta({
   middleware: 'auth',
 });
-const {t} = useI18n()
+const { t } = useI18n();
 
 const menuList: Ref<IProfileMenu[]> = ref([
   {

@@ -10,7 +10,7 @@ const emit = defineEmits<{
 }>();
 const authStore = useAuthStore();
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
-const {t} = useI18n()
+const { t } = useI18n();
 
 const emergencyCountryAvatar = computed(
   () => countryCodes.find(item => item.value === state.emergency_contact_phone_code)?.avatar,
@@ -35,7 +35,7 @@ const state = reactive<MoreInfoState>({
     @submit="(payload: FormSubmitEvent<MoreInfoState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
-      <h5 class="text-2xl font-bold">{{t('more-info')}}</h5>
+      <h5 class="text-2xl font-bold">{{ t('more-info') }}</h5>
 
       <div class="flex gap-3">
         <UButton
@@ -81,7 +81,7 @@ const state = reactive<MoreInfoState>({
       </div>
 
       <div class="mb-3 flex flex-col gap-6">
-        <p class="text-base font-semibold">{{t('data-for-extra')}}</p>
+        <p class="text-base font-semibold">{{ t('data-for-extra') }}</p>
 
         <div class="flex gap-4">
           <UFormField

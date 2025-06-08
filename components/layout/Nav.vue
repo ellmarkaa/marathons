@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { IDropdownItems } from '~/utils/types';
-import type { DropdownMenuItem } from "#ui/components/DropdownMenu.vue";
+import type { DropdownMenuItem } from '#ui/components/DropdownMenu.vue';
 
 // const items: IDropdownItems[] = [
 //   {
@@ -16,25 +15,22 @@ import type { DropdownMenuItem } from "#ui/components/DropdownMenu.vue";
 //     label: 'EN',
 //   },
 // ];
-const { locales, setLocale, locale } = useI18n()
-console.log('locales', locales.value);
-const items = computed<DropdownMenuItem[]>(() => locales.value.map(l => ({
-  label: l.name,
-  value: l.code,
-  onSelect: () => setLocale(l.code)
-})))
+const { locales, setLocale, locale } = useI18n();
+const items = computed<DropdownMenuItem[]>(() =>
+  locales.value.map(l => ({
+    label: l.name,
+    value: l.code,
+    onSelect: () => setLocale(l.code),
+  })),
+);
 
 const authStore = useAuthStore();
-const lang = ref('RU');
 const openMenu = ref(false);
 // const searchMode = defineModel<boolean>({ required: true });
 // const handleChangeMode = () => {
 //   searchMode.value = !searchMode.value;
 // };
 
-const onChange = (value: string) => {
-  lang.value = value;
-};
 const handleOpenMenu = () => {
   openMenu.value = true;
 };
@@ -43,13 +39,13 @@ const handleCloseMenu = () => {
 };
 const contactClick = () => {
   setTimeout(() => {
-    const button = document.querySelector('#consultation-button')
+    const button = document.querySelector('#consultation-button');
     if (button) {
-      button?.click()
+      button?.click();
     }
-  }, 500)
-}
-const {t} = useI18n()
+  }, 500);
+};
+const { t } = useI18n();
 </script>
 
 <template>
@@ -61,9 +57,18 @@ const {t} = useI18n()
 
       <nav class="max-md:hidden">
         <ul class="m-0 flex list-none gap-x-8 p-0 text-base">
-          <li class="font-semibold"><NuxtLink to="/about">{{t('about')}}</NuxtLink></li>
-          <li class="font-semibold"><NuxtLink to="/agreement">{{t('agreement')}}</NuxtLink></li>
-          <li class="font-semibold" @click="contactClick"><NuxtLink to="/">{{t('contact')}}</NuxtLink></li>
+          <li class="font-semibold">
+            <NuxtLink to="/about">{{ t('about') }}</NuxtLink>
+          </li>
+          <li class="font-semibold">
+            <NuxtLink to="/agreement">{{ t('agreement') }}</NuxtLink>
+          </li>
+          <li
+            class="font-semibold"
+            @click="contactClick"
+          >
+            <NuxtLink to="/">{{ t('contact') }}</NuxtLink>
+          </li>
         </ul>
       </nav>
     </div>
@@ -86,7 +91,10 @@ const {t} = useI18n()
         />
       </LayoutHeaderMenu>
 
-      <LayoutLoginModal v-if="!authStore.user" v-model:open="authStore.openLogin">
+      <LayoutLoginModal
+        v-if="!authStore.user"
+        v-model:open="authStore.openLogin"
+      >
         <UButton
           icon="cuida:user-outline"
           variant="soft"
@@ -104,16 +112,16 @@ const {t} = useI18n()
         :content="{
           align: 'start',
           side: 'bottom',
-          sideOffset: 8
+          sideOffset: 8,
         }"
-        :ui="{content: 'w-48'}"
+        :ui="{ content: 'w-48' }"
       >
         <UButton
           size="xl"
           :label="locale.toUpperCase()"
           trailing-icon="material-symbols:keyboard-arrow-down-rounded"
           variant="link"
-          :ui="{label: 'font-bold text-primary-0', trailingIcon: 'text-primary-0'}"
+          :ui="{ label: 'font-bold text-primary-0', trailingIcon: 'text-primary-0' }"
         />
       </UDropdownMenu>
     </div>

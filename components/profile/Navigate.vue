@@ -13,19 +13,19 @@ const handleChangeMenu = (label: string) => {
   });
 };
 
-const {t} = useI18n()
+const { t } = useI18n();
 
 const onLogout = () => {
-  authStore.logout()
-  navigateTo('/')
-}
-const {t} = useI18n()
+  authStore.logout();
+  navigateTo('/');
+};
+const { t } = useI18n();
 </script>
 
 <template>
   <div class="rounded-2xl bg-white px-6 py-10">
     <div class="border-b-input-border border-b pb-6 text-center">
-      <h4 class="text-accent-50 mb-2 text-lg font-semibold">{{t('hello')}}, {{ userOption?.name }}!</h4>
+      <h4 class="text-accent-50 mb-2 text-lg font-semibold">{{ t('hello') }}, {{ userOption?.name }}!</h4>
       <p class="text-neutral-60">{{ user?.value }}</p>
     </div>
 
@@ -53,10 +53,10 @@ const {t} = useI18n()
         icon="material-symbols:arrow-right-alt-rounded"
         :label="t('exit')"
         variant="link"
-        @click="onLogout"
         :ui="{
           base: 'text-neutral-10 px-4 py-2 hover:text-neutral-10 gap-2 font-normal',
         }"
+        @click="onLogout"
       />
     </div>
   </div>

@@ -9,7 +9,7 @@ export default defineI18nConfig(() => ({
   locales: [
     { code: 'ru', name: 'RU' },
     { code: 'en', name: 'EN' },
-    { code: 'kk', name: 'KZ' }
+    { code: 'kk', name: 'KZ' },
   ],
   messages: {
     en,

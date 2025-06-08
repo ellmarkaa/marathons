@@ -1,23 +1,35 @@
 <script setup lang="ts">
 const props = defineProps<{
-  paymentStatus?: 'success' | 'error'
-}>()
-const open = ref(true)
-const {t} = useI18n()
-const title = props.paymentStatus === 'success' ? t('payment-success') : t('payment-error')
-const description = props.paymentStatus === 'success' ? t('payment-des-success') : t('payment-des-error')
-
+  paymentStatus?: 'success' | 'error';
+}>();
+const open = ref(true);
+const { t } = useI18n();
+const title = props.paymentStatus === 'success' ? t('payment-success') : t('payment-error');
+const description = props.paymentStatus === 'success' ? t('payment-des-success') : t('payment-des-error');
 </script>
 
 <template>
-  <UModal title="" v-model:open="open">
+  <UModal
+    v-model:open="open"
+    title=""
+  >
     <template #body>
       <div class="wrapper">
-        <img class="mb-3 image" v-if="paymentStatus === 'success'" src="/imgs/payment-success.png" alt="payment" />
-        <img class="mb-3 image" v-else-if="paymentStatus === 'error'" src="/imgs/payment-error.png" alt="payment" />
+        <img
+          v-if="paymentStatus === 'success'"
+          class="image mb-3"
+          src="/imgs/payment-success.png"
+          alt="payment"
+        />
+        <img
+          v-else-if="paymentStatus === 'error'"
+          class="image mb-3"
+          src="/imgs/payment-error.png"
+          alt="payment"
+        />
 
-        <h3 class="font-bold text-2xl">{{title}}</h3>
-        <p class="text-base text-neutral-40 text-center">{{description}}</p>
+        <h3 class="text-2xl font-bold">{{ title }}</h3>
+        <p class="text-neutral-40 text-center text-base">{{ description }}</p>
         <UButton
           :label="t('go-main')"
           @click="navigateTo('/')"

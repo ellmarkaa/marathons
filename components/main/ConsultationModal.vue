@@ -24,7 +24,7 @@ async function onSubmit(event: FormSubmitEvent<ConsultationForm>) {
   await useAsyncData('consultation', () => dictionaryStore.sendConsultation(body));
   isOpen.value = false;
 }
-const {t} = useI18n()
+const { t } = useI18n();
 </script>
 
 <template>
@@ -55,9 +55,9 @@ const {t} = useI18n()
         :schema="consultationSchema"
         @submit="onSubmit"
       >
-        <h5 class="mb-3 text-2xl font-bold">{{t('leave-con')}}</h5>
+        <h5 class="mb-3 text-2xl font-bold">{{ t('leave-con') }}</h5>
         <p class="text-neutral-40 mb-6 text-base font-medium">
-          {{t('fill-form')}}
+          {{ t('fill-form') }}
         </p>
 
         <div class="mb-6 flex flex-col gap-4">
@@ -139,19 +139,19 @@ const {t} = useI18n()
         <UButton
           type="submit"
           block
-          >{{t('get-con')}}</UButton
+          >{{ t('get-con') }}</UButton
         >
       </UForm>
     </template>
 
     <UButton
+      id="consultation-button"
       size="lg"
       class="mb-9"
       trailing-icon="material-symbols:arrow-right-alt-rounded"
       @click="isOpen = true"
-      id="consultation-button"
     >
-      {{t('get-con')}}
+      {{ t('get-con') }}
     </UButton>
   </UModal>
 </template>

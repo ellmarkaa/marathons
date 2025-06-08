@@ -7,7 +7,7 @@ interface DistanceCardProps {
 defineProps<DistanceCardProps>();
 // required true
 defineModel<string | number>({ required: false });
-const {t} = useI18n()
+const { t } = useI18n();
 </script>
 
 <template>
@@ -35,12 +35,12 @@ const {t} = useI18n()
     </div>
 
     <div class="flex items-center gap-4">
-      <span class="font-medium">{{t('age')}}</span>
-      <span>{{t('older')}} 18 {{t('let')}}</span>
+      <span class="font-medium">{{ t('age') }}</span>
+      <span>{{ t('older') }} 18 {{ t('let') }}</span>
     </div>
 
     <div class="flex items-end gap-4">
-      <span class="font-medium">{{t('cost')}}</span>
+      <span class="font-medium">{{ t('cost') }}</span>
       <span class="text-accent-50 text-xl font-semibold">{{ price }}$</span>
     </div>
   </div>

@@ -4,7 +4,7 @@ import type { MoreInfoState, PassportState, PersonalState, ResidenceState } from
 import type { IUser, IUserOptions } from '~/stores/auth/types';
 import type { FormSubmitEvent } from '#ui/types';
 
-const {t} = useI18n()
+const { t } = useI18n();
 const authStore = useAuthStore();
 const editBlock = defineModel<null | 'personal' | 'passport' | 'residence_place' | 'more_info'>('editBlock');
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
@@ -49,7 +49,7 @@ const onEdit = async (event: FormSubmitEvent<PersonalState | PassportState | Res
       @on-close="onClose"
       @on-edit="onEdit"
     />
-    <p v-else>{{t('something-go-wrong')}}</p>
+    <p v-else>{{ t('something-go-wrong') }}</p>
   </div>
 </template>
 

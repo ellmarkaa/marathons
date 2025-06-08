@@ -4,7 +4,7 @@ import { initialRegisterState, type RegisterFormType, registerSchema } from '~/c
 import type { FormSubmitEvent } from '#ui/types';
 import { useAuthStore } from '~/stores/auth/store';
 
-const {t} = useI18n()
+const { t } = useI18n();
 const sexRadio = ref([
   {
     label: t('female'),
@@ -27,7 +27,7 @@ const authStore = useAuthStore();
 
 const directoryStore = useDictionaryStore();
 const toast = useToast();
-const marathonStore = useMarathonStore()
+const marathonStore = useMarathonStore();
 await useAsyncData('get-direcotry', () =>
   Promise.all([directoryStore.fetchBloodTypes(), directoryStore.fetchCitizenship(), directoryStore.fetchCountries()]),
 );
@@ -41,7 +41,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
     if (marathonStore.priceToBuy && marathonStore.priceToBuy.marathon.id) {
       navigateTo(`/marathon/${marathonStore.priceToBuy.marathon.id}`);
     } else {
-      navigateTo('/')
+      navigateTo('/');
     }
   }
 }
@@ -49,7 +49,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
 
 <template>
   <div class="register-form">
-    <h3 class="mb-8 text-2xl font-bold">{{t('create-account')}}</h3>
+    <h3 class="mb-8 text-2xl font-bold">{{ t('create-account') }}</h3>
     <UAlert
       :title="t('fill-anketa')"
       :description="t('data-need-reg')"
@@ -66,7 +66,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       :validate-on="['blur']"
       @submit="onSubmit"
     >
-      <p class="text-xl font-semibold">{{t('personal-info')}}</p>
+      <p class="text-xl font-semibold">{{ t('personal-info') }}</p>
 
       <div class="flex gap-4">
         <UFormField
@@ -158,8 +158,8 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <div class="mt-5">
-        <p class="mb-3 text-xl font-semibold">{{t('passport-data')}}</p>
-        <p class="text-neutral-50">{{t('endter-data-doc')}}</p>
+        <p class="mb-3 text-xl font-semibold">{{ t('passport-data') }}</p>
+        <p class="text-neutral-50">{{ t('endter-data-doc') }}</p>
       </div>
 
       <div class="flex gap-4">
@@ -279,7 +279,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <div class="mb-3 flex flex-col gap-6">
-        <p class="text-base font-semibold">{{t('live-place')}}</p>
+        <p class="text-base font-semibold">{{ t('live-place') }}</p>
 
         <div class="flex gap-4">
           <UFormField
@@ -347,7 +347,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <div class="mb-3 flex flex-col gap-6">
-        <p class="text-base font-semibold">{{t('more-info')}}</p>
+        <p class="text-base font-semibold">{{ t('more-info') }}</p>
 
         <div class="flex gap-4">
           <UFormField
@@ -389,7 +389,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <div class="mb-3 flex flex-col gap-6">
-        <p class="text-base font-semibold">{{t('data-for-extra')}}</p>
+        <p class="text-base font-semibold">{{ t('data-for-extra') }}</p>
 
         <div class="flex gap-4">
           <UFormField
@@ -442,7 +442,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
         type="submit"
         block
       >
-        {{t('create-acc')}}
+        {{ t('create-acc') }}
       </UButton>
     </UForm>
   </div>
