@@ -25,3 +25,28 @@ export const df = new DateFormatter('ru', {
   month: '2-digit',
   year: 'numeric',
 });
+
+
+export function formatRuMonthDay(date: string | undefined): string {
+  if (!date) return '';
+
+  const jsDate = new Date(date);
+
+  const formatter = new Intl.DateTimeFormat('ru-RU', {
+    month: 'long',
+    day: 'numeric',
+  });
+
+  const [day, month] = formatter.format(jsDate).split(' ');
+  let capitalizedMonth = '';
+
+  if (month) capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
+
+  return `${capitalizedMonth} ${day}`;
+}
+
+export const getYear = (date: string | undefined) => {
+  if (!date) return '';
+  const jsDate = new Date(date);
+  return jsDate.getFullYear();
+};

@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+</script>
 
 <template>
   <footer class="footer bg-white pt-14 pb-10">
@@ -18,17 +20,16 @@
         />
 
         <div>
-          <p class="mb-5 text-xl font-semibold">Компания</p>
+          <p class="mb-5 text-xl font-semibold">{{$t('company')}}</p>
           <ul class="flex list-none flex-col gap-4">
-            <li>О нас</li>
-            <li>Блог</li>
-            <li>Пользовательское соглашение</li>
+            <li><NuxtLink to="/about">{{$t('about')}}</NuxtLink></li>
+            <li><NuxtLink to="/agreement">{{$t('agreement')}}</NuxtLink></li>
           </ul>
         </div>
 
         <div>
           <div class="mb-8">
-            <p class="mb-5 text-xl font-semibold">Компания</p>
+            <p class="mb-5 text-xl font-semibold">{{$t('company')}}</p>
             <a href="tel:+77059889944">+7 705 988 99 44</a>
           </div>
 

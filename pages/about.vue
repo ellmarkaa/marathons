@@ -1,14 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { t } = useI18n()
+</script>
 
 <template>
   <div class="about">
     <UContainer>
       <section class="mb-16 flex flex-col items-center max-md:mb-8">
-        <h1 class="text-accent-50 mb-6 text-center text-lg font-semibold uppercase">О нас</h1>
-        <h3 class="about__title">Открывай мир шаг за шагом</h3>
-        <p class="about__description text-neutral-20">
-          Мы стремимся сделать участие в марафонах по всему миру простым, понятным и вдохновляющим для каждого бегуна
-        </p>
+        <h1 class="text-accent-50 mb-6 text-center text-lg font-semibold uppercase">{{t('about')}}</h1>
+        <h3 class="about__title">{{t('step')}}</h3>
+        <p class="about__description text-neutral-20">{{t('easy-on-world')}}</p>
       </section>
     </UContainer>
 
@@ -24,9 +24,7 @@
 
     <UContainer>
       <section class="mb-16 flex flex-col items-center max-md:mb-8">
-        <p class="text-neutral-20 about__text mb-5 text-center text-base">
-          Мы стремимся сделать участие в марафонах по всему миру простым, понятным и вдохновляющим для каждого бегуна.
-        </p>
+        <p class="text-neutral-20 about__text mb-5 text-center text-base">{{t('easy-on-world')}}</p>
         <p class="text-neutral-20 about__text text-center text-base">
           Мы стремимся сделать участие в марафонах по всему миру простым, понятным и вдохновляющим для каждого бегуна.
           Мы стремимся сделать участие в марафонах по всему миру простым, понятным и вдохновляющим для каждого бегуна.Мы
@@ -39,24 +37,24 @@
       <section class="mb-16 flex justify-evenly max-md:mb-8 max-md:flex-col max-md:gap-9">
         <div class="flex flex-col items-center">
           <p class="about__statistic">6</p>
-          <p class="text-neutral-40 text-base">мейджоров в каталоге</p>
+          <p class="text-neutral-40 text-base">{{t('major')}}</p>
         </div>
 
         <div class="flex flex-col items-center">
           <p class="about__statistic">40+</p>
-          <p class="text-neutral-40 text-base">международных марафонов</p>
+          <p class="text-neutral-40 text-base">{{t('marathon-internation')}}</p>
         </div>
 
         <div class="flex flex-col items-center">
           <p class="about__statistic">150+</p>
-          <p class="text-neutral-40 text-base">бегунов ежегодно с нами</p>
+          <p class="text-neutral-40 text-base">{{t('runner-with-us')}}</p>
         </div>
       </section>
     </UContainer>
 
     <UContainer>
       <section class="about-team">
-        <h5 class="mb-10 text-center text-4xl font-bold text-white">Наша команда</h5>
+        <h5 class="mb-10 text-center text-4xl font-bold text-white">{{t('our-team')}}</h5>
 
         <div class="flex gap-8 max-md:flex-col">
           <div class="about__card">
@@ -100,33 +98,30 @@
 
     <UContainer>
       <section class="about__values">
-        <h5 class="mb-10 text-center text-4xl font-bold max-sm:text-xl">Наши ключевые ценности</h5>
+        <h5 class="mb-10 text-center text-4xl font-bold max-sm:text-xl">{{t('key-values')}}</h5>
 
         <div class="flex gap-8 max-md:flex-col">
           <div class="about__values-item flex flex-col items-center gap-2">
             <div class="about__text-amoji">🏃</div>
-            <p class="text-xl font-semibold">Страсть к бегу</p>
+            <p class="text-xl font-semibold">{{t('run-str')}}</p>
             <p class="text-neutral-40 text-center">
-              Мы сами бегаем и знаем, как важны поддержка, комфорт и эмоции от каждого старта. Поэтому заботимся о
-              каждом участнике, как о себе
+              {{t('we-run-know')}}
             </p>
           </div>
 
           <div class="about__values-item flex flex-col items-center gap-2">
             <div class="about__text-amoji">🌍</div>
-            <p class="text-xl font-semibold">Открытость миру</p>
+            <p class="text-xl font-semibold">{{t('world-open')}}</p>
             <p class="text-neutral-40 text-center">
-              Мы верим, что бег — это способ познавать планету. Подбираем забеги в самых вдохновляющих местах и делаем
-              их доступными
+              {{t('run-planet')}}
             </p>
           </div>
 
           <div class="about__values-item flex flex-col items-center gap-2">
             <div class="about__text-amoji">🤝</div>
-            <p class="text-xl font-semibold">Честность и забота</p>
+            <p class="text-xl font-semibold">{{t('honest-care')}}</p>
             <p class="text-neutral-40 text-center">
-              Прозрачные условия, понятная регистрация и живое общение — мы рядом на каждом этапе пути, поддерживая вас
-              до самой финишной черты
+              {{t('clean-conditions')}}
             </p>
           </div>
         </div>
@@ -164,18 +159,12 @@
     <section class="bg-accent-99">
       <UContainer class="flex flex-col items-center py-16">
         <p class="text-neutral-60 mb-5 text-center text-xl font-semibold max-md:text-lg">
-          Хотите получить консультацию?
+          {{t('get-consultation')}}
         </p>
         <p class="leave-text mb-8 text-center text-4xl font-bold max-md:text-2xl">
-          Оставьте заявку, чтобы получить всю информацию перед принятием решения
+{{t('leave-consultation')}}
         </p>
-        <UButton
-          size="lg"
-          class="mb-9"
-          trailing-icon="material-symbols:arrow-right-alt-rounded"
-        >
-          Получить консультацию
-        </UButton>
+        <MainConsultationModal />
         <img
           src="/imgs/lets-go.svg"
           alt="lets go"

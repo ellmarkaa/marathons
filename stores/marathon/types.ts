@@ -16,6 +16,8 @@ export interface IMarathonState {
   mainPageMarathons: IMarathon[];
   mainLoading: boolean;
   sliderLoading: boolean;
+  priceToBuy: null | IPrice
+  marathon: null | IMarathon
   marathonPagination: {
     perPage: number;
     total: number;
@@ -51,6 +53,16 @@ export interface IMarathon {
   faq: {
     v: 1;
   };
+  marathon_name: {
+    id: number;
+    name_en: string | null;
+    name_kz: string | null;
+    name_ru: string;
+    contact_id: string | null;
+    description_en: string | null;
+    description_kz: string | null;
+    description_ru: string | null;
+  }
   order: number;
   contact_id: null;
   tag: ITag;
@@ -153,4 +165,10 @@ export interface IReview {
   marathon: IMarathon;
   created_at: string;
   created_by: IUser;
+}
+
+export interface ISuccessBuyRequest {
+  data: string,
+  message: string,
+  status: number
 }

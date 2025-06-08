@@ -45,7 +45,7 @@ onMounted(() => {
           variant="soft"
           :to="`/marathon/${id}`"
         >
-          Подробнее
+          {{$t('read-more')}}
         </UButton>
       </div>
     </div>

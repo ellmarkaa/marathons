@@ -9,7 +9,7 @@ const directoryStore = useDictionaryStore();
 const yearsRef = ref(years);
 const monthsRef = ref(months);
 const duration = 400;
-
+const {t} = useI18n()
 const filterValues = reactive<TagType[]>([]);
 const removeFilter = (tagValue: any) => {
   const index = filterValues.findIndex(filter => filter.value === tagValue);
@@ -29,9 +29,12 @@ const addToFilter = (tag: TagType) => {
 };
 
 watch(filterValues, newFilter => {
-  console.log('newFilter', newFilter);
   store.fetchMarathonsWithParams(newFilter);
 });
+
+const clearAll = () => {
+  filterValues.splice(0, filterValues.length)
+}
 </script>
 
 <template>
@@ -51,34 +54,14 @@ watch(filterValues, newFilter => {
         variant="ghost"
         color="neutral"
         class="p-0"
-        @click="filterValues = []"
+        @click="clearAll"
       >
-        Очистить все
+        {{t('clean-all')}}
       </UButton>
     </div>
 
-    <!--    <Collapse-->
-    <!--      title="Спорт"-->
-    <!--      :duration="duration"-->
-    <!--      open-initially-->
-    <!--    >-->
-    <!--      <ul>-->
-    <!--        <li-->
-    <!--          v-for="sport in sportsRef"-->
-    <!--          :key="sport"-->
-    <!--          class="py-2"-->
-    <!--        >-->
-    <!--          <Checkbox-->
-    <!--            :key="sport.label"-->
-    <!--            v-model="sport.value"-->
-    <!--            :label="sport.label"-->
-    <!--          />-->
-    <!--        </li>-->
-    <!--      </ul>-->
-    <!--    </Collapse>-->
-
     <Collapse
-      title="Дистанция"
+      :title="t('distance')"
       :duration="duration"
       open-initially
     >
@@ -99,7 +82,7 @@ watch(filterValues, newFilter => {
     </Collapse>
 
     <Collapse
-      title="Год"
+      :title="t('year')"
       :duration="duration"
     >
       <ul>
@@ -118,30 +101,12 @@ watch(filterValues, newFilter => {
       </ul>
     </Collapse>
 
-    <Collapse
-      title="Месяц"
-      :duration="duration"
-      :disabled
-    >
-      <ul>
-        <li
-          v-for="month in monthsRef"
-          :key="month.label"
-          class="py-2"
-        >
-          <UCheckbox
-            size="xl"
-            :label="month.label"
-          />
-        </li>
-      </ul>
-    </Collapse>
-
     <div>
-      <h2 class="text-neutral-10 mb-1 py-2 text-base font-semibold">Страна</h2>
+      <h2 class="text-neutral-10 mb-1 py-2 text-base font-semibold">{{t('country')}}</h2>
       <TextField
         class="pb-3"
-        placeholder="Страна поиска"
+        disabled
+        :placeholder="t('search-country')"
         left-icon
       />
     </div>

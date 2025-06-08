@@ -44,7 +44,7 @@ function formatMonthYearRu(dateStr: string): string {
 
   <UModal
     v-model:open="openModal"
-    title="Отзыв"
+    :title="$t('review')"
     :dismissible="true"
   >
     <template #body>

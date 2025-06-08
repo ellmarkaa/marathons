@@ -7,11 +7,7 @@ interface DistanceCardProps {
 defineProps<DistanceCardProps>();
 // required true
 defineModel<string | number>({ required: false });
-
-// Methods
-// const handleRadioChange = (value) => {
-//   console.log('Selected value:', value);
-// };
+const {t} = useI18n()
 </script>
 
 <template>
@@ -39,12 +35,12 @@ defineModel<string | number>({ required: false });
     </div>
 
     <div class="flex items-center gap-4">
-      <span class="font-medium">Возраст</span>
-      <span>Старше 18 лет</span>
+      <span class="font-medium">{{t('age')}}</span>
+      <span>{{t('older')}} 18 {{t('let')}}</span>
     </div>
 
     <div class="flex items-end gap-4">
-      <span class="font-medium">Стоимость</span>
+      <span class="font-medium">{{t('cost')}}</span>
       <span class="text-accent-50 text-xl font-semibold">{{ price }}$</span>
     </div>
   </div>

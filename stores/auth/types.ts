@@ -4,6 +4,7 @@ export interface IAuthStore {
   token: null | string;
   user: null | IUser;
   userUpdateLoading: boolean;
+  openLogin: boolean;
 }
 
 export type VerifyParams = {

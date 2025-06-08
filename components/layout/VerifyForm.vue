@@ -12,6 +12,7 @@ const authStore = useAuthStore();
 const props = defineProps<Props>();
 const tryAgain = ref(59);
 const toast = useToast();
+const {t} = useI18n()
 
 const countDown = () => {
   setTimeout(() => {
@@ -55,7 +56,7 @@ const sendAgain = () => {
 <template>
   <div class="rounded-2xl bg-white px-10 py-8 max-md:p-3">
     <h4 class="mb-3 text-xl font-semibold">
-      Отправили код на почту {{ email }}
+      {{t('send-code')}} {{ email }}
       <UButton
         variant="link"
         size="2xs"
@@ -65,7 +66,7 @@ const sendAgain = () => {
         @click="backToLogin"
       />
     </h4>
-    <p class="text-neutral-40 mb-8 text-base">Введите его ниже, чтобы подтвердить вашу регистрацию</p>
+    <p class="text-neutral-40 mb-8 text-base">{{t('confirm-reg')}}</p>
     <UAlert
       v-if="!!authStore.verifyError"
       class="mb-4"
@@ -76,7 +77,7 @@ const sendAgain = () => {
     <form @submit.prevent="onSubmit">
       <UFormField
         class="mb-8"
-        label="Одноразовый код"
+        :label="t('one-code')"
         :ui="{
           label: 'text-neutral-40',
           help: 'text-neutral-40 text-base',
@@ -94,7 +95,7 @@ const sendAgain = () => {
           v-if="tryAgain !== 0"
           class="text-neutral-40 text-base"
         >
-          Отправить еще раз через 0:{{ pad(tryAgain) }}
+          {{t('send-again-sec')}} 0:{{ pad(tryAgain) }}
         </p>
         <UButton
           v-else
@@ -103,7 +104,7 @@ const sendAgain = () => {
           type="button"
           @click="sendAgain"
         >
-          Отправить еще раз
+          {{t('send-again')}}
         </UButton>
       </UFormField>
 
@@ -113,7 +114,7 @@ const sendAgain = () => {
         :disabled="pinValue.length !== 4"
         :loading="authStore.otpLoading"
       >
-        Продолжить
+        {{t('continue')}}
       </UButton>
     </form>
   </div>

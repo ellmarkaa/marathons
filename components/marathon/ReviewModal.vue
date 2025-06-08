@@ -6,22 +6,22 @@ const marathonStore = useMarathonStore()
 
 const onSubmit = async () => {
   const item = await marathonStore.createReview(title.value, props.marathonId)
-  console.log('item', item);
   openModal.value = false
 }
+const {t} = useI18n()
 </script>
 
 <template>
-  <UModal v-model:open="openModal" title="Отзыв">
+  <UModal v-model:open="openModal" :title="t('review')">
     <UButton
       class="text-neutral-0 hover:text-neutral-0 text-base"
       icon="mdi-light:pencil"
-      label="Оставить отзыв"
+      :label="t('leave-review')"
       variant="link"
     />
 
     <template #body>
-      <p class="mb-1.5">Ваш отзыв</p>
+      <p class="mb-1.5">{{t('your-review')}}</p>
       <UTextarea v-model="title" :rows="4" class="w-full" />
     </template>
 
@@ -29,7 +29,7 @@ const onSubmit = async () => {
       <UButton
         block
         :disabled="!title"
-        label="Оставить отзыв"
+        :label="t('leave-review')"
         @click="onSubmit"
       />
     </template>

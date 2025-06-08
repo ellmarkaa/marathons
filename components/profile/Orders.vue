@@ -1,18 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const {t} = useI18n()
+</script>
 
 <template>
   <div class="flex w-full flex-col gap-6">
     <div class="title-block px-8 py-6">
-      <h4 class="text-3xl font-bold text-white">Мои заказы</h4>
+      <h4 class="text-3xl font-bold text-white">{{t('my-orders')}}</h4>
     </div>
 
     <div class="flex flex-col gap-6 rounded-2xl bg-white p-10">
-      <h5 class="title-empty">Тут пока пусто..</h5>
+      <h5 class="title-empty">{{t('tut-empty')}}</h5>
       <div class="text-neutral-40 text-base">
-        <p>Вы еще не оформили ни одного заказа.</p>
-        <p>Найдите свою следующую цель и забронируйте место на старте!</p>
+        <p>{{t('no-orders')}}</p>
+        <p>{{t('find-cell')}}</p>
       </div>
-      <UButton class="w-xs justify-center self-baseline">Начать поиск</UButton>
+      <UButton class="w-xs justify-center self-baseline">{{t('start-search')}}</UButton>
     </div>
   </div>
 </template>

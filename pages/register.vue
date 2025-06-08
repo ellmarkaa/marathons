@@ -3,12 +3,13 @@ const router = useRouter();
 const goBack = () => {
   router.back();
 };
+const marathonStore = useMarathonStore()
 </script>
 
 <template>
   <div class="bg-secondary-bg py-15">
     <UContainer>
-      <div class="relative flex justify-center">
+      <div class="relative flex justify-center gap-10">
         <UButton
           variant="ghost"
           color="neutral"
@@ -16,13 +17,19 @@ const goBack = () => {
           leading-icon="material-symbols:arrow-back-ios-new-rounded"
           @click="goBack"
         >
-          Назад
+          {{$t('back')}}
         </UButton>
 
-        <RegisterForm />
+        <RegisterForm :class="marathonStore.priceToBuy ? 'register-with-card' : ''" />
+
+        <MarathonInfoCard :disabled="true" class="r-1" v-if="marathonStore.priceToBuy" />
       </div>
     </UContainer>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.register-with-card {
+  margin-left: 80px;
+}
+</style>

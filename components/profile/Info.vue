@@ -8,6 +8,7 @@ const authStore = useAuthStore();
 const directoryStore = useDictionaryStore();
 const profile = computed(() => authStore.profile);
 useAsyncData<IBloodType[]>('get-blood-types', () => directoryStore.fetchBloodTypes());
+const {t} = useI18n()
 
 const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more_info'>(null);
 </script>
@@ -18,7 +19,7 @@ const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more
     class="flex w-full flex-col gap-6"
   >
     <div class="title-block px-8 py-6">
-      <h4 class="text-3xl font-bold text-white">Профиль</h4>
+      <h4 class="text-3xl font-bold text-white">{{t('profile')}}</h4>
     </div>
 
     <div class="flex items-center justify-between rounded-xl bg-white p-6">
@@ -29,48 +30,48 @@ const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more
 
         <div>
           <p class="mb-2 flex items-center gap-1 text-lg font-semibold">
-            Мои события
+            {{t('my-events')}}
             <Icon
               name="ph:info"
               class="size-4 text-neutral-50"
             />
           </p>
-          <p class="text-neutral-50">0 событий</p>
+          <p class="text-neutral-50">0 {{t('events')}}</p>
         </div>
       </div>
 
-      <UButton label="Добавить событие" />
+      <UButton :label="t('add-event')" />
     </div>
 
     <ProfileCollapse
       v-if="profile"
       :default-open="true"
-      title="Персональная информация"
+      :title="t('personal-info')"
       :first-list="[
         {
-          label: 'Фамилия',
+          label: t('surname'),
           value: profile.surname,
         },
         {
-          label: 'Пол',
+          label: t('gender'),
           value: getGenderRus[profile.gender],
         },
         {
-          label: 'Дата рождения',
+          label: t('birthday'),
           value: df.format(new Date(profile.birthdate)),
         },
       ]"
       :second-list="[
         {
-          label: 'Имя',
+          label: t('name'),
           value: profile.name,
         },
         {
-          label: 'Номер телефона',
+          label: t('phone'),
           value: getFullNumber(profile.country_phone_code, profile.phone),
         },
         {
-          label: 'Группа крови',
+          label: t('blood-type'),
           value: directoryStore.bloodTypes.find(type => type.id === profile?.bloodGroupId)?.Name || '',
         },
       ]"
@@ -79,28 +80,28 @@ const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more
 
     <ProfileCollapse
       v-if="profile"
-      title="Паспортные данные"
+      :title="t('passport-data')"
       :first-list="[
         {
-          label: 'Фамилия',
+          label: t('surname'),
           value: profile.passport_surname,
         },
         {
-          label: 'Гражданство',
+          label: t('citizenship'),
           value: getRusCitizenName[profile.citizenship],
         },
         {
-          label: 'Номер паспорта',
+          label: t('passport-number'),
           value: profile.passport_number,
         },
         {
-          label: 'Дата выдачи',
+          label: t('date-issue'),
           value: df.format(new Date(profile.passport_date_issue)),
         },
       ]"
       :second-list="[
         {
-          label: 'Имя',
+          label: t('name'),
           value: profile.passport_name,
         },
         {
@@ -108,11 +109,11 @@ const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more
           value: profile.IIN,
         },
         {
-          label: 'Кем выдано',
+          label: t('passport-issuer'),
           value: profile.passport_issuer,
         },
         {
-          label: 'Срок действия',
+          label: t('passport-validity-period'),
           value: df.format(new Date(profile.passport_validity_period)),
         },
       ]"
@@ -121,28 +122,28 @@ const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more
 
     <ProfileCollapse
       v-if="profile"
-      title="Место проживания"
+      :title="t('live-place')"
       :first-list="[
         {
-          label: 'Страна',
+          label: t('country'),
           value: profile.residence_country,
         },
         {
-          label: 'Адрес',
+          label: t('address'),
           value: profile.residence_address,
         },
         {
-          label: 'Почтовый индекс',
+          label: t('postal_code'),
           value: profile.postal_code,
         },
       ]"
       :second-list="[
         {
-          label: 'Город',
+          label: t('city'),
           value: profile.residence_city,
         },
         {
-          label: 'Номер квартиры',
+          label: t('number-home'),
           value: profile.residence_apartment,
         },
       ]"
@@ -151,34 +152,34 @@ const editBlock = ref<null | 'personal' | 'passport' | 'residence_place' | 'more
 
     <ProfileCollapse
       v-if="profile"
-      title="Дополнительная информация"
+      :title="t('more-info')"
       :first-list="[
         {
-          label: 'Размер футболки',
+          label: t('shirt-size'),
           value: profile['t-shirt_size'],
         },
       ]"
       :second-list="[
         {
-          label: 'Беговой клуб',
-          value: profile.running_club || 'Нет данных',
+          label: t('runner-club'),
+          value: profile.running_club || t('no-data'),
         },
       ]"
       :sub-data="{
-        subTitle: 'Контакт для экстренных случаев ',
+        subTitle: t('contact-for-eks'),
         subFirstList: [
           {
-            label: 'Имя',
+            label: t('name'),
             value: profile.emergency_contact_name,
           },
           {
-            label: 'Номер телефона',
+            label: t('phone'),
             value: getFullNumber(profile.emergency_contact_phone_code, profile.emergency_contact_phone),
           },
         ],
         subSecondList: [
           {
-            label: 'Кем является',
+            label: t('who-is'),
             value: profile.emergency_contact_role,
           },
         ],

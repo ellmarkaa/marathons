@@ -4,6 +4,16 @@ const model = defineModel<boolean>({ required: true });
 const buttonUi = {
   base: 'text-lg font-bold px-0 py-1.5',
 };
+const contactClick = () => {
+  setTimeout(() => {
+    const button = document.querySelector('#consultation-button')
+    model.value = false;
+    if (button) {
+      button?.click()
+    }
+  }, 500)
+}
+const {t} = useI18n()
 </script>
 
 <template>
@@ -40,67 +50,11 @@ const buttonUi = {
     </template>
 
     <template #body>
-      <div class="flex flex-col gap-5">
-        <UCollapsible>
-          <UButton
-            block
-            variant="ghost"
-            color="neutral"
-            trailing-icon="material-symbols:keyboard-arrow-down-rounded"
-            :ui="buttonUi"
-          >
-            Компания
-          </UButton>
-
-          <template #content>
-            <ul class="pl-4 text-base font-semibold">
-              <li class="py-2">О нас</li>
-              <li class="py-2">Блог</li>
-              <li class="py-2">Пользовательское соглашение</li>
-            </ul>
-          </template>
-        </UCollapsible>
-
-        <UCollapsible>
-          <UButton
-            block
-            variant="ghost"
-            color="neutral"
-            trailing-icon="material-symbols:keyboard-arrow-down-rounded"
-            :ui="buttonUi"
-          >
-            События
-          </UButton>
-
-          <template #content>
-            <ul class="pl-4 text-base font-semibold">
-              <li class="py-2">О нас</li>
-              <li class="py-2">Блог</li>
-              <li class="py-2">Пользовательское соглашение</li>
-            </ul>
-          </template>
-        </UCollapsible>
-
-        <UButton
-          block
-          variant="ghost"
-          color="neutral"
-          :ui="buttonUi"
-          class="justify-start"
-        >
-          Виза/Страховка
-        </UButton>
-
-        <UButton
-          block
-          variant="ghost"
-          color="neutral"
-          :ui="buttonUi"
-          class="justify-start"
-        >
-          Связаться
-        </UButton>
-      </div>
+      <ul class="m-0 flex list-none flex-col gap-5 p-0 text-base">
+        <li class="font-semibold" @click="model = false"><NuxtLink to="/about">{{t('about')}}</NuxtLink></li>
+        <li class="font-semibold" @click="model = false"><NuxtLink to="/agreement">{{t('agreement')}}</NuxtLink></li>
+        <li class="font-semibold" @click="contactClick"><NuxtLink to="/">{{t('contact')}}</NuxtLink></li>
+      </ul>
     </template>
 
     <template #footer>

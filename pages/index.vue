@@ -6,11 +6,11 @@ const filterMenu = ref(false);
 const marathonStore = useMarathonStore();
 const directoryStore = useDictionaryStore();
 const pagination = computed(() => marathonStore.marathonPagination);
+const { t } = useI18n()
 // const test = useI18n();
 // console.log('test', test.fallbackLocale.value);
 // setTimeout(() => {
 //   test.setLocale('en');
-//   console.log('test', test.fallbackLocale.value);
 //   console.log('test', test.locale.value);
 // }, 1000);
 
@@ -18,10 +18,8 @@ const pagination = computed(() => marathonStore.marathonPagination);
 useAsyncData('distance-directory', () => directoryStore.fetchDistances());
 const { data: sliders } = await useAsyncData('slider-marathons', () => marathonStore.fetchSliderMarathons());
 useAsyncData('main-marathons', () => marathonStore.fetchMarathons());
-console.log('marathonStore.mainPageMarathons', marathonStore.mainPageMarathons);
-console.log('sliders', sliders);
+const { get } = useLocalized()
 // const { data: aa } = await useAsyncData('main-dasda', () => marathonStore.fetchMarathonById(1244));
-// console.log('aa', aa.value);
 </script>
 
 <template>
@@ -46,7 +44,7 @@ console.log('sliders', sliders);
           trailing-icon="mdi:mixer-settings"
           variant="outline"
           class="filter-button"
-          >Фильтры</UButton
+          >{{t('filter')}}</UButton
         >
       </MainFilterMenu>
     </UContainer>
@@ -59,10 +57,10 @@ console.log('sliders', sliders);
           <MainCard
             v-for="marathon in marathonStore.mainPageMarathons"
             :id="marathon.id"
-            :key="marathon.title_ru"
-            :city="marathon.city.name_ru"
-            :country="marathon.country.name_ru"
-            :title="marathon.title_ru"
+            :key="get(marathon, 'title')"
+            :city="get(marathon.city, 'name')"
+            :country="get(marathon.country, 'name')"
+            :title="get(marathon, 'title')"
             :start-date="marathon.marathon_date"
             :end-date="marathon.marathon_deadline"
             :rating="5"
@@ -79,7 +77,7 @@ console.log('sliders', sliders);
             :disabled="marathonStore.mainLoading"
             @click="marathonStore.fetchMoreMarathons"
           >
-            Показать еще
+            {{t('show-more')}}
           </UButton>
         </div>
       </div>
@@ -116,10 +114,10 @@ console.log('sliders', sliders);
     <section class="bg-accent-99">
       <UContainer class="flex flex-col items-center py-16">
         <p class="text-neutral-60 mb-5 text-center text-xl font-semibold max-md:text-lg">
-          Хотите получить консультацию?
+          {{t('get-consultation')}}
         </p>
         <p class="leave-text mb-8 text-center text-4xl font-bold max-md:text-2xl">
-          Оставьте заявку, чтобы получить всю информацию перед принятием решения
+          {{t('leave-consultation')}}
         </p>
         <MainConsultationModal />
         <img

@@ -24,7 +24,7 @@ const state = reactive<PassportState>({
   passport_date_issue: isoToCalendarDate(profile.passport_date_issue),
   passport_validity_period: isoToCalendarDate(profile.passport_validity_period),
 });
-console.log('state', state);
+const {t} = useI18n()
 </script>
 
 <template>
@@ -36,17 +36,17 @@ console.log('state', state);
     @submit="(payload: FormSubmitEvent<PassportState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
-      <h5 class="text-2xl font-bold">Паспортные данные</h5>
+      <h5 class="text-2xl font-bold">{{t('passport-data')}}</h5>
 
       <div class="flex gap-3">
         <UButton
-          label="Отмена"
+          :label="t('cancel')"
           variant="outline"
           :loading="authStore.userUpdateLoading"
           @click="emit('onClose')"
         />
         <UButton
-          label="Сохранить"
+          :label="t('save')"
           variant="solid"
           type="submit"
           :loading="authStore.userUpdateLoading"
@@ -58,7 +58,7 @@ console.log('state', state);
       <div class="flex gap-6">
         <UFormField
           class="w-1/2"
-          label="Фамилия"
+          :label="t('surname')"
           name="passport_surname"
           required
         >
@@ -71,7 +71,7 @@ console.log('state', state);
 
         <UFormField
           class="w-1/2"
-          label="Имя"
+          :label="t('name')"
           name="passport_name"
           required
         >
@@ -85,7 +85,7 @@ console.log('state', state);
 
       <div class="flex gap-4">
         <UFormField
-          label="Гражданство"
+          :label="t('citizenship')"
           required
           name="citizenship"
           class="w-1/2"
@@ -101,7 +101,7 @@ console.log('state', state);
 
         <UFormField
           v-if="state.citizenship === CitizenValue.Kazakhstan"
-          label="ИИН"
+          :label="t('IIN')"
           required
           name="IIN"
           class="w-1/2"
@@ -116,7 +116,7 @@ console.log('state', state);
         <UFormField
           v-else
           class="w-1/2"
-          label="Серия паспорта"
+          :label="t('passport-series')"
           required
           name="passport_series"
         >
@@ -130,7 +130,7 @@ console.log('state', state);
       <div class="flex gap-4">
         <UFormField
           class="w-1/2"
-          label="Номер паспорта"
+          :label="t('passport-number')"
           name="passport_number"
           required
         >
@@ -142,7 +142,7 @@ console.log('state', state);
 
         <UFormField
           class="w-1/2"
-          label="Кем выдано"
+          :label="t('passport-issuer')"
           required
           name="passport_issuer"
         >
@@ -156,7 +156,7 @@ console.log('state', state);
       <div class="flex gap-4">
         <UFormField
           class="w-1/2"
-          label="Дата выдачи"
+          :label="t('date-issue')"
           name="passport_date_issue"
           required
         >
@@ -168,7 +168,7 @@ console.log('state', state);
 
         <UFormField
           class="w-1/2"
-          label="Срок действия"
+          :label="t('passport-validity-period')"
           required
           name="passport_validity_period"
         >

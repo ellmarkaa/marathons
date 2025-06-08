@@ -3,8 +3,8 @@ import type { IUserOptions } from '~/stores/auth/types';
 import type { IProfileMenu } from '~/utils/types';
 
 const authStore = useAuthStore();
-const userOption = authStore.user?.options as IUserOptions;
-const user = authStore.user;
+const userOption = computed(() => authStore.user?.options as IUserOptions);
+const user = computed(() => authStore.user);
 const menu = defineModel<Ref<IProfileMenu[]>>('menu', { required: true });
 
 const handleChangeMenu = (label: string) => {
@@ -12,12 +12,20 @@ const handleChangeMenu = (label: string) => {
     element.isActive = label === element.label;
   });
 };
+
+const {t} = useI18n()
+
+const onLogout = () => {
+  authStore.logout()
+  navigateTo('/')
+}
+const {t} = useI18n()
 </script>
 
 <template>
   <div class="rounded-2xl bg-white px-6 py-10">
     <div class="border-b-input-border border-b pb-6 text-center">
-      <h4 class="text-accent-50 mb-2 text-lg font-semibold">Привет, {{ userOption?.name }}!</h4>
+      <h4 class="text-accent-50 mb-2 text-lg font-semibold">{{t('hello')}}, {{ userOption?.name }}!</h4>
       <p class="text-neutral-60">{{ user?.value }}</p>
     </div>
 
@@ -43,8 +51,9 @@ const handleChangeMenu = (label: string) => {
     <div class="mt-3">
       <UButton
         icon="material-symbols:arrow-right-alt-rounded"
-        label="Выйти из аккаунта"
+        :label="t('exit')"
         variant="link"
+        @click="onLogout"
         :ui="{
           base: 'text-neutral-10 px-4 py-2 hover:text-neutral-10 gap-2 font-normal',
         }"

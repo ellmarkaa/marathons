@@ -10,6 +10,7 @@ const emit = defineEmits<{
 }>();
 const authStore = useAuthStore();
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
+const {t} = useI18n()
 
 const state = reactive<ResidenceState>({
   residence_apartment: profile.residence_apartment,
@@ -29,17 +30,17 @@ const state = reactive<ResidenceState>({
     @submit="(payload: FormSubmitEvent<ResidenceState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
-      <h5 class="text-2xl font-bold">Место проживания</h5>
+      <h5 class="text-2xl font-bold">{{t('live-place')}}</h5>
 
       <div class="flex gap-3">
         <UButton
-          label="Отмена"
+          :label="t('cancel')"
           variant="outline"
           :loading="authStore.userUpdateLoading"
           @click="emit('onClose')"
         />
         <UButton
-          label="Сохранить"
+          :label="t('save')"
           variant="solid"
           type="submit"
           :loading="authStore.userUpdateLoading"
@@ -50,7 +51,7 @@ const state = reactive<ResidenceState>({
     <div class="flex flex-col gap-6">
       <div class="flex gap-6">
         <UFormField
-          label="Страна"
+          :label="t('country')"
           name="residence_country"
           required
           class="w-1/2"
@@ -66,7 +67,7 @@ const state = reactive<ResidenceState>({
 
         <UFormField
           class="w-1/2"
-          label="Город"
+          :label="t('city')"
           name="residence_city"
           required
         >
@@ -80,7 +81,7 @@ const state = reactive<ResidenceState>({
 
       <div class="flex gap-4">
         <UFormField
-          label="Адрес"
+          :label="t('address')"
           required
           name="residence_address"
           class="w-1/2"
@@ -93,7 +94,7 @@ const state = reactive<ResidenceState>({
         </UFormField>
 
         <UFormField
-          label="Номер квартиры"
+          :label="t('number-home')"
           required
           name="residence_apartment"
           class="w-1/2"
@@ -109,7 +110,7 @@ const state = reactive<ResidenceState>({
       <div class="flex gap-4">
         <UFormField
           class="w-1/2"
-          label="Почтовый индекс"
+          :label="t('postal_code')"
           name="postal_code"
           required
         >

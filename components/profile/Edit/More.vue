@@ -10,6 +10,7 @@ const emit = defineEmits<{
 }>();
 const authStore = useAuthStore();
 const profile = (authStore?.user as IUser)?.options as IUserOptions;
+const {t} = useI18n()
 
 const emergencyCountryAvatar = computed(
   () => countryCodes.find(item => item.value === state.emergency_contact_phone_code)?.avatar,
@@ -34,17 +35,17 @@ const state = reactive<MoreInfoState>({
     @submit="(payload: FormSubmitEvent<MoreInfoState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
-      <h5 class="text-2xl font-bold">Дополнительная информация</h5>
+      <h5 class="text-2xl font-bold">{{t('more-info')}}</h5>
 
       <div class="flex gap-3">
         <UButton
-          label="Отмена"
+          :label="t('cancel')"
           variant="outline"
           :loading="authStore.userUpdateLoading"
           @click="emit('onClose')"
         />
         <UButton
-          label="Сохранить"
+          :label="t('save')"
           variant="solid"
           type="submit"
           :loading="authStore.userUpdateLoading"
@@ -55,7 +56,7 @@ const state = reactive<MoreInfoState>({
     <div class="flex flex-col gap-6">
       <div class="flex gap-6">
         <UFormField
-          label="Размер футболки"
+          :label="t('shirt-size')"
           required
           class="w-1/2"
           name="t-shirt_size"
@@ -68,7 +69,7 @@ const state = reactive<MoreInfoState>({
         </UFormField>
 
         <UFormField
-          label="Беговой клуб"
+          :label="t('runner-club')"
           class="w-1/2"
           name="running_club"
         >
@@ -80,11 +81,11 @@ const state = reactive<MoreInfoState>({
       </div>
 
       <div class="mb-3 flex flex-col gap-6">
-        <p class="text-base font-semibold">Контактные данные для экстренных случаев</p>
+        <p class="text-base font-semibold">{{t('data-for-extra')}}</p>
 
         <div class="flex gap-4">
           <UFormField
-            label="Имя"
+            :label="t('name')"
             required
             class="w-1/2"
             name="emergency_contact_name"
@@ -96,7 +97,7 @@ const state = reactive<MoreInfoState>({
           </UFormField>
 
           <UFormField
-            label="Кем является"
+            :label="t('who-is')"
             required
             class="w-1/2"
             name="emergency_contact_role"
@@ -109,7 +110,7 @@ const state = reactive<MoreInfoState>({
         </div>
 
         <UFormField
-          label="Номер телефона"
+          :label="t('phone')"
           required
           name="emergency_contact_phone"
         >

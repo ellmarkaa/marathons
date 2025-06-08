@@ -2,6 +2,7 @@
 const router = useRouter();
 const dictionaryStore = useDictionaryStore();
 const { data: userAggreement } = await useAsyncData('slider-marathons', () => dictionaryStore.fetchUserAgreement());
+const {t} = useI18n()
 </script>
 
 <template>
@@ -15,13 +16,12 @@ const { data: userAggreement } = await useAsyncData('slider-marathons', () => di
           leading-icon="material-symbols:arrow-back-ios-new-rounded"
           @click="router.back()"
         >
-          Назад
+          {{t('back')}}
         </UButton>
 
         <template v-if="userAggreement">
           <div class="mb-8 text-center">
             <h1 class="mb-4 text-3xl font-bold">{{ userAggreement.title }}</h1>
-            <!--            <p class="text-base">Последнее обновление 13.06.2024</p>-->
           </div>
 
           <div
@@ -30,7 +30,7 @@ const { data: userAggreement } = await useAsyncData('slider-marathons', () => di
           />
         </template>
 
-        <div v-else>Что-то пошло не так</div>
+        <div v-else>{{t('some-wrong')}}</div>
       </div>
     </section>
   </UContainer>

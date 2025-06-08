@@ -6,6 +6,7 @@ interface CarouselBlockProps {
   isLoading: boolean;
 }
 defineProps<CarouselBlockProps>();
+const { get } = useLocalized()
 </script>
 
 <template>
@@ -27,12 +28,12 @@ defineProps<CarouselBlockProps>();
         :id="slide.marathon.id"
         :key="slide.marathon.id"
         :index="slide.marathon.id"
-        :country="slide.marathon.country.name_ru"
-        :title="slide.marathon.title_ru"
+        :country="get(slide.marathon.country, 'name')"
+        :title="get(slide.marathon, 'title')"
         :marathon-start="slide.start_date"
         :marathon-end="slide.end_date"
         :image-path="slide.pictures[0]?.path || ''"
-        :city="slide.marathon.city.name_ru"
+        :city="get(slide.marathon.city, 'name')"
       />
     </template>
 

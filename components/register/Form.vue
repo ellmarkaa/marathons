@@ -4,13 +4,14 @@ import { initialRegisterState, type RegisterFormType, registerSchema } from '~/c
 import type { FormSubmitEvent } from '#ui/types';
 import { useAuthStore } from '~/stores/auth/store';
 
+const {t} = useI18n()
 const sexRadio = ref([
   {
-    label: 'Женщина',
+    label: t('female'),
     value: 'female',
   },
   {
-    label: 'Мужчина',
+    label: t('male'),
     value: 'male',
   },
 ]);
@@ -26,32 +27,32 @@ const authStore = useAuthStore();
 
 const directoryStore = useDictionaryStore();
 const toast = useToast();
+const marathonStore = useMarathonStore()
 await useAsyncData('get-direcotry', () =>
   Promise.all([directoryStore.fetchBloodTypes(), directoryStore.fetchCitizenship(), directoryStore.fetchCountries()]),
 );
-
-watch(directoryStore.citizenshipList, () => {
-  console.log('directoryStore', directoryStore.citizenshipList);
-});
 
 async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
   const { data } = await useAsyncData('register', () => authStore.registerUser(event.data));
   if (data.value?.options.is_registered) {
     toast.add({
-      title: 'Вы успешно зарегистрировались',
+      title: t('success-register'),
     });
-    navigateTo('/');
+    if (marathonStore.priceToBuy && marathonStore.priceToBuy.marathon.id) {
+      navigateTo(`/marathon/${marathonStore.priceToBuy.marathon.id}`);
+    } else {
+      navigateTo('/')
+    }
   }
-  console.log(data);
 }
 </script>
 
 <template>
   <div class="register-form">
-    <h3 class="mb-8 text-2xl font-bold">Создать новый аккаунт</h3>
+    <h3 class="mb-8 text-2xl font-bold">{{t('create-account')}}</h3>
     <UAlert
-      title="Заполните анкету внимательно"
-      description="Эти данные нужны для дальнейшей регистрации на марафоны"
+      :title="t('fill-anketa')"
+      :description="t('data-need-reg')"
       color="info"
       icon="carbon:warning-hex"
       class="mb-6"
@@ -64,14 +65,13 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       class="mb-8 flex flex-col gap-y-6"
       :validate-on="['blur']"
       @submit="onSubmit"
-      @error="payload => console.log(payload)"
     >
-      <p class="text-xl font-semibold">Персональная информация</p>
+      <p class="text-xl font-semibold">{{t('personal-info')}}</p>
 
       <div class="flex gap-4">
         <UFormField
           class="w-1/2"
-          label="Фамилия"
+          :label="t('surname')"
           required
           name="surname"
         >
@@ -83,7 +83,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
 
         <UFormField
           class="w-1/2"
-          label="Имя"
+          :label="t('name')"
           required
           name="name"
         >
@@ -95,7 +95,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <UFormField
-        label="Пол"
+        :label="t('gender')"
         required
         :ui="{ label: 'text-sm', container: 'mt-4' }"
         name="gender"
@@ -107,7 +107,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </UFormField>
 
       <UFormField
-        label="Номер телефона"
+        :label="t('phone')"
         required
         name="phone"
       >
@@ -130,7 +130,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       <div class="flex gap-4">
         <UFormField
           class="w-1/2"
-          label="Дата рождения"
+          :label="t('birthday')"
           name="birthdate"
           required
           :error="false"
@@ -143,7 +143,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
 
         <UFormField
           class="w-1/2"
-          label="Группа крови"
+          :label="t('blood-type')"
           required
           name="bloodGroupId"
         >
@@ -158,14 +158,14 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <div class="mt-5">
-        <p class="mb-3 text-xl font-semibold">Паспортные данные</p>
-        <p class="text-neutral-50">Введите данные как в документах</p>
+        <p class="mb-3 text-xl font-semibold">{{t('passport-data')}}</p>
+        <p class="text-neutral-50">{{t('endter-data-doc')}}</p>
       </div>
 
       <div class="flex gap-4">
         <UFormField
           class="w-1/2"
-          label="Фамилия"
+          :label="t('surname')"
           required
           name="passport_surname"
         >
@@ -177,7 +177,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
 
         <UFormField
           class="w-1/2"
-          label="Имя"
+          :label="t('name')"
           required
           name="passport_name"
         >
@@ -189,7 +189,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <UFormField
-        label="Гражданство"
+        :label="t('citizenship')"
         required
         name="citizenship"
       >
@@ -217,7 +217,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
 
         <UFormField
           v-else
-          label="Серия паспорта"
+          :label="t('passport-series')"
           required
           name="passport_series"
         >
@@ -228,7 +228,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
         </UFormField>
 
         <UFormField
-          label="Номер паспорта"
+          :label="t('passport-number')"
           required
           class="w-1/2"
           name="passport_number"
@@ -241,7 +241,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <UFormField
-        label="Кем выдано"
+        :label="t('passport-issuer')"
         required
         class="w-full"
         name="passport_issuer"
@@ -255,7 +255,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       <div class="mb-3 flex gap-4">
         <UFormField
           class="w-1/2"
-          label="Дата выдачи"
+          :label="t('date-issue')"
           required
           name="passport_date_issue"
         >
@@ -267,7 +267,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
 
         <UFormField
           class="w-1/2"
-          label="Срок действия"
+          :label="t('passport-validity-period')"
           required
           name="passport_validity_period"
         >
@@ -279,11 +279,11 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <div class="mb-3 flex flex-col gap-6">
-        <p class="text-base font-semibold">Место проживания</p>
+        <p class="text-base font-semibold">{{t('live-place')}}</p>
 
         <div class="flex gap-4">
           <UFormField
-            label="Страна"
+            :label="t('country')"
             name="residence_country"
             required
             class="w-1/2"
@@ -298,7 +298,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
           </UFormField>
 
           <UFormField
-            label="Город"
+            :label="t('city')"
             class="w-1/2"
             name="residence_city"
           >
@@ -310,7 +310,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
         </div>
 
         <UFormField
-          label="Адрес"
+          :label="t('address')"
           name="residence_address"
           required
         >
@@ -323,7 +323,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
 
         <div class="flex gap-4">
           <UFormField
-            label="Номер квартиры"
+            :label="t('number-home')"
             class="w-1/2"
             name="residence_apartment"
           >
@@ -334,7 +334,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
           </UFormField>
 
           <UFormField
-            label="Почтовый индекс"
+            :label="t('postal_code')"
             class="w-1/2"
             name="postal_code"
           >
@@ -347,11 +347,11 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <div class="mb-3 flex flex-col gap-6">
-        <p class="text-base font-semibold">Дополнительная информация</p>
+        <p class="text-base font-semibold">{{t('more-info')}}</p>
 
         <div class="flex gap-4">
           <UFormField
-            label="Размер футболки"
+            :label="t('shirt-size')"
             required
             class="w-1/2"
             name="t-shirt_size"
@@ -364,7 +364,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
           </UFormField>
 
           <UFormField
-            label="Беговой клуб"
+            :label="t('runner-club')"
             class="w-1/2"
             name="running_club"
           >
@@ -389,11 +389,11 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
       </div>
 
       <div class="mb-3 flex flex-col gap-6">
-        <p class="text-base font-semibold">Контактные данные для экстренных случаев</p>
+        <p class="text-base font-semibold">{{t('data-for-extra')}}</p>
 
         <div class="flex gap-4">
           <UFormField
-            label="Имя"
+            :label="t('name')"
             required
             class="w-1/2"
             name="emergency_contact_name"
@@ -405,7 +405,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
           </UFormField>
 
           <UFormField
-            label="Кем является"
+            :label="t('who-is')"
             required
             class="w-1/2"
             name="emergency_contact_role"
@@ -418,7 +418,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
         </div>
 
         <UFormField
-          label="Номер телефона"
+          :label="t('phone')"
           required
           name="emergency_contact_phone"
         >
@@ -442,7 +442,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
         type="submit"
         block
       >
-        Создать аккаунт
+        {{t('create-acc')}}
       </UButton>
     </UForm>
   </div>

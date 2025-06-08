@@ -30,6 +30,7 @@ const dateTitle = getDateTitle(props.startDate, props.endDate);
 const minimalPrice = getMinimalPrice(props.slots);
 
 const isFavorite = computed(() => authStore.favoriteMarathons.includes(props.id));
+const {t} = useI18n()
 // const distanceArr = getDistanceArr(props.slots);
 
 const handleFavorite = () => {
@@ -98,7 +99,7 @@ const handleFavorite = () => {
       <UButton
         variant="outline"
         @click="navigateTo(`/marathon/${id}`)"
-        >Подробнее</UButton
+        >{{t('read-more')}}</UButton
       >
     </div>
   </div>

@@ -9,6 +9,7 @@ export const useAuthStore = defineStore('user', {
     token: null,
     user: null,
     userUpdateLoading: false,
+    openLogin: false
   }),
   actions: {
     async fetchToken() {
@@ -223,7 +224,6 @@ export const useAuthStore = defineStore('user', {
         const userRes = await api<IUser>('contact/info', {
           method: 'GET',
         });
-        console.log('userRes', userRes);
         this.user = userRes;
         return userRes;
       } catch (e: any) {
@@ -231,6 +231,15 @@ export const useAuthStore = defineStore('user', {
         cookie.value = null;
       }
     },
+
+    async logout() {
+      const cookie = useCookie(JWT_COOKIE);
+      if (cookie.value) {
+        cookie.value = null;
+      }
+      this.user = null;
+      this.token = null;
+    }
   },
   getters: {
     profile(state): IUserOptions | null {
@@ -241,6 +250,9 @@ export const useAuthStore = defineStore('user', {
     },
     isAuth(state): boolean {
       return !!state.user;
+    },
+    isRegistered(state): boolean {
+      return !!state.user?.options?.is_registered;
     },
   },
 });

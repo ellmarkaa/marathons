@@ -23,6 +23,7 @@ const state = reactive<PersonalState>({
   name: profile.name,
   surname: profile.surname,
 });
+const {t} = useI18n()
 
 const countryAvatar = computed(() => countryCodes.find(item => item.value === state.country_phone_code)?.avatar);
 </script>
@@ -36,17 +37,17 @@ const countryAvatar = computed(() => countryCodes.find(item => item.value === st
     @submit="(payload: FormSubmitEvent<PersonalState>) => emit('onEdit', payload)"
   >
     <div class="mb-8 flex items-center justify-between">
-      <h5 class="text-2xl font-bold">Персональная информация</h5>
+      <h5 class="text-2xl font-bold">{{t('personal-info')}}</h5>
 
       <div class="flex gap-3">
         <UButton
-          label="Отмена"
+          :label="t('cancel')"
           variant="outline"
           :loading="authStore.userUpdateLoading"
           @click="emit('onClose')"
         />
         <UButton
-          label="Сохранить"
+          :label="t('save')"
           variant="solid"
           type="submit"
           :loading="authStore.userUpdateLoading"
@@ -58,7 +59,7 @@ const countryAvatar = computed(() => countryCodes.find(item => item.value === st
       <div class="flex gap-6">
         <UFormField
           class="w-1/2"
-          label="Фамилия"
+          :label="t('surname')"
           name="surname"
           required
         >
@@ -71,7 +72,7 @@ const countryAvatar = computed(() => countryCodes.find(item => item.value === st
 
         <UFormField
           class="w-1/2"
-          label="Имя"
+          :label="t('name')"
           name="name"
           required
         >
@@ -85,7 +86,7 @@ const countryAvatar = computed(() => countryCodes.find(item => item.value === st
 
       <div class="flex gap-4">
         <UFormField
-          label="Пол"
+          :label="t('gender')"
           required
           name="gender"
           class="w-1/2"
@@ -98,7 +99,7 @@ const countryAvatar = computed(() => countryCodes.find(item => item.value === st
         </UFormField>
 
         <UFormField
-          label="Номер телефона"
+          :label="t('phone')"
           required
           name="phone"
           class="w-1/2"
@@ -123,7 +124,7 @@ const countryAvatar = computed(() => countryCodes.find(item => item.value === st
       <div class="flex gap-4">
         <UFormField
           class="w-1/2"
-          label="Дата рождения"
+          :label="t('birthday')"
           name="birthdate"
           required
         >
@@ -136,7 +137,7 @@ const countryAvatar = computed(() => countryCodes.find(item => item.value === st
 
         <UFormField
           class="w-1/2"
-          label="Группа крови"
+          :label="t('blood-type')"
           required
           name="bloodGroupId"
         >

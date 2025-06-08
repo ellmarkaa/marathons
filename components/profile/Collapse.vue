@@ -15,6 +15,7 @@ type Props = {
 
 defineProps<Props>();
 const emit = defineEmits<{ (event: 'onEdit'): void }>();
+const {t} = useI18n()
 </script>
 
 <template>
@@ -98,7 +99,7 @@ const emit = defineEmits<{ (event: 'onEdit'): void }>();
 
         <UButton
           class="mb-1 self-end"
-          label="Редактировать"
+          :label="t('edit')"
           variant="soft"
           @click="emit('onEdit')"
         />

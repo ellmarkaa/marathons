@@ -36,12 +36,14 @@ export type RegisterFormType = {
   'emergency_contact_phone_code': string;
 };
 
+const {t} = useI18n()
+
 export const registerSchema = yup.object<RegisterFormType>({
   'name': yup.string().required(REQUIRED_ERROR),
   'surname': yup.string().required(REQUIRED_ERROR),
-  'birthdate': yup.date().max(new Date(), 'Ограничение по дате').required(REQUIRED_ERROR),
+  'birthdate': yup.date().max(new Date(), t('date-ogr')).required(REQUIRED_ERROR),
   'gender': yup.string().oneOf(['male', 'female'], REQUIRED_ERROR).required(REQUIRED_ERROR),
-  'phone': yup.string().matches(ONLY_NUMBER_REG, 'Не правильный формат').required(REQUIRED_ERROR),
+  'phone': yup.string().matches(ONLY_NUMBER_REG, t('wrong-format')).required(REQUIRED_ERROR),
   'country_phone_code': yup.string().required(REQUIRED_ERROR),
   'bloodGroupId': yup.number().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
   'residence_address': yup.string().required(REQUIRED_ERROR),
@@ -64,21 +66,21 @@ export const registerSchema = yup.object<RegisterFormType>({
   'passport_validity_period': yup.date().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
   'passport_date_issue': yup
     .date()
-    .max(new Date(), 'Ограничение по дате')
+    .max(new Date(), t('date-ogr'))
     .typeError(REQUIRED_ERROR)
     .required(REQUIRED_ERROR),
 
   'emergency_contact_name': yup.string().required(REQUIRED_ERROR),
   'emergency_contact_role': yup.string().required(REQUIRED_ERROR),
-  'emergency_contact_phone': yup.string().matches(ONLY_NUMBER_REG, 'Не правильный формат').required(REQUIRED_ERROR),
+  'emergency_contact_phone': yup.string().matches(ONLY_NUMBER_REG, t('wrong-format')).required(REQUIRED_ERROR),
   'emergency_contact_phone_code': yup.string().required(REQUIRED_ERROR),
   'passport_name': yup
     .string()
-    .matches(/^[A-Za-z]+$/, 'Только латинские буквы')
+    .matches(/^[A-Za-z]+$/, t('only-lat'))
     .required(REQUIRED_ERROR),
   'passport_surname': yup
     .string()
-    .matches(/^[A-Za-z]+$/, 'Только латинские буквы')
+    .matches(/^[A-Za-z]+$/, t('only-lat'))
     .required(REQUIRED_ERROR),
   'residence_city': yup.string().required(REQUIRED_ERROR),
   'residence_country': yup.string().required(REQUIRED_ERROR),

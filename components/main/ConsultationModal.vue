@@ -24,6 +24,7 @@ async function onSubmit(event: FormSubmitEvent<ConsultationForm>) {
   await useAsyncData('consultation', () => dictionaryStore.sendConsultation(body));
   isOpen.value = false;
 }
+const {t} = useI18n()
 </script>
 
 <template>
@@ -54,14 +55,14 @@ async function onSubmit(event: FormSubmitEvent<ConsultationForm>) {
         :schema="consultationSchema"
         @submit="onSubmit"
       >
-        <h5 class="mb-3 text-2xl font-bold">Оставьте заявку</h5>
+        <h5 class="mb-3 text-2xl font-bold">{{t('leave-con')}}</h5>
         <p class="text-neutral-40 mb-6 text-base font-medium">
-          Заполните форму, и мы свяжемся с вами в ближайшее время
+          {{t('fill-form')}}
         </p>
 
         <div class="mb-6 flex flex-col gap-4">
           <UFormField
-            label="Ваше имя"
+            :label="t('your-name')"
             name="name"
           >
             <UInput
@@ -71,7 +72,7 @@ async function onSubmit(event: FormSubmitEvent<ConsultationForm>) {
           </UFormField>
 
           <UFormField
-            label="Тип связи"
+            :label="t('type-sviz')"
             name="type"
           >
             <USelect
@@ -80,11 +81,11 @@ async function onSubmit(event: FormSubmitEvent<ConsultationForm>) {
               :items="[
                 {
                   value: 'phone',
-                  label: 'Телефонный звонок',
+                  label: t('phone-call'),
                 },
                 {
                   value: 'email',
-                  label: 'Почта',
+                  label: t('email'),
                 },
               ]"
               class="w-full"
@@ -93,7 +94,7 @@ async function onSubmit(event: FormSubmitEvent<ConsultationForm>) {
 
           <UFormField
             v-if="state.type === 'phone'"
-            label="Номер телефона"
+            :label="t('phone')"
             name="phone"
           >
             <UButtonGroup class="w-full">
@@ -124,7 +125,7 @@ async function onSubmit(event: FormSubmitEvent<ConsultationForm>) {
           </UFormField>
 
           <UFormField
-            label="Комментарий"
+            :label="t('comment')"
             name="comment"
           >
             <UTextarea
@@ -138,7 +139,7 @@ async function onSubmit(event: FormSubmitEvent<ConsultationForm>) {
         <UButton
           type="submit"
           block
-          >Получить консультацию</UButton
+          >{{t('get-con')}}</UButton
         >
       </UForm>
     </template>
@@ -148,8 +149,9 @@ async function onSubmit(event: FormSubmitEvent<ConsultationForm>) {
       class="mb-9"
       trailing-icon="material-symbols:arrow-right-alt-rounded"
       @click="isOpen = true"
+      id="consultation-button"
     >
-      Получить консультацию
+      {{t('get-con')}}
     </UButton>
   </UModal>
 </template>

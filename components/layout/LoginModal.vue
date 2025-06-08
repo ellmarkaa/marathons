@@ -4,12 +4,13 @@ import type { FormSubmitEvent } from '#ui/types';
 
 const authStore = useAuthStore();
 
-const openLoginModal = ref(false);
 const verifyMode = ref(false);
 const verifyEmail = ref<null | string>(null);
 
+const open = defineModel('open')
+
 const closeModal = () => {
-  openLoginModal.value = false;
+  open.value = false;
 };
 
 async function onSubmit(event: FormSubmitEvent<{ email: string }>) {
@@ -46,7 +47,7 @@ const backToLogin = () => {
 
 <template>
   <UModal
-    v-model:open="openLoginModal"
+    v-model:open="open"
     :ui="{ content: 'bg-secondary-bg sm:max-w-[532px]', body: 'max-md:p-4 max-md:pt-0', header: 'max-md:p-4' }"
   >
     <template #header>
