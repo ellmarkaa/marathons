@@ -19,7 +19,6 @@ const onLogout = () => {
   authStore.logout();
   navigateTo('/');
 };
-const { t } = useI18n();
 </script>
 
 <template>
