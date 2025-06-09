@@ -1,51 +1,97 @@
 <script setup lang="ts">
-import { useDictionaryStore } from '~/stores/dictionary/store';
-import { initialRegisterState, type RegisterFormType, registerSchema } from '~/components/register/helper';
+import { initialRegisterState, type RegisterFormType } from '~/components/register/helper';
 import type { FormSubmitEvent } from '#ui/types';
-import { useAuthStore } from '~/stores/auth/store';
+import * as yup from 'yup';
+import { ONLY_NUMBER_REG } from '~/utils/const';
+import { CitizenValue } from '~/stores/auth/utils';
 
-const { t } = useI18n();
-const directoryStore = useDictionaryStore();
-const toast = useToast();
+const { t } = useI18n()
+
+const directoryStore = useDictionaryStore()
+const toast = useToast()
 const marathonStore = useMarathonStore()
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
-const sexRadio = ref<{label: string, value: string}[]>([]);
+const sexRadio = ref<{ label: string; value: string }[]>([])
+const registerSchema = yup.object<RegisterFormType>({
+  'name': yup.string().required(REQUIRED_ERROR),
+  'surname': yup.string().required(REQUIRED_ERROR),
+  'birthdate': yup.date().max(new Date(), t('date-ogr')).required(REQUIRED_ERROR),
+  'gender': yup.string().oneOf(['male', 'female'], REQUIRED_ERROR).required(REQUIRED_ERROR),
+  'phone': yup.string().matches(ONLY_NUMBER_REG, t('wrong-format')).required(REQUIRED_ERROR),
+  'country_phone_code': yup.string().required(REQUIRED_ERROR),
+  'bloodGroupId': yup.number().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
+  'residence_address': yup.string().required(REQUIRED_ERROR),
+  't-shirt_size': yup.string().required(REQUIRED_ERROR),
+  'running_club': yup.string().nullable().notRequired(),
+  'citizenship': yup.string().required(REQUIRED_ERROR).typeError(REQUIRED_ERROR),
+  'IIN': yup.string().when('citizenship', {
+    is: CitizenValue.Kazakhstan,
+    then: schema => schema.typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
+    otherwise: schema => schema.nullable().notRequired(),
+  }),
+  'passport_number': yup.string().required(REQUIRED_ERROR),
+  'passport_issuer': yup.string().required(REQUIRED_ERROR),
+  'passport_series': yup.string().when('citizenship', {
+    is: CitizenValue.Kazakhstan,
+    then: schema => schema.nullable().notRequired(),
+    otherwise: schema => schema.typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
+  }),
+  'passport_validity_period': yup.date().typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
+  'passport_date_issue': yup.date().max(new Date(), t('date-ogr')).typeError(REQUIRED_ERROR).required(REQUIRED_ERROR),
+
+  'emergency_contact_name': yup.string().required(REQUIRED_ERROR),
+  'emergency_contact_role': yup.string().required(REQUIRED_ERROR),
+  'emergency_contact_phone': yup.string().matches(ONLY_NUMBER_REG, t('wrong-format')).required(REQUIRED_ERROR),
+  'emergency_contact_phone_code': yup.string().required(REQUIRED_ERROR),
+  'passport_name': yup
+    .string()
+    .matches(/^[A-Za-z]+$/, t('only-lat'))
+    .required(REQUIRED_ERROR),
+  'passport_surname': yup
+    .string()
+    .matches(/^[A-Za-z]+$/, t('only-lat'))
+    .required(REQUIRED_ERROR),
+  'residence_city': yup.string().required(REQUIRED_ERROR),
+  'residence_country': yup.string().required(REQUIRED_ERROR),
+  'postal_code': yup.string().required(REQUIRED_ERROR),
+  'residence_apartment': yup.string().required(REQUIRED_ERROR),
+});
+
+const state = reactive<RegisterFormType>(initialRegisterState)
+
+const countryAvatar = computed(() =>
+  countryCodes.find(item => item.value === state.country_phone_code)?.avatar
+)
+const emergencyCountryAvatar = computed(() =>
+  countryCodes.find(item => item.value === state.emergency_contact_phone_code)?.avatar
+)
 
 onMounted(() => {
   sexRadio.value = [
-    {
-      label: t('female'),
-      value: 'female',
-    },
-    {
-      label: t('male'),
-      value: 'male',
-    },
+    { label: t('female'), value: 'female' },
+    { label: t('male'), value: 'male' },
   ]
 })
 
-const countryAvatar = computed(() => countryCodes.find(item => item.value === state.country_phone_code)?.avatar);
-const emergencyCountryAvatar = computed(
-  () => countryCodes.find(item => item.value === state.emergency_contact_phone_code)?.avatar,
-);
-
-const state = reactive<RegisterFormType>(initialRegisterState);
-
-await useAsyncData('get-direcotry', () =>
-  Promise.all([directoryStore.fetchBloodTypes(), directoryStore.fetchCitizenship(), directoryStore.fetchCountries()]),
-);
+onMounted(async () => {
+  await Promise.all([
+    directoryStore.fetchBloodTypes(),
+    directoryStore.fetchCitizenship(),
+    directoryStore.fetchCountries(),
+  ])
+})
 
 async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
-  const { data } = await useAsyncData('register', () => authStore.registerUser(event.data));
-  if (data.value?.options.is_registered) {
+  const response = await authStore.registerUser(event.data)
+  if (response?.data?.value?.options.is_registered) {
     toast.add({
       title: t('success-register'),
-    });
-    if (marathonStore.priceToBuy && marathonStore.priceToBuy.marathon.id) {
-      navigateTo(`/marathon/${marathonStore.priceToBuy.marathon.id}`);
+    })
+    if (marathonStore.priceToBuy?.marathon?.id) {
+      navigateTo(`/marathon/${marathonStore.priceToBuy.marathon.id}`)
     } else {
-      navigateTo('/');
+      navigateTo('/')
     }
   }
 }

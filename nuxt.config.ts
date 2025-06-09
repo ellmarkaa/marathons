@@ -11,6 +11,19 @@ export default defineNuxtConfig({
     },
     '~/components',
   ],
+  app: {
+    head: {
+      titleTemplate: "Марафоны Алматы",
+      meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { charset: 'utf-8' },
+        {name: 'description', content: 'Регистрация на марафоны, личный кабинет и управление участием.' }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      ]
+    }
+  },
   // runtimeConfig: {
   //   public: {
   //     apiBase: process.env.API_URL || 'https://api.example.com',
