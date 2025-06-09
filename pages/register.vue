@@ -1,9 +1,10 @@
 <script setup lang="ts">
+const {t} = useI18n()
 const router = useRouter();
+const marathonStore = useMarathonStore();
 const goBack = () => {
   router.back();
 };
-const marathonStore = useMarathonStore();
 </script>
 
 <template>
@@ -17,7 +18,7 @@ const marathonStore = useMarathonStore();
           leading-icon="material-symbols:arrow-back-ios-new-rounded"
           @click="goBack"
         >
-          {{ $t('back') }}
+          {{ t('back') }}
         </UButton>
 
         <RegisterForm :class="marathonStore.priceToBuy ? 'register-with-card' : ''" />

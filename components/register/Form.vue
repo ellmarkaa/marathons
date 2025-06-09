@@ -5,16 +5,25 @@ import type { FormSubmitEvent } from '#ui/types';
 import { useAuthStore } from '~/stores/auth/store';
 
 const { t } = useI18n();
-const sexRadio = ref([
-  {
-    label: t('female'),
-    value: 'female',
-  },
-  {
-    label: t('male'),
-    value: 'male',
-  },
-]);
+const directoryStore = useDictionaryStore();
+const toast = useToast();
+const marathonStore = useMarathonStore()
+const authStore = useAuthStore();
+
+const sexRadio = ref<{label: string, value: string}[]>([]);
+
+onMounted(() => {
+  sexRadio.value = [
+    {
+      label: t('female'),
+      value: 'female',
+    },
+    {
+      label: t('male'),
+      value: 'male',
+    },
+  ]
+})
 
 const countryAvatar = computed(() => countryCodes.find(item => item.value === state.country_phone_code)?.avatar);
 const emergencyCountryAvatar = computed(
@@ -23,11 +32,6 @@ const emergencyCountryAvatar = computed(
 
 const state = reactive<RegisterFormType>(initialRegisterState);
 
-const authStore = useAuthStore();
-
-const directoryStore = useDictionaryStore();
-const toast = useToast();
-const marathonStore = useMarathonStore();
 await useAsyncData('get-direcotry', () =>
   Promise.all([directoryStore.fetchBloodTypes(), directoryStore.fetchCitizenship(), directoryStore.fetchCountries()]),
 );

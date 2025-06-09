@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { t } = useI18n();
+const { get } = useLocalized();
 const marathonStore = useMarathonStore();
 const price = computed(() => marathonStore.priceToBuy);
 const marathon = marathonStore.marathon;
@@ -39,9 +41,6 @@ const handleBuy = async () => {
     userStore.openLogin = true;
   }
 };
-
-const { t } = useI18n();
-const { get } = useLocalized();
 </script>
 <template>
   <div class="info-card sticky top-5 bg-white">
