@@ -26,13 +26,13 @@ onMounted(() => {
       icon: 'fluent:bookmark-16-regular',
       isActive: false,
       name: 'favorite',
-    }
-  ]
-})
-
-const activeEl = computed(() => {
-  return menuList.value.find(el => el.isActive);
+    },
+  ];
 });
+
+// const activeEl = computed(() => {
+//   return menuList.value.find(el => el.isActive);
+// });
 </script>
 
 <template>

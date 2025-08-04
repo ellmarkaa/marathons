@@ -5,14 +5,14 @@ import * as yup from 'yup';
 import { ONLY_NUMBER_REG } from '~/utils/const';
 import { CitizenValue } from '~/stores/auth/utils';
 
-const { t } = useI18n()
+const { t } = useI18n();
 
-const directoryStore = useDictionaryStore()
-const toast = useToast()
-const marathonStore = useMarathonStore()
-const authStore = useAuthStore()
+const directoryStore = useDictionaryStore();
+const toast = useToast();
+const marathonStore = useMarathonStore();
+const authStore = useAuthStore();
 
-const sexRadio = ref<{ label: string; value: string }[]>([])
+const sexRadio = ref<{ label: string; value: string }[]>([]);
 const registerSchema = yup.object<RegisterFormType>({
   'name': yup.string().required(REQUIRED_ERROR),
   'surname': yup.string().required(REQUIRED_ERROR),
@@ -58,40 +58,38 @@ const registerSchema = yup.object<RegisterFormType>({
   'residence_apartment': yup.string().required(REQUIRED_ERROR),
 });
 
-const state = reactive<RegisterFormType>(initialRegisterState)
+const state = reactive<RegisterFormType>(initialRegisterState);
 
-const countryAvatar = computed(() =>
-  countryCodes.find(item => item.value === state.country_phone_code)?.avatar
-)
-const emergencyCountryAvatar = computed(() =>
-  countryCodes.find(item => item.value === state.emergency_contact_phone_code)?.avatar
-)
+const countryAvatar = computed(() => countryCodes.find(item => item.value === state.country_phone_code)?.avatar);
+const emergencyCountryAvatar = computed(
+  () => countryCodes.find(item => item.value === state.emergency_contact_phone_code)?.avatar,
+);
 
 onMounted(() => {
   sexRadio.value = [
     { label: t('female'), value: 'female' },
     { label: t('male'), value: 'male' },
-  ]
-})
+  ];
+});
 
 onMounted(async () => {
   await Promise.all([
     directoryStore.fetchBloodTypes(),
     directoryStore.fetchCitizenship(),
     directoryStore.fetchCountries(),
-  ])
-})
+  ]);
+});
 
 async function onSubmit(event: FormSubmitEvent<RegisterFormType>) {
-  const response = await authStore.registerUser(event.data)
+  const response = await authStore.registerUser(event.data);
   if (response?.data?.value?.options.is_registered) {
     toast.add({
       title: t('success-register'),
-    })
+    });
     if (marathonStore.priceToBuy?.marathon?.id) {
-      navigateTo(`/marathon/${marathonStore.priceToBuy.marathon.id}`)
+      navigateTo(`/marathon/${marathonStore.priceToBuy.marathon.id}`);
     } else {
-      navigateTo('/')
+      navigateTo('/');
     }
   }
 }

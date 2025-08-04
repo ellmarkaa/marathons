@@ -2,9 +2,9 @@
 definePageMeta({
   title: 'Регистрация на марафон',
   description: 'Заполните анкету для участия в марафоне. Удобный и быстрый процесс регистрации.',
-})
+});
 
-const {t} = useI18n()
+const { t } = useI18n();
 const router = useRouter();
 const marathonStore = useMarathonStore();
 const goBack = () => {
