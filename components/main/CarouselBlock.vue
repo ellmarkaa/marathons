@@ -10,7 +10,7 @@ const { get } = useLocalized();
 </script>
 
 <template>
-  <Carousel>
+  <Carousel :autoplay="5000">
     <div
       v-if="isLoading"
       style="height: 500px"

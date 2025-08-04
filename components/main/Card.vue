@@ -41,7 +41,7 @@ const handleFavorite = () => {
 </script>
 
 <template>
-  <div class="card border-primary-99 flex flex-col gap-5 border bg-white px-3 pt-3 pb-4">
+  <NuxtLink :to="{name: 'marathon-id___ru', params: {id}}" class="card border-primary-99 flex flex-col gap-5 border bg-white px-3 pt-3 pb-4 cursor-pointer">
     <div class="relative">
       <!--      <p class="absolute top-1.5 left-1.5 flex items-center gap-1 rounded-lg bg-white px-1.5 py-1">-->
       <!--        <IconStar />-->
@@ -102,7 +102,7 @@ const handleFavorite = () => {
         >{{ t('read-more') }}</UButton
       >
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <style scoped>
